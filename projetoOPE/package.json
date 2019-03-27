@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "bootstrap4": "^0.0.1-security",
-    "connect-redis": "^3.4.0",
+    "connect-redis": "^3.4.1",
     "consign": "^0.1.6",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
@@ -16,7 +16,7 @@
     "path": "^0.12.7",
     "redis": "^2.8.0",
     "update": "^0.7.4",
-    "ws": "^3.3.2"
+    "ws": "^3.3.3"
   },
   "devDependencies": {},
   "scripts": {
