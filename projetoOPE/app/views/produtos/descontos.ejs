@@ -1,0 +1,80 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+        <div class="container-fluid">
+        
+            <!-- DataTables Example -->
+            <div class="card mb-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i class="fas fa-barcode"></i>
+                        Produtos com desconto
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <a href="/produto/cadastrar"><button type="button" class="btn btn-success float-right" id="novoUsuario">Cadastrar novo produto</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+               
+                <div class="container">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID Desconto</th>
+                                <th>Produto</th>
+                                <th>Valor</th>
+                                <th>validade</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>ID Desconto</th>
+                                <th>Produto</th>
+                                <th>Valor</th>
+                                <th>validade</th>
+                                <th>Ações</th>
+                            </tr>
+                            </tfoot>
+                                <tbody>
+                                <% for(var i = 0; i < dados.length; i++){ %>
+                                <tr>
+                                    <td><%= dados[i].idDesconto %></td>
+                                    <td><%= dados[i].nome %></td>
+                                    <td><%= dados[i].valor %></td>
+                                    <td><%= dados[i].validade %></td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a href="../produto/desconto/excluir/<%= dados[i].idDesconto%>"><button type="button" class="btn btn-outline-danger fas fa-trash-alt"></button></a>
+                                                </td>
+                                                <td>
+                                                    <a href="../produto/desconto/editar/<%=dados[i].idDesconto%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
+                                                </td>
+                                                <td>
+                                                    <a href="../produto/desconto/detalhes/<%=dados[i].idDesconto%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
+                                                </td>
+                                            </table>
+                                        </tr>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            </div>
+        
+        
+        </div>
+
+<%- include("../includes/footer") -%>

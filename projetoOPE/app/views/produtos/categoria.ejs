@@ -1,0 +1,43 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+<div class="container-fluid">
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-barcode"></i>
+        Cadastro de categoria
+    </div>
+    <div class="card-body">
+            <% if(validacao.length > 0){%>
+                <div class="alert alert-danger">
+                    <strong>Atenção!</strong>
+                    <ul>
+                        <% for(var i = 0; i < validacao.length; i++){%>
+        
+                        <li><%= validacao[i].msg %></li>
+        
+                        <% } %>
+                    </ul>
+                </div>
+            <% } %>
+        <form action="/produto/categoria" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="categoria">Categoria do produto:</label>
+                    <input type="text" class="form-control" id="categoria" name="categoria">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">Cadastrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<%- include("../includes/footer") -%>

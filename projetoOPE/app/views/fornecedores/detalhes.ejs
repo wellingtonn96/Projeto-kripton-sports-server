@@ -1,0 +1,40 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+                <div class="card mb-3">
+                <div class="card-header">
+                <i class="fas fa-building""></i>
+                Informações do Fornecedor</div>
+        
+                <div class="card-body">
+                    <div class="row-12">
+                        <div class="col-md-6">
+                            <span>ID Fornecedor:</span>
+                            <span><%=dados[0].idFornecedor%></span>                  
+                        </div>
+                        <div class="col-md-6">
+                            <span>CNPJ:</span>
+                            <span><%=dados[0].cnpj%></span>                 
+                        </div>     
+                        <div class="col-md-6">
+                            <span>Email:</span>
+                            <span><%=dados[0].email%></span>                 
+                        </div>
+                        <div class="col-md-6">
+                            <span>Telefone:</span>
+                            <span><%=dados[0].telefone%></span>               
+                        </div>
+                    </div>
+                </div>
+           
+
+        <!-- DataTables Example -->
+    </div>
+
+
+</div>
+
+<%- include("../includes/footer") -%>
