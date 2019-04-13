@@ -2,96 +2,119 @@
 
 <div id="content-wrapper">
 
-<div class="container-fluid">
-
-    <!-- DataTables Example -->
-    <div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-barcode"></i>
-        Cadastro de pedido
-    </div>
-    <div class="card-body">
-            <% if(validacao.length > 0){%>
-                <div class="alert alert-danger">
-                    <strong>Atenção!</strong>
-                    <ul>
-                        <% for(var i = 0; i < validacao.length; i++){%>
+        <div class="container-fluid">
         
-                        <li><%= validacao[i].msg %></li>
-        
-                        <% } %>
-                    </ul>
-                </div>
-            <% } %>
-        <form action="/produto" method="post">
-            <div class="form-row">
-    
-                <div class="form-group col-md-6">
-                    <label for="codigo">Data:</label>
-                    <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ex.. 00000-0000">
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="marca">ID Cliente:</label>
-                    <input type="text" class="form-control" id="marca" name="marca">
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="nome">ID Vendedor:</label>
-                    <input type="text" class="form-control" id="nome" name="nome">
-                </div>
-        
-                <div class="form-group">
-                    <button type="submit" class="btn btn-danger">Cadastrar</button>
+            <!-- DataTables Example -->
+            <div class="card mb-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i class="fas fa-barcode"></i>
+                        PDV Online
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
+            <div class="card-body">
+               
+                <div class="container">
 
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>idProduto</th>
+                                <th>codigo</th>
+                                <th>marca</th>
+                                <th>nome</th>
+                                <th>descricao</th>
+                                <th>validade</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th colspan="3">Valor:</th>
+                                <th colspan="3">R$20:00</th>
+                                <th>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info">Encerrar Venda</button>
+                                    </div>
+                                </th>
+                            </tr>
+                            </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-danger">Cancelar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                        <form action="/pedido" method="POST">
+                        <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th>ID</th>
+                                        <th>codigo</th>
+                                        <th>marca</th>
+                                        <th>nome</th>
+                                        <th>descricao</th>
+                                        <th>validade</th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                        <% for(var i = 0; i < produtos.length; i++){ %>
+                                        <tr>
+                                            <td> 
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                </div>
+                                            </td>
+                                            <td scope="row"><%= produtos[i].idProduto %></td>
+                                            <td><%= produtos[i].codigo %></td>
+                                            <td><%= produtos[i].marca %></td>
+                                            <td><%= produtos[i].nome %></td>
+                                            <td><%= produtos[i].descricao %></td>
+                                            <td><%= produtos[i].validade.toLocaleDateString("pt-br") %></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                                <button type="submit" class="btn btn-info">Adicionar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 </div>
-
-<!--
-    <div class="row">
-        <div class="col-md-12">
-            <form action="/noticias/salvar" method="post">
-                <div class="form-group">
-                    <label for="login">Login:</label>
-                    <input type="text" class="form-control" id="login" name="login">
-                </div>
-
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="senha" class="form-control" id="senha" name="senha">
-                </div>
-                <div class="form-group">
-                    <label for="confirmarSenha">Confirmar Senha:</label>
-                    <input type="confirmarSenha" class="form-control" id="confirmarSenha" name="confirmarSenha">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="autor" name="autor">
-                </div>
-
-                <div class="form-group">
-                    <label for="pwd">Data:</label>
-                    <input type="date" class="form-control" id="data_noticia" name="data_noticia">
-                </div>
-
-                <div class="form-group">
-                    <label for="pwd">Notícia:</label>
-                    <textarea class="form-control" id="noticia" name="noticia"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-danger">Cadastrar</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    -->
 
 <%- include("../includes/footer") -%>

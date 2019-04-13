@@ -101,13 +101,12 @@ class UsuariosDao{
 	}
 
 	autenticar(usuario, req, res){
-		var email = usuario.email
+		var login = usuario.login
 		var senha = usuario.senha
 		return new Promise((resolve, reject)=>{
-			this._connection.query('select * from usuario where email = ? AND senha = ?', [
-				email, senha
+			this._connection.query('select * from usuario where login = ? AND senha = ?', [
+				login, senha
 			], (error, results)=>{
-				var row =  results[0]
 				if (error){
 					reject(error)
 				}else{
@@ -115,22 +114,12 @@ class UsuariosDao{
 					if(!results.length > 0){
 						reject('usuario ou senha incorretos')
 					}else{
-						if(row.senha !== senha){
+						if(results[0].senha !== senha){
 							reject("usuario ou senha incorretos")
 						}else{
-							resolve(row)
+							resolve(results)
 						}
 					}
-				}
-				if(row != undefined){
-					req.session.autorizado = true;
-					req.session.usuario = row.nome;
-					req.session.tipo = row.idTipo
-				}
-				if(req.session.autorizado && req.session.tipo === 1 || 2 || 4){
-					res.redirect("/inicio");
-				} else {
-					res.render("login/login", {validacao: {error}});
 				}
 			})
 		})

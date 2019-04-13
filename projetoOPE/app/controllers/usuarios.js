@@ -223,17 +223,17 @@ exports.nutricionistaSalvar = function(application, req, res){
 			crn : input.crn,
 			idUsuario : usuario.insertId,
 		}
-	usuariosModel.cadastrarNutricionista(nutricionista).then(result =>{
-		res.redirect('/usuarios')
-		//res.send(result)
-	}
-	).catch(erros =>{
-		console.log(erros)
-	})
-	}
-	).catch(erros =>{
-		console.log(erros)
-	})
+		usuariosModel.cadastrarNutricionista(nutricionista).then(result =>{
+			res.redirect('/usuarios')
+			//res.send(result)
+		}
+		).catch(erros =>{
+			console.log(erros)
+		})
+		}
+		).catch(erros =>{
+			console.log(erros)
+		})
 
 	} else {
 		res.render("login/login", {validacao : {}});	

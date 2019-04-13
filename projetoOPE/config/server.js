@@ -4,7 +4,7 @@ const consign = require('consign');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const session = require('express-session')
-const RedisStore = require('connect-redis')(session);
+//const RedisStore = require('connect-redis')(session);
 
 
 const app = express();
@@ -52,11 +52,11 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 
 //configura o midware express-session
-app.use(session({
+app.use(session({/*
     store: new RedisStore({
         host:'localhost',
         port:6379
-    }),
+    }),*/
     secret:'p@ssw0rd',
     resave:true,
     saveUninitialized:true
