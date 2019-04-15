@@ -1,5 +1,14 @@
 <%- include("../includes/header") -%>
-
+<!--create table prontuarioConsulta(
+	idProntuario smallint not null auto_increment,
+	idConsulta int not null,
+	diagnostico varchar(1000),
+	idNutricionista smallint not null,
+	primary key(idProntuario),
+	foreign key(idNutricionista) references nutricionista(idNutricionista),
+	foreign key(idConsulta) references agendaConsulta(idConsulta)
+);
+-->
 <div id="content-wrapper">
 
 <div class="container-fluid">
@@ -28,23 +37,26 @@
 
             <form class="row-12" action="/consulta/agendar" method="post">
                 <div class="form-group col">
-                    <label for="dataConsulta">Data da consulta:</label>
-                    <input type="date" class="form-control" id="dataConsulta" name="dataConsulta">
+                    <label for="idConsulta">Consulta:</label>
+                    <select class="custom-select" name="idConsulta" id="idNutricionista">
+                    <% for(var i = 0; i < dadosConsulta.length; i++) { %>
+                        <option value="<%= dadosConsulta[i].idConsulta %>"><%= dadosConsulta[i].idConsulta %></option>
+                    <% } %>
+                    </select>
                 </div>
 
                 <div class="form-group col">
-                    <label for="descricao">Descrição:</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao">
+                    <label for="diagnostico">Diágnostico:</label>
+                    <textarea class="form-control" id="diagnostico" name="diagnostico"></textarea>
                 </div>
 
                 <div class="form-group col">
-                    <label for="idNutricionista">ID Nutricionista:</label>
-                    <input type="text" class="form-control" id="idNutricionista" name="idNutricionista">
-                </div>
-
-                <div class="form-group col">
-                    <label for="idCliente">ID Cliente:</label>
-                    <input type="text" class="form-control" id="idCliente" name="idCliente">
+                    <label for="idNutricionista">Nutricionista:</label>
+                    <select class="custom-select" name="idNutricionista" id="idNutricionista">
+                    <% for(var i = 0; i < dadosNutricionista.length; i++) { %>
+                        <option value="<%= dadosNutricionista[i].idNutricionista %>"><%= dadosNutricionista[i].nome %></option>
+                    <% } %>
+                    </select>
                 </div>
 
                 <div class="form-group">

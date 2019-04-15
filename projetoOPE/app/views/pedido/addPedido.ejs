@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-md-6">
                         <div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target=".bd-example-modal-lg">Adicionar Produto</button>
                         </div>
                     </div>
                 </div>
@@ -27,12 +27,12 @@
                         <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>idProduto</th>
-                                <th>codigo</th>
+                                <th>ID Produto</th>
+                                <th>código</th>
                                 <th>marca</th>
                                 <th>nome</th>
-                                <th>descricao</th>
-                                <th>validade</th>
+                                <th>descricão</th>
+                                <th>válidade</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
@@ -67,52 +67,46 @@
             </div>
 
         </div>
-
+        <!--Modal-->
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                        <form action="/pedido" method="POST">
-                        <div class="table-responsive">
-                                <table class="table table-sm">
-                                    <thead>
-                                    <tr>
-                                        <td></td>
-                                        <th>ID</th>
-                                        <th>codigo</th>
-                                        <th>marca</th>
-                                        <th>nome</th>
-                                        <th>descricao</th>
-                                        <th>validade</th>
-                                    </tr>
-                                    </thead>
-                                        <tbody>
-                                        <% for(var i = 0; i < produtos.length; i++){ %>
-                                        <tr>
-                                            <td> 
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                </div>
-                                            </td>
-                                            <td scope="row"><%= produtos[i].idProduto %></td>
-                                            <td><%= produtos[i].codigo %></td>
-                                            <td><%= produtos[i].marca %></td>
-                                            <td><%= produtos[i].nome %></td>
-                                            <td><%= produtos[i].descricao %></td>
-                                            <td><%= produtos[i].validade.toLocaleDateString("pt-br") %></td>
-                                        </tr>
-                                        <% } %>
-                                    </tbody>
-                            </table>
+                    <div class="table-responsive">
+                        "<table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>codigo</th>
+                                <th>marca</th>
+                                <th>nome</th>
+                                <th>descricao</th>
+                                <th>validade</th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                <% for(var i = 0; i < produtos.length; i++){ %>
+                                <tr>
+                                    <td><%= produtos[i].idProduto %></td>
+                                    <td><%= produtos[i].codigo %></td>
+                                    <td><%= produtos[i].marca %></td>
+                                    <td><%= produtos[i].nome %></td>
+                                    <td><%= produtos[i].descricao %></td>
+                                    <td><%= produtos[i].validade.toLocaleDateString("pt-br") %></td>
+                                </tr>
+                                <% } %>
+                            </tbody>"
+                        </table>
+                    </div>
+                    <div class="col">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                            <button type="submit" class="btn btn-info">Adicionar</button>
                         </div>
-                        <div class="col">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                                <button type="submit" class="btn btn-info">Adicionar</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
+
+        <!--fecha modal-->
         </div>
 
 </div>

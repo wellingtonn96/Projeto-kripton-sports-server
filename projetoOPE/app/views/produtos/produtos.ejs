@@ -27,11 +27,11 @@
                         <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>idProduto</th>
+                                <th>ID Produto</th>
                                 <th>codigo</th>
                                 <th>marca</th>
                                 <th>nome</th>
-                                <th>descricao</th>
+                                <th>descricão</th>
                                 <th>validade</th>
                                 <th>Ações</th>
                             </tr>
@@ -48,37 +48,39 @@
                             </tr>
                             </tfoot>
                                 <tbody>
-                                <% for(var i = 0; i < produtos.length; i++){ %>
-                                <tr>
-                                    <td><%= produtos[i].idProduto %></td>
-                                    <td><%= produtos[i].codigo %></td>
-                                    <td><%= produtos[i].marca %></td>
-                                    <td><%= produtos[i].nome %></td>
-                                    <td><%= produtos[i].descricao %></td>
-                                    <td><%=produtos[i].validade.toLocaleDateString("pt-br") %></td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-outline-danger fas fa-trash-alt" data-toggle="modal" data-target="#modalDelete"></button>
-                                                </td>
-                                                <td>
-                                                    <a href="../produto/editar/<%=produtos[i].idProduto%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
-                                                </td>
-                                                <td>
-                                                    <a href="../produto/detalhes/<%=produtos[i].idProduto%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
-                                                </td>
-                                            </table>
-                                        </tr>
-                                    </td>
-                                </tr>
+                                <% if(produtos.length > 0) {%>
+
+                                    <% for(var i = 0; i < produtos.length; i++){ %>
+                                    <tr>
+                                        <td><%= produtos[i].idProduto %></td>
+                                        <td><%= produtos[i].codigo %></td>
+                                        <td><%= produtos[i].marca %></td>
+                                        <td><%= produtos[i].nome %></td>
+                                        <td><%= produtos[i].descricao %></td>
+                                        <td><%= produtos[i].validade.toLocaleDateString("pt-br") %></td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-outline-danger fas fa-trash-alt" data-toggle="modal" data-target="#modalDelete"></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../produto/editar/<%=produtos[i].idProduto%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../produto/detalhes/<%=produtos[i].idProduto%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
+                                                    </td>
+                                                </table>
+                                            </tr>
+                                        </td>
+                                    </tr>
+                                    <% } %>
                                 <% } %>
                             </tbody>
                     </table>
                 </div>
             </div>
-
-        </div>
+    </div>
 
             <!-- Modal -->
     <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">

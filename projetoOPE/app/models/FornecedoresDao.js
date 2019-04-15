@@ -3,10 +3,10 @@ class FornecedoresDao{
 		this._connection = connection
 	}
 	
-	cadastrarFornecedor(id){
+	cadastrarFornecedor(dados){
 		return new Promise((resolve, reject)=>{
 			this._connection.query('INSERT INTO fornecedor set ?'
-			, [id],
+			, [dados],
 			(error, results)=>{
 				if(error){
 					reject(error)

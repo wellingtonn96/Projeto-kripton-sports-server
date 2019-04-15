@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-6">
                     <div>
-                        <a href="/fornecedor/cadastrar"><button type="button" class="btn btn-success float-right" id="novoUsuario">Cadastrar novo fornecedor</button></a>
+                        <a href="/consulta/agendar/"><button type="button" class="btn btn-success float-right" id="novoUsuario">Nova consulta</button></a>
                     </div>
                 </div>
             </div>
@@ -29,42 +29,42 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>CNPJ</th>
-                                <th>Email</th>
-                                <th>Endereço</th>
-                                <th>Telefone</th>
+                                <th>Data Consulta</th>
+                                <th>Descrição</th>
+                                <th>Nutricionista</th>
+                                <th>Cliente</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>CNPJ</th>
-                                <th>Email</th>
-                                <th>Endereço</th>
-                                <th>Telefone</th>
+                                <th>Data Consulta</th>
+                                <th>Descrição</th>
+                                <th>Nutricionista</th>
+                                <th>Cliente</th>
                                 <th>Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <% for(var i = 0; i < dados.length; i++){ %>
                             <tr>
-                                <td><%= dados[i].idFornecedor %></td>
-                                <td><%= dados[i].cnpj %></td>
-                                <td><%= dados[i].email %></td>
-                                <td><%= dados[i].endereco %></td>
-                                <td><%= dados[i].telefone %></td>
+                                <td><%= dados[i].idConsulta %></td>
+                                <td><%= dados[i].dataConsulta.toLocaleDateString("pt-br") %></td>
+                                <td><%= dados[i].descricao %></td>
+                                <td><%= dados[i].idNutricionista %></td>
+                                <td><%= dados[i].idCliente %></td>
                                 <td>
                                     <table>
                                     <tr>
                                         <td>
-                                            <a href="../fornecedor/excluir/<%=dados[i].idFornecedor%>"><button type="button" class="btn btn-outline-danger fas fa-trash-alt"></button></a>
+                                            <a href=#"><button type="button" class="btn btn-outline-danger fas fa-trash-alt"></button></a>
                                         </td>
                                         <td>
-                                            <a href="../fornecedor/editar/<%=dados[i].idFornecedor%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
+                                            <a href=#"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
                                         </td>
                                         <td>
-                                            <a href="../fornecedor/detalhes/<%=dados[i].idFornecedor%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
+                                            <a href=#"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
                                         </td>
                                     </table>
                                     </tr>

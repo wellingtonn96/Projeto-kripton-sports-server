@@ -42,7 +42,10 @@ app.use('/nutricionista/editar', express.static('./app/public'));
 app.use('/nutricionista/detalhes', express.static('./app/public'));
 app.use('/nutricionista/salvar', express.static('./app/public'));
 
+//consulta
 app.use('/consulta/agendar', express.static('./app/public'));
+app.use('/consulta/listar', express.static('./app/public'));
+app.use('/consulta/prontuario', express.static('./app/public'));
 
 /* configurar o middleware body-parser */
 app.use(bodyParser.urlencoded({extended: true}));

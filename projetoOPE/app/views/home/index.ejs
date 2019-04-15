@@ -19,9 +19,9 @@
             <div class="card-body-icon">
               <i class="fas fa-fw fa-comments"></i>
             </div>
-            <div class="mr-5">26 Novas Compras!</div>
+            <div class="mr-5">Usuarios!</div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="#">
+          <a class="card-footer text-white clearfix small z-1" href="/usuarios">
             <span class="float-left">Ver detalhes</span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
@@ -37,7 +37,7 @@
             </div>
             <div class="mr-5">Verificar Produtos</div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="#">
+          <a class="card-footer text-white clearfix small z-1" href="/produtos">
             <span class="float-left">Ver detalhes</span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
@@ -53,7 +53,7 @@
             </div>
             <div class="mr-5">Vender!</div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="#">
+          <a class="card-footer text-white clearfix small z-1" href="/pedido">
             <span class="float-left">Ver detalhes</span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
@@ -69,7 +69,7 @@
             </div>
             <div class="mr-5">Fornecedores/Clientes!</div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="#">
+          <a class="card-footer text-white clearfix small z-1" href="/fornecedores">
             <span class="float-left">Ver detalhes</span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
@@ -80,11 +80,10 @@
     </div>
 
   
-    <!-- DataTables Example -->
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-table"></i>
-        Produtos mais vendidos</div>
+        Produtos próximos ao vencimento</div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -92,46 +91,26 @@
               <tr>
                 <th>Nome</th>
                 <th>Tipo</th>
-                <th>Quantidade</th>
-                
+                <th>Vencimento</th>
                 <th>Preço</th>
               </tr>
             </thead>
-            
-            <tbody>
-              <tr>
-                <td>Whey master</td>
-                
-                <td>Edinburgh</td>
-                <td>61</td>
-                
-                <td>$320,800</td>
+            <tr>
+              <td>Whey Milen</td>
+              <td>Whey</td>
+              <td>14/03/2018</td>
+              <td>R$100,00</td>
+            </tr>
+            <tr>
+                <td>Protein</td>
+                <td>Barra de Cereal</td>
+                <td>20/03/2018</td>
+                <td>R$5,00</td>
               </tr>
-              <tr>
-                <td>Massa Liquida</td>
-              
-                <td>Tokyo</td>
-                <td>63</td>
-                
-                <td>$170,750</td>
-              </tr>
-              <tr>
-                <td>Ashton Cox</td>
-                
-                <td>San Francisco</td>
-                <td>66</td>
-              
-                <td>$86,000</td>
-              </tr>
-              
-            </tbody>
           </table>
         </div>
       </div>
-      <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-
-  </div>
   <!-- /.container-fluid -->
 
   <!-- Sticky Footer -->
