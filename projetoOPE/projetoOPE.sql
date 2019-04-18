@@ -1,6 +1,8 @@
 
-create database projetoOPE; 
-use projetoOPE;
+--create database projetoOPE; 
+create database ope2019
+use ope2019
+
 
 create table login(
 	usuario varchar(50) null,
@@ -22,7 +24,7 @@ create table usuario(
 	email varchar(50),
 	nome varchar(60) not null,
 	telefone varchar(11) not null, 
-    idTipo int not null auto_increment,
+    idTipo int not null,
 	primary key(idUsuario),
     constraint fk_idTipo foreign key(idTipo) references tipoUsuario(idTipoUsuario)
 );
@@ -141,3 +143,8 @@ create table notaFiscal(
     );
     
     
+insert into tipoUsuario(tipo) values("gerente"),("cliente"),("vendedor");
+
+
+insert into usuario(login,senha,email,nome,telefone,idTipo) values("admin","admin","admin@gmail.com","admin","114444",1),("teste","teste","tete@gmail.com","teste","114444",1);
+

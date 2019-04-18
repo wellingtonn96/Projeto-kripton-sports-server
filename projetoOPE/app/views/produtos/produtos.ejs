@@ -75,7 +75,6 @@
                                         </td>
                                     </tr>
                                     <% } %>
-                                <% } %>
                             </tbody>
                     </table>
                 </div>
@@ -96,12 +95,13 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
                     <a href="../produto/excluir/<%= produtos[0].idProduto%>"><button type="button" class="btn btn-danger">Excluir</button></a>
+                    <% } %>
                 </div>
             </div>
         </div>
     </div>
         
-        
 </div>
+
 
 <%- include("../includes/footer") -%>

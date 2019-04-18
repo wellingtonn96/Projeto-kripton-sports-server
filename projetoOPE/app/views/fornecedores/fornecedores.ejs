@@ -47,6 +47,7 @@
                             </tr>
                             </tfoot>
                             <tbody>
+                            <% if (dados.length > 0) {%>
                             <% for(var i = 0; i < dados.length; i++){ %>
                             <tr>
                                 <td><%= dados[i].idFornecedor %></td>
@@ -73,16 +74,18 @@
                             <% } %>
                         </tbody>
                     </table>
+
+                    
                 </div>
             </div>               
         </div>
-                
     
     </div>
+    
+</div>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+<!--Modal-->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -96,10 +99,13 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
                     <a href="../fornecedor/excluir/<%=dados[0].idFornecedor%>"><button type="button" class="btn btn-danger">Excluir</button></a>
                 </div>
+                <% } %>
             </div>
         </div>
     </div>
     
-</div>
+<!--fecha modal-->
+   
 
 <%- include("../includes/footer") -%>
+
