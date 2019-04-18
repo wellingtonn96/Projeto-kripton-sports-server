@@ -33,13 +33,14 @@
                                 <th>nome</th>
                                 <th>descricão</th>
                                 <th>válidade</th>
+                                <th>Valor</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th colspan="3">Valor:</th>
-                                <th colspan="3">R$20:00</th>
+                                <th colspan="4">R$20:00</th>
                                 <th>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-info">Encerrar Venda</button>
@@ -48,19 +49,23 @@
                             </tr>
                             </tfoot>
                                 <tbody>
+                                    
+                                <% for(var i = 0; i < produto.length; i++){ %>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><%= produto[i].idProduto %></td>
+                                    <td><%= produto[i].codigo %></td>
+                                    <td><%= produto[i].marca %></td>
+                                    <td><%= produto[i].nome %></td>
+                                    <td><%= produto[i].descricao %></td>
+                                    <td><%= produto[i].validade.toLocaleDateString("pt-br") %></td>
+                                    <td>R$<%= produto[i].valor %></td>
                                     <td>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-danger">Cancelar</button>
                                         </div>
                                     </td>
                                 </tr>
+                                <% } %>
                             </tbody>
                     </table>
                 </div>
@@ -72,9 +77,11 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="table-responsive">
-                        "<table class="table table-sm">
+                        <form action="/pedido" method="POST">
+                        <table class="table table-sm">
                             <thead>
                             <tr>
+                                <th></th>
                                 <th>ID</th>
                                 <th>codigo</th>
                                 <th>marca</th>
@@ -86,6 +93,7 @@
                                 <tbody>
                                 <% for(var i = 0; i < produtos.length; i++){ %>
                                 <tr>
+                                    <td><input type="radio" name="idProduto" value="<%= produtos[i].idProduto %>"></td>
                                     <td><%= produtos[i].idProduto %></td>
                                     <td><%= produtos[i].codigo %></td>
                                     <td><%= produtos[i].marca %></td>
@@ -103,6 +111,7 @@
                             <button type="submit" class="btn btn-info">Adicionar</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
 
