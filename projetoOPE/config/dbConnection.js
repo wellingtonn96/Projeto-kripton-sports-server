@@ -5,7 +5,7 @@ var connMysql= function(){
         host: 'localhost',
         user: 'root',
         password: '1234',
-        database: 'ope2019'
+        database: 'projetoOPE'
     });
 
 }

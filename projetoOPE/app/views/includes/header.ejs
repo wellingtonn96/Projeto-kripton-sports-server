@@ -22,7 +22,7 @@
 
   <nav class="navbar navbar-expand navbar-light bg-light static-top">
 
-    <a class="navbar-brand mr-1" href="index.html"><img width="100px" src="img/logo.png" alt=""></a>
+    <a class="navbar-brand mr-1" href="#"><img width="100px" src="img/logo.png" alt=""></a>
 
     <button class="btn btn-link btn-sm order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars" style="color:black;"></i>
@@ -36,7 +36,7 @@
 
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span><%= usuarios %></span>
+            <span><%= colaboradores %></span>
           <i class="fas fa-user-circle fa-fw  my-md-0"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -69,11 +69,11 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Tela de Login:</h6>
           <a class="dropdown-item" href="/">Login</a>
-          <a class="dropdown-item" href="/usuarios/recuperacao_senha">Redefinir senha</a>
+          <a class="dropdown-item" href="/colaboradores/recuperacao_senha">Redefinir senha</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Cadastro:</h6>
-          <a class="dropdown-item" href="/usuarios/cadastrar">Usuários</a>
-          <a class="dropdown-item" href="/usuarios/nutricionista">Nutricionista</a>
+          <a class="dropdown-item" href="/colaboradores/cadastrar">Colaboradores</a>
+          <a class="dropdown-item" href="/colaboradores/nutricionista">Nutricionista</a>
           <a class="dropdown-item" href="/produto/cadastrar">Produtos</a>
           <a class="dropdown-item" href="/fornecedor/cadastrar">Fornecedores</a>
         </div>
@@ -86,7 +86,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Tabelas:</h6>
-          <a class="dropdown-item" href="/usuarios">Usuários</a>
+          <a class="dropdown-item" href="/colaboradores">Colaboradores</a>
           <a class="dropdown-item" href="/produtos">Produtos </a>
           <a class="dropdown-item" href="/fornecedores">Fornecedores</a>
         </div>

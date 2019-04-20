@@ -10,11 +10,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <i class="fas fa-user"></i>
-                        Usuarios Cadastrados
+                        Colaboradores cadastrados
                     </div>
                     <div class="col-md-6">
                         <div>
-                            <a href="/usuarios/cadastrar"><button type="button" class="btn btn-success float-right" id="novoUsuario">Cadastrar novo usuario</button></a>
+                            <a href="/colaboradores/cadastrar"><button type="button" class="btn btn-success float-right" id="novocolaborador">Cadastrar novo colaborador</button></a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,8 @@
                             <th>Login</th>
                             <th>Email</th>
                             <th>Nome</th>
-                            <th>Tipo usuario</th>
+                            <th>Sobrenome</th>
+                            <th>Tipo colaborador</th>
                             <th>Ações</th>
                         </tr>
                       </thead>
@@ -42,17 +43,19 @@
                             <th>Login</th>
                             <th>Email</th>
                             <th>Nome</th>
-                            <th>Tipo usuario</th>
+                            <th>Sobrenome</th>
+                            <th>Tipo colaborador</th>
                             <th>Ações</th>
                         </tr>
                       </tfoot>
                       <tbody>
                         <% for(var i = 0; i < dados.length; i++){ %>
                         <tr>
-                            <td><%= dados[i].idUsuario %></td>
+                            <td><%= dados[i].idColaborador %></td>
                             <td><%= dados[i].login %></td>
                             <td><%= dados[i].email %></td>
                             <td><%= dados[i].nome %></td>
+                            <td><%= dados[i].sobrenome %></td>
                             <td><%= dados[i].tipo %></td>
                             <td>
                               <table>
@@ -61,10 +64,10 @@
                                         <button type="button" class="btn btn-outline-danger fas fa-trash-alt" data-toggle="modal" data-target="#modalDelete"></button>
                                     </td>
                                     <td>
-                                      <a href="../usuarios/editar/<%=dados[i].idUsuario%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
+                                      <a href="../colaboradores/editar/<%=dados[i].idColaborador%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
                                     </td>
                                     <td>
-                                      <a href="../usuarios/detalhes/<%=dados[i].idUsuario%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
+                                      <a href="../colaboradores/detalhes/<%=dados[i].idColaborador%>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
                                     </td>
                                 </table>
                             </td>
@@ -76,23 +79,23 @@
                 </div>               
             </div>
                   
-        <!--Modal excluir usuario-->
+        <!--Modal excluir colaborador-->
 
-        <div class="modal" tabindex="-1" role="dialog"  id="excluirUsuario" tabindex="-1" role="dialog" aria-labelledby="excluirUsuario" aria-hidden="true">
+        <div class="modal" tabindex="-1" role="dialog"  id="excluircolaborador" tabindex="-1" role="dialog" aria-labelledby="excluircolaborador" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Excluir usuario</h5>
+                <h5 class="modal-title">Excluir colaborador</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>Deseja realmente excluir este usuario!</p>
+                <p>Deseja realmente excluir este colaborador!</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger" id="btn_excluirUsuario">Excluir</button>
+                <button type="button" class="btn btn-danger" id="btn_excluircolaborador">Excluir</button>
               </div>
             </div>
           </div>
@@ -106,15 +109,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalDelete">Excluir usuário</h5>
+                    <h5 class="modal-title" id="modalDelete">Excluir colaborador</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
-                        <div class="modal-body">Deseja realmente excluir este usuario!</div>
+                        <div class="modal-body">Deseja realmente excluir este colaborador!</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                        <a href="../usuarios/excluir/<%=dados[0].idUsuario%>"><button type="button" class="btn btn-danger">Excluir</button></a>
+                        <a href="../colaboradores/excluir/<%=dados[0].idColaborador%>"><button type="button" class="btn btn-danger">Excluir</button></a>
                     </div>
                 </div>
             </div>

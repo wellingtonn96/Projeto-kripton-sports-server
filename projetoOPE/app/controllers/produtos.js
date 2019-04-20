@@ -1,6 +1,6 @@
 exports.cadastrar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		const fornecedorModel = new application.app.models.FornecedoresDao(connection)
@@ -8,7 +8,7 @@ exports.cadastrar = (application, req, res)=>{
 			produtosModel.listarCategoria().then(categoria => {
 				res.render('produtos/cadastrar', {
 					validacao : {},
-					usuarios  : usuario,
+					colaboradores  : colaborador,
 					dadosFornecedor : fornecedor,
 					dadosCategoria : categoria
 				});
@@ -24,7 +24,7 @@ exports.cadastrar = (application, req, res)=>{
 
 exports.salvar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const dados = req.body;
 		console.log(dados)
 		req.assert('codigo','Campo codigo é obrigatório').notEmpty();
@@ -48,7 +48,7 @@ exports.salvar = (application, req, res)=>{
 				produtosModel.listarCategoria().then(categoria => {
 					res.render('produtos/cadastrar', {
 						validacao : erros,
-						usuarios  : usuario,
+						colaboradores  : colaborador,
 						dadosFornecedor : fornecedor,
 						dadosCategoria : categoria
 					});
@@ -89,14 +89,14 @@ exports.excluir = (application, req, res)=>{
 
 exports.editar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		const id  = req.params.id
 		produtosModel.dadosProduto(id).then(result => {
 			res.render("produtos/editar", {
 				dados    : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			})
 		}).catch(error => console.log(error))
 
@@ -125,14 +125,14 @@ exports.atualizar = (application, req, res)=>{
 
 exports.detalhar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		const id  = req.params.id
 		produtosModel.dadosProduto(id).then(result => {
 			res.render("produtos/detalhes", {
 				dados    : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			})
 		}).catch(error => console.log(error))
 
@@ -143,13 +143,13 @@ exports.detalhar = (application, req, res)=>{
 
 exports.listar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		produtosModel.listarProduto().then(result => {
 			res.render("produtos/produtos", {
 				produtos : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			});
 		}).catch(error => console.log(error))
 	}else {
@@ -160,10 +160,10 @@ exports.listar = (application, req, res)=>{
 
 exports.categoriaForm = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		res.render('produtos/categoria', {
 			validacao : {},
-			usuarios  : usuario,
+			colaboradores  : colaborador,
 		});
 	} else {
 		res.render("login/login", {validacao : {}});	
@@ -173,7 +173,7 @@ exports.categoriaForm = (application, req, res)=>{
 
 exports.categoriaSalvar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const dados = req.body;
 		req.assert('categoria','Campo categoria do produto é obrigatório').notEmpty();
 		const erros = req.validationErrors();
@@ -181,7 +181,7 @@ exports.categoriaSalvar = (application, req, res)=>{
 		if(erros){
 			res.render('produtos/categoria', {
 				validacao : erros,
-				usuarios  : usuario,
+				colaboradores  : colaborador,
 			});
 		}
 
@@ -200,13 +200,13 @@ exports.categoriaSalvar = (application, req, res)=>{
 
 exports.descontoForm = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		produtosModel.listarProduto().then(result => {
 			res.render('produtos/desconto', {
 				validacao : {},
-				usuarios  : usuario,
+				colaboradores  : colaborador,
 				dados : result
 			});
 		}).catch(error => console.log(error))
@@ -218,7 +218,7 @@ exports.descontoForm = (application, req, res)=>{
 
 exports.descontoSalvar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const dadosForm = req.body;
 		console.log(dadosForm)
 		req.assert('idProduto','Campo produto é obrigatório').notEmpty();
@@ -231,7 +231,7 @@ exports.descontoSalvar = (application, req, res)=>{
 			produtosModel.listarProduto().then(result => {
 				res.render('produtos/desconto', {
 					validacao : erros,
-					usuarios  : usuario,
+					colaboradores  : colaborador,
 					dados : result
 				});
 			}).catch(error => console.log(error))
@@ -251,13 +251,13 @@ exports.descontoSalvar = (application, req, res)=>{
 
 exports.descontos = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		produtosModel.listarDesconto().then(result => {
 			res.render("produtos/descontos", {
 				dados : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			});
 		}).catch(error => console.log(error))
 	}else {

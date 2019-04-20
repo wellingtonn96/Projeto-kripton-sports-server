@@ -1,9 +1,9 @@
 exports.cadastrar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		res.render("fornecedores/cadastrar", {
 			validacao:{},
-			usuarios : usuario
+			colaboradores : colaborador
 		});
 	} else {
 		res.render("login/login", {
@@ -49,14 +49,14 @@ exports.excluir = (application, req, res)=>{
 
 exports.editar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const fornecedorModel = new application.app.models.FornecedoresDao(connection);
 		const id  = req.params.id;
 		fornecedorModel.dadosFornecedor(id).then(result => {
 			res.render("fornecedores/editar", {
 				dados : result,
-				usuarios: usuario
+				colaboradores: colaborador
 			})
 		}).catch(error => console.log(error))
 
@@ -83,14 +83,14 @@ exports.atualizar = (application, req, res)=>{
 
 exports.detalhar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario	
+		const colaborador = req.session.colaborador	
 		const connection = application.config.dbConnection();
 		const fornecedorModel = new application.app.models.FornecedoresDao(connection);
 		const id  = req.params.id;
 		fornecedorModel.dadosFornecedor(id).then(result => {
 			res.render("fornecedores/detalhes", {
 				dados : result,
-				usuarios: usuario
+				colaboradores: colaborador
 			});	
 		}).catch(error => console.log(error))
 
@@ -102,13 +102,13 @@ exports.detalhar = (application, req, res)=>{
 
 exports.listar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const fornecedorModel = new application.app.models.FornecedoresDao(connection)
 		fornecedorModel.listarFornecedor().then(result => {
 			res.render("fornecedores/fornecedores", {
 				dados   : result,
-				usuarios: usuario
+				colaboradores: colaborador
 			})
 		}).catch(error => console.log(error))
 

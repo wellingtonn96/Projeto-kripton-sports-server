@@ -8,10 +8,6 @@ module.exports = (application)=>{
 		application.app.controllers.admin.autenticar(application, req, res);		
 	});
 
-	application.get('/inicio', (req, res)=>{
-		application.app.controllers.admin.index(application, req, res);
-	});
-
 	application.get('/logout', (req, res)=>{
 		application.app.controllers.admin.logout(application, req, res);
 	});

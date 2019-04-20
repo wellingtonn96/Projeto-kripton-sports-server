@@ -16,12 +16,12 @@ app.set('views', './app/views');
 app.use('/', express.static('./app/public'));
 
 
-//usuarios
+//colaboradores
 app.use(express.static(path.join(__dirname, './app/public')));
-app.use('/usuarios', express.static('./app/public'));
-app.use('/usuarios/editar', express.static('./app/public'));
-app.use('/usuarios/detalhes', express.static('./app/public'));
-app.use('/usuarios/salvar', express.static('./app/public'))
+app.use('/colaboradores', express.static('./app/public'));
+app.use('/colaboradores/editar', express.static('./app/public'));
+app.use('/colaboradores/detalhes', express.static('./app/public'));
+app.use('/colaboradores/salvar', express.static('./app/public'))
 
 //produtos
 app.use('/produto' ,express.static('./app/public'));

@@ -1,11 +1,11 @@
 exports.addPedido = (application, req, res)=>{
 	if(req.session.autorizado){
-        const usuario = req.session.usuario
+        const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		produtosModel.listarProduto().then(result => {
 			res.render("pedido/addPedido",{
-                usuarios: usuario,
+                colaboradores: colaborador,
 				produtos: result,
 				produto : {}
             });
@@ -19,7 +19,7 @@ exports.addPedido = (application, req, res)=>{
 
 exports.pedido = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		const id  = req.body.idProduto
@@ -28,7 +28,7 @@ exports.pedido = (application, req, res)=>{
 				const array = []
 				array.push(produto[0])
 				res.render("pedido/addPedido",{
-					usuarios: usuario,
+					colaboradores: colaborador,
 					produtos: result,
 					produto : array
 				});

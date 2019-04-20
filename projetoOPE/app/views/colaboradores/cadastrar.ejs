@@ -3,14 +3,12 @@
 <div id="content-wrapper">
 
 <div class="container-fluid">
-
     <!-- DataTables Example -->
     <div class="card mb-3">
     <div class="card-header">
-        <i class="fas fa-user-md"></i>
-        Cadastro de nutricionista</div>
+        <i class="fas fa-user"></i>
+        Cadastro de colaboradores</div>
     <div class="card-body">
-
             <% if(validacao.length > 0){%>
                 <div class="alert alert-danger">
                     <strong>Atenção!</strong>
@@ -24,15 +22,15 @@
                 </div>
             <% } %>
 
-        <form action="/usuarios/nutricionista" method="POST">
+        <form action="/colaboradores/salvar" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="login">Login:</label>
+                    <label for="pwd">Login:</label>
                     <input type="text" class="form-control" id="login" name="login">
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="senha">Senha:</label>
+                    <label for="pwd">Senha:</label>
                     <input type="password" class="form-control" id="senha" name="senha">
                 </div>
                 <!--
@@ -42,25 +40,33 @@
                 </div>
                 --> 
                 <div class="form-group col-md-6">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email">
-                </div>
-
-                <div class="form-group col-md-6">
                     <label for="pwd">Nome:</label>
                     <input type="text" class="form-control" id="nome" name="nome">
                 </div>
+
+                <div class="form-group col-md-6">
+                    <label for="pwd">Sobrenome:</label>
+                    <input type="text" class="form-control" id="sobrenome" name="sobrenome">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="pwd">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+
 
                 <div class="form-group col-md-6">
                     <label for="pwd">Telefone:</label>
                     <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Ex.: (00) 00000-0000">
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="crn">CRN:</label>
-                    <input type="number" class="form-control" id="crn" name="crn" placeholder="Ex.: 00000">
+                <div class="form-group col-md-12">
+                    <label for="idTipo">Tipo usuario:</label>
+                    <select class="custom-select" name="idTipo" id="idTipo">
+                        <option value="1">GERENTE</option>
+                        <option value="2">VENDEDOR</option>
+                    </select>
                 </div>
-                
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger">Cadastrar</button>
                 </div>

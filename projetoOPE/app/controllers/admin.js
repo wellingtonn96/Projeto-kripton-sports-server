@@ -1,16 +1,3 @@
-exports.index = (application, req, res)=>{
-	if(req.session.autorizado){
-		const usuario = req.session.usuario
-		res.render("home/index",{
-			usuarios: usuario
-		});
-	} else {
-		res.render("login/login", {
-			validacao : erros,
-		});
-	}
-}
-
 exports.logout = (application, req, res)=>{
 	/*delete req.session.autorizado
 	res.render("login/login", {
@@ -43,12 +30,12 @@ exports.autenticar = (application, req, res)=>{
 		return;
 	}
 	const connection = application.config.dbConnection();
-	const usuariosModel = new application.app.models.UsuariosDao(connection);
-	usuariosModel.autenticar(dadosForm, req, res).then((results) => {
+	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
+	colaboradoresModel.autenticar(dadosForm, req, res).then((results) => {
 		var row =  results[0]
 			if(row != undefined){
 				req.session.autorizado = true;
-				req.session.usuario = row.nome;
+				req.session.colaborador = row.nome;
 				req.session.tipo = row.idTipo
 			}
 			if(req.session.autorizado && req.session.tipo === 1 || 2 || 4){

@@ -6,7 +6,7 @@ class ConsultaDao{
     
     nutricionistas(){
         return new Promise((resolve, reject)=>{
-            this._connection.query('select nome, idNutricionista from usuario u, nutricionista n where u.idUsuario =  n.idUsuario',
+            this._connection.query('select nome, idNutricionista from colaborador u, nutricionista n where u.idColaborador =  n.idColaborador',
             (error, result)=>{
                 if(error){
                     reject(error)
@@ -19,7 +19,7 @@ class ConsultaDao{
 
     clientes(){
         return new Promise((resolve, reject)=>{
-            this._connection.query("select * from usuario where idTipo = 2",
+            this._connection.query("select * from cliente",
             (error, result)=>{
                 if(error){
                     reject(error)

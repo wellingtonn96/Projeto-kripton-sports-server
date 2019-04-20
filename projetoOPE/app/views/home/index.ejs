@@ -19,9 +19,9 @@
             <div class="card-body-icon">
               <i class="fas fa-fw fa-comments"></i>
             </div>
-            <div class="mr-5">Usuarios!</div>
+            <div class="mr-5">Colaboradores!</div>
           </div>
-          <a class="card-footer text-white clearfix small z-1" href="/usuarios">
+          <a class="card-footer text-white clearfix small z-1" href="/colaboradores">
             <span class="float-left">Ver detalhes</span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
@@ -88,25 +88,29 @@
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Vencimento</th>
-                <th>Preço</th>
-              </tr>
-            </thead>
-            <tr>
-              <td>Whey Milen</td>
-              <td>Whey</td>
-              <td>14/03/2018</td>
-              <td>R$100,00</td>
-            </tr>
-            <tr>
-                <td>Protein</td>
-                <td>Barra de Cereal</td>
-                <td>20/03/2018</td>
-                <td>R$5,00</td>
-              </tr>
+              <%if(dados.length > 0) {%>
+                <% for(let i = 0; i < dados.length; i++){ %>
+                    <tr>
+                      <th>ID</th>
+                      <th>Código</th>
+                      <th>Nome</th>
+                      <th>Marca</th>
+                      <th>Válidade</th>
+                      <th>Lote</th>
+                      <th>Dias para vencimento</th>
+                    </tr>
+                  </thead>
+                  <tr>
+                    <td><%=dados[i].idProduto%></td>
+                    <td><%=dados[i].codigo %></td>
+                    <td><%=dados[i].nome%></td>
+                    <td><%=dados[i].marca %></td>
+                    <td><%=dados[i].validade.toLocaleDateString("pt-br") %></td>
+                    <td><%=dados[i].lote %></td>
+                    <td><%=dados[i].dias_para_vencimento%></td>
+                  </tr>
+              <% } %>
+            <% } %>
           </table>
         </div>
       </div>
@@ -128,3 +132,20 @@
   <!-- /.container-fluid -->
 
   <%- include("../includes/footer") -%>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+
+    function refreshDashboard(){
+      fetch('/inicio').then(response => response.json()).then(json=>{
+
+      })
+    }
+
+    let socket = io();
+
+    socket.on('produto vencimento', function(data){
+      console.log('Recebi o evento', data)
+    })
+
+  </script>

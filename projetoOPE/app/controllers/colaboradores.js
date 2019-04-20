@@ -1,25 +1,14 @@
-exports.usuarios = (application, req, res)=>{
-	if(req.session.autorizado){
-		const usuario = req.session.usuario
-		res.render("usuarios/usuarios", {
-			usuarios : usuario
-		});
-	} else {
-		res.render("login/login", {validacao : {}});	
-	}
-}
 
-
-exports.usuarios = (application, req, res)=>{
+exports.colaboradores = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 			const connection = application.config.dbConnection();
-			const usuariosModel = new application.app.models.UsuariosDao(connection);
+			const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 
-			usuariosModel.listarUsuarios().then(result => {
-				res.render("usuarios/usuarios", {
+			colaboradoresModel.listarColaboradores().then(result => {
+				res.render("colaboradores/colaboradores", {
 					dados : result,
-					usuarios : usuario
+					colaboradores : colaborador
 				})
 			}).catch(error => {
 				console.log(error)
@@ -35,10 +24,10 @@ exports.usuarios = (application, req, res)=>{
 
 exports.cadastrar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
-		res.render('usuarios/cadastrar', {
+		const colaborador = req.session.colaborador
+		res.render('colaboradores/cadastrar', {
 			validacao : {},
-			usuarios : usuario,
+			colaboradores : colaborador,
 			dados: {}
 		});
 	} else {
@@ -49,32 +38,33 @@ exports.cadastrar = (application, req, res)=>{
 
 
 //create
-exports.usuario_salvar = (application, req, res)=>{
+exports.colaborador_salvar = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const dadosForm = req.body;
 		req.assert('login','Campo login é obrigatório').notEmpty();
 		req.assert('login','Campo login é de 4 a 10 caracteres').len(4, 10);
 		req.assert('senha','Campo senha é obrigatório').notEmpty();
 		req.assert('email','Campo email é obrigatório').notEmpty();
+		req.assert('email','Campo sobrenome é obrigatório').notEmpty();
 		req.assert('nome','Campo nome é obrigatório').notEmpty();
 		req.assert('telefone','Campo telefone é obrigatório').notEmpty();
 		req.assert('idTipo','Campo tipo é obrigatório').notEmpty();
 		const erros = req.validationErrors();
 		
 		if(erros){
-			res.render('usuarios/cadastrar', {
+			res.render('colaboradores/cadastrar', {
 				validacao : erros,
-				usuarios : usuario,
+				colaboradores : colaborador,
 				dados: dadosForm
 			});
 			return;
 		}
 
 		const connection = application.config.dbConnection();
-		const usuariosModel = new application.app.models.UsuariosDao(connection);
-		usuariosModel.cadastrarUsuario(dadosForm).then(result =>
-			res.redirect('/usuarios')
+		const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
+		colaboradoresModel.cadastrarColaborador(dadosForm).then(result =>
+			res.redirect('/colaboradores')
 		).catch(erros =>{
 			console.log(erros)
 		})
@@ -88,16 +78,16 @@ exports.usuario_salvar = (application, req, res)=>{
 
 
 //Update
-exports.editarUsuario = (application, req, res)=>{
+exports.editarColaborador = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
-		const usuariosModel = new application.app.models.UsuariosDao(connection);
+		const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 		const id  = req.params.id;
-		usuariosModel.dadosUsuario(id).then(result =>{
-			res.render("usuarios/editar", {
+		colaboradoresModel.dadosColaborador(id).then(result =>{
+			res.render("colaboradores/editar", {
 				dados    : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			})
 		}).catch(error =>
 			console.log(error)
@@ -112,15 +102,15 @@ exports.editarUsuario = (application, req, res)=>{
 
 
 
-exports.salvarUsuario = (application, req, res)=>{
+exports.salvarColaborador = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
-		const usuariosModel = new application.app.models.UsuariosDao(connection);
+		const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 		const dados = req.body
 		const id  = req.params.id;
-		usuariosModel.salvarUsuario(dados, id).then(result =>
-			res.redirect("/usuarios")
+		colaboradoresModel.salvarColaborador(dados, id).then(result =>
+			res.redirect("/colaboradores")
 		).catch(error =>
 			console.log(error)
 		)
@@ -132,16 +122,16 @@ exports.salvarUsuario = (application, req, res)=>{
 
 
 
-exports.detalhesUsuario = (application, req, res)=>{
+exports.detalhesColaborador = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
-		const usuariosModel = new application.app.models.UsuariosDao(connection);
+		const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 		const id  = req.params.id;
-		usuariosModel.dadosUsuario(id).then(result =>
-			res.render("usuarios/detalhes", {
+		colaboradoresModel.dadosColaborador(id).then(result =>
+			res.render("colaboradores/detalhes", {
 				dados : result,
-				usuarios : usuario
+				colaboradores : colaborador
 			})).catch(error => 
 				console.log(error)
 			)
@@ -153,14 +143,14 @@ exports.detalhesUsuario = (application, req, res)=>{
 
 
 //Delete
-exports.excluirUsuario = function(application, req, res){
+exports.excluirColaborador = function(application, req, res){
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
-		const usuariosModel = new application.app.models.UsuariosDao(connection);
+		const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 		const id  = req.params.id;
-		usuariosModel.excluirUsuario(id).then(result =>
-			res.redirect("/usuarios")
+		colaboradoresModel.excluirColaborador(id).then(result =>
+			res.redirect("/colaboradores")
 			)
 			.catch(error => 
 				console.log(error)
@@ -176,10 +166,10 @@ exports.excluirUsuario = function(application, req, res){
 
 exports.cadastrarNutricionista = (application, req, res)=>{
 	if(req.session.autorizado){
-		const usuario = req.session.usuario
-		res.render("usuarios/nutricionista", {
+		const colaborador = req.session.colaborador
+		res.render("colaboradores/nutricionista", {
 			validacao:{},
-			usuarios : usuario
+			colaboradores : colaborador
 		});
 	} else {
 		res.render("login/login", {validacao : {}});	
@@ -189,7 +179,7 @@ exports.cadastrarNutricionista = (application, req, res)=>{
 
 exports.nutricionistaSalvar = function(application, req, res){
 	if(req.session.autorizado){
-	const usuario = req.session.usuario
+	const colaborador = req.session.colaborador
 	const input = req.body
 	req.assert('login','Campo login é obrigatório').notEmpty();
 	req.assert('login','Campo login é de 4 a 10 caracteres').len(4, 10);
@@ -200,9 +190,9 @@ exports.nutricionistaSalvar = function(application, req, res){
 	req.assert('crn','Campo CRN é obrigatório').notEmpty();
 	var erros = req.validationErrors();
 	if(erros){
-		res.render('usuarios/nutricionista', {
+		res.render('colaboradores/nutricionista', {
 			validacao : erros,
-			usuarios : usuario
+			colaboradores : colaborador
 		});
 		return;
 	}
@@ -213,18 +203,18 @@ exports.nutricionistaSalvar = function(application, req, res){
 		email : input.email,
 		nome  : input.nome,
 		telefone : input.telefone,
-		idTipo : 4
+		idTipo : 3
 	};
 
 	const connection = application.config.dbConnection();
-	const usuariosModel = new application.app.models.UsuariosDao(connection);
-	usuariosModel.cadastrarUsuario(dados).then(usuario =>{
+	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
+	colaboradoresModel.cadastrarColaborador(dados).then(colaborador =>{
 		var nutricionista = {
 			crn : input.crn,
-			idUsuario : usuario.insertId,
+			idcolaborador : colaborador.insertId,
 		}
-		usuariosModel.cadastrarNutricionista(nutricionista).then(result =>{
-			res.redirect('/usuarios')
+		colaboradoresModel.cadastrarNutricionista(nutricionista).then(result =>{
+			res.redirect('/colaboradores')
 			//res.send(result)
 		}
 		).catch(erros =>{

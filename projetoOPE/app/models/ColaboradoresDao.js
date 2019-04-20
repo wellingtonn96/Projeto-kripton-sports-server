@@ -1,11 +1,11 @@
-class UsuariosDao{
+class ColaboradoresDao{
 	constructor(connection){
 		this._connection = connection
 	}
 
-	listarUsuarios(){
+	listarColaboradores(){
 		return new Promise((resolve, reject)=>{
-			this._connection.query('select * from tipoUsuario t, usuario u where t.idTipoUsuario =  u.idTipo order by u.idUsuario desc',			
+			this._connection.query('select * from tipoColaborador t, colaborador u where t.idTipoColaborador =  u.idTipo order by u.idColaborador desc',			
 			(error, results)=>{
 				if(error){
 					reject(error)
@@ -16,10 +16,10 @@ class UsuariosDao{
 		})
 	}
 
-	cadastrarUsuario(usuario){
+	cadastrarColaborador(colaborador){
 		return new Promise((resolve, reject)=>{
-			this._connection.query('insert into usuario set ? ',
-			 [usuario],
+			this._connection.query('insert into colaborador set ? ',
+			 [colaborador],
 			 (error, results)=>{
 				 if(error){
 					 reject(error)
@@ -30,9 +30,9 @@ class UsuariosDao{
 		})
 	}
 
-	excluirUsuario(id){
+	excluirColaborador(id){
 		return new Promise((resolve, reject)=>{
-			this._connection.query("DELETE FROM usuario  WHERE idUsuario = ? ",
+			this._connection.query("DELETE FROM colaborador  WHERE idColaborador = ? ",
 			[id],
 			 (error, results)=>{
 				 if(error){
@@ -44,9 +44,9 @@ class UsuariosDao{
 		})
 	}
 
-	detalhesUsuario(id){
+	detalhesColaborador(id){
 		return new Promise((resolve, reject)=>{
-			this._connection.query('insert into usuario set ? ',
+			this._connection.query('insert into colaborador set ? ',
 			[id],
 			(error, results)=>{
 				if(error){
@@ -58,9 +58,9 @@ class UsuariosDao{
 	   })
    }
 	
-	dadosUsuario(id){
+	dadosColaborador(id){
 		return new Promise((resolve, reject)=>{
-			this._connection.query('SELECT * FROM usuario WHERE idUsuario = ?', 
+			this._connection.query('SELECT * FROM colaborador WHERE idColaborador = ?', 
 				[id],
 				(error, results)=>{
 					if(error){
@@ -72,9 +72,9 @@ class UsuariosDao{
 		})
 	}
 
-	salvarUsuario(dados, id){
+	salvarColaborador(dados, id){
 		return new Promise((resolve, reject)=>{
-		this._connection.query("UPDATE usuario set ? WHERE idUsuario = ? ",
+		this._connection.query("UPDATE colaborador set ? WHERE idColaborador = ? ",
 		[dados, id],
 			(error, results)=>{
 				if(error){
@@ -100,11 +100,11 @@ class UsuariosDao{
 		})
 	}
 
-	autenticar(usuario, req, res){
-		var login = usuario.login
-		var senha = usuario.senha
+	autenticar(colaborador, req, res){
+		var login = colaborador.login
+		var senha = colaborador.senha
 		return new Promise((resolve, reject)=>{
-			this._connection.query('select * from usuario where login = ? AND senha = ?', [
+			this._connection.query('select * from colaborador where login = ? AND senha = ?', [
 				login, senha
 			], (error, results)=>{
 				if (error){
@@ -112,10 +112,10 @@ class UsuariosDao{
 				}else{
 	
 					if(!results.length > 0){
-						reject('usuario ou senha incorretos')
+						reject('colaborador ou senha incorretos')
 					}else{
 						if(results[0].senha !== senha){
-							reject("usuario ou senha incorretos")
+							reject("colaborador ou senha incorretos")
 						}else{
 							resolve(results)
 						}
@@ -126,4 +126,4 @@ class UsuariosDao{
 	}
 }
 
-module.exports = () => UsuariosDao
+module.exports = () => ColaboradoresDao
