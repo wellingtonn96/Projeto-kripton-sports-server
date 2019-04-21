@@ -17,19 +17,6 @@ class ConsultaDao{
         })
     }
 
-    clientes(){
-        return new Promise((resolve, reject)=>{
-            this._connection.query("select * from cliente",
-            (error, result)=>{
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(result)
-                }
-            })
-        })
-    }
-
     agendaConsulta(dados){
         return new Promise((resolve, reject)=>{
             this._connection.query('INSERT INTO agendaConsulta set ?',[dados],

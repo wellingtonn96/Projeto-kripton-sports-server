@@ -99,7 +99,7 @@ class ProdutosDao{
 			})
 		})
 	}
-
+/*
 	cadastrarDesconto(dados){
 		return new Promise((resolve, reject)=>{
 			this._connection.query('INSERT INTO desconto set ? '
@@ -126,7 +126,7 @@ class ProdutosDao{
 			})
 		})
 	}
-
+*/
 	listaVencimento(){
 		return new Promise((resolve, reject)=>{
 			this._connection.query('SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS dias_para_vencimento FROM produto;',

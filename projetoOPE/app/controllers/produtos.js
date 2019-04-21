@@ -197,7 +197,7 @@ exports.categoriaSalvar = (application, req, res)=>{
 		res.render("login/login", {validacao : {}});	
 	}
 }
-
+/*
 exports.descontoForm = (application, req, res)=>{
 	if(req.session.autorizado){
 		const colaborador = req.session.colaborador
@@ -264,3 +264,4 @@ exports.descontos = (application, req, res)=>{
 		res.render("login/login", {validacao : {}});	
 	}
 }
+*/

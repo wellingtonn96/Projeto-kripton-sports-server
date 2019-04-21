@@ -28,7 +28,7 @@ module.exports = (application)=>{
   application.get('/produtos', (req, res)=>{
       application.app.controllers.produtos.listar(application, req, res);		
   });
-
+  /*
   application.get('/produto/desconto', (req, res)=>{
     application.app.controllers.produtos.descontoForm(application, req, res);		
   });
@@ -40,7 +40,7 @@ module.exports = (application)=>{
   application.get('/produto/descontos', (req, res)=>{
     application.app.controllers.produtos.descontos(application, req, res);		
   });
-
+  */
   application.get('/produto/categoria', (req, res)=>{
     application.app.controllers.produtos.categoriaForm(application, req, res);		
   });

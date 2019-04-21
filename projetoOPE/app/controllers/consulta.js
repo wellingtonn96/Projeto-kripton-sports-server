@@ -2,9 +2,10 @@ exports.cadastrar = (application, req, res)=>{
 	if(req.session.autorizado){
 		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection()
-		const dadosModel = new application.app.models.ConsultaDao(connection)
-		dadosModel.nutricionistas().then(nutricionistas => {
-			dadosModel.clientes().then(clientes => {
+		const dadosNutricionistaModel = new application.app.models.ConsultaDao(connection)
+		const dadosClienteModel = new application.app.models.ClienteDao(connection)
+		dadosNutricionistaModel.nutricionistas().then(nutricionistas => {
+			dadosClienteModel.clientes().then(clientes => {
 				res.render("consulta/addConsulta", {
 					validacao: {},
 					colaboradores : colaborador,

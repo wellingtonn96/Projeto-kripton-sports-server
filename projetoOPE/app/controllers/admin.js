@@ -34,9 +34,11 @@ exports.autenticar = (application, req, res)=>{
 	colaboradoresModel.autenticar(dadosForm, req, res).then((results) => {
 		var row =  results[0]
 			if(row != undefined){
+				//console.log(row)
 				req.session.autorizado = true;
 				req.session.colaborador = row.nome;
 				req.session.tipo = row.idTipo
+				req.session.idColaborador = row.idColaborador
 			}
 			if(req.session.autorizado && req.session.tipo === 1 || 2 || 4){
 				res.redirect("/inicio");
