@@ -6,7 +6,6 @@ const expressValidator = require('express-validator');
 const session = require('express-session')
 //const RedisStore = require('connect-redis')(session);
 
-
 const app = express();
 
 app.set('view engine', 'ejs');

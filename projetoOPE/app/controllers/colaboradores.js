@@ -186,6 +186,7 @@ exports.nutricionistaSalvar = function(application, req, res){
 	req.assert('senha','Campo senha é obrigatório').notEmpty();
 	req.assert('email','Campo email é obrigatório').notEmpty().isEmail();
 	req.assert('nome','Campo nome é obrigatório').notEmpty();
+	req.assert('sobrenome','Campo sobrenome é obrigatório').notEmpty();
 	req.assert('telefone','Campo telefone é obrigatório').notEmpty();
 	req.assert('crn','Campo CRN é obrigatório').notEmpty();
 	var erros = req.validationErrors();
@@ -202,6 +203,7 @@ exports.nutricionistaSalvar = function(application, req, res){
 		senha : input.senha,
 		email : input.email,
 		nome  : input.nome,
+		sobrenome : input.sobrenome,
 		telefone : input.telefone,
 		idTipo : 3
 	};

@@ -1,39 +1,17 @@
 
-
-exports.pedido = (application, req, res)=>{
-	if(req.session.autorizado){
-		const colaborador = req.session.colaborador
-		const connection = application.config.dbConnection();
-		const produtosModel = new application.app.models.ProdutosDao(connection);
-		const id  = req.body.idProduto
-		produtosModel.listarProduto().then(result => {
-			produtosModel.dadosProduto(id).then(produto=>{
-				const array = []
-				array.push(produto[0])
-				res.render("pedido/addPedido",{
-					colaboradores: colaborador,
-					produtos: result,
-					produto : array
-				});
-			}).catch(error => console.log(error))			
-		}).catch(error => console.log(error))
-
-	}else {
-		res.render("login/login", {validacao : {}});	
-	}
-	
-}
-
 exports.criarPedido = (application, req, res)=>{
 	if(req.session.autorizado){
         const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const clientesModel = new application.app.models.ClienteDao(connection);
 		clientesModel.clientes().then(result => {
-			res.render("pedido/pedido",{
-                colaboradores: colaborador,
+			res.render("pedido/addPedido",{
 				dadosCliente: result,
-				validacao : {}
+				validacao : {},
+				colaboradores: colaborador,
+				produtos: {},
+				produto : {},
+				idPedido: {},
             });
 		}).catch(error => console.log(error))
 	} else {
@@ -42,6 +20,7 @@ exports.criarPedido = (application, req, res)=>{
 		});
 	}
 }
+
 
 exports.criarPedido_salvar = (application, req, res)=>{
 	if(req.session.autorizado){
@@ -49,39 +28,54 @@ exports.criarPedido_salvar = (application, req, res)=>{
 			idCliente : req.body.idCliente,
 			idColaborador : req.session.idColaborador
 		}
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
 		const pedidoModel = new application.app.models.PedidoDao(connection);
-		pedidoModel.criarPedido(dados).then(result => {
-			//res.redirect("/addpedido")
-			const id = result.insertId
-			pedido(application, req, res, id)
+		const produtosModel = new application.app.models.ProdutosDao(connection);
+		pedidoModel.criarPedido(dados).then(dados => {
+			const id = dados.insertId
+			produtosModel.listarProduto().then(result => {
+				res.render("pedido/addPedido",{
+					dadosCliente: {},
+					validacao : {},
+					colaboradores: colaborador,
+					produtos: result,
+					produto : {},
+					idPedido:  id
+				});
+			}).catch(error => console.log(error));
 		}).catch(erro => console.log(erro))
-
-
 	}else {
 		res.render("login/login", {validacao : {}});	
 	}
 }
 
 
-
-
-function pedido(application, req, res, idPedido){
+exports.pedidoAdd_salvar = (application, req, res)=>{
 	if(req.session.autorizado){
-        const colaborador = req.session.colaborador
+		var dados = req.body
+		const colaborador = req.session.colaborador
 		const connection = application.config.dbConnection();
+		const pedidoModel = new application.app.models.PedidoDao(connection);
 		const produtosModel = new application.app.models.ProdutosDao(connection);
-		produtosModel.listarProduto().then(result => {
-			res.render("pedido/addPedido",{
-                colaboradores: colaborador,
-				produtos: result,
-				produto : {},
-				idPedido : idPedido
-            });
-		}).catch(error => console.log(error))
-	} else {
-		res.render("login/login", {
-			validacao : erros,
-		});
+		pedidoModel.inserirItemPedido(dados).then(results => {
+			pedidoModel.itemsPedido(dados.idPedido).then(itemsPedido => {
+				var valor = itemsPedido.map(item => item.soma).reduce((prev, next)=>prev + next);
+				itemsPedido.total = valor
+				produtosModel.listarProduto().then(result => {
+					res.render("pedido/addPedido",{
+						dadosCliente: {},
+						validacao : {},
+						colaboradores: colaborador,
+						produtos: result,
+						produto :itemsPedido,
+						idPedido: dados.idPedido
+					});
+				}).catch(error => console.log(error));
+			}).catch(erro => console.log(erro))
+		}).catch(erro => console.log(erro))
+	}else {
+		res.render("login/login", {validacao : {}});	
 	}
 }
+

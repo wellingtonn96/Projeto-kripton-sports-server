@@ -10,7 +10,8 @@ exports.cadastrar = (application, req, res)=>{
 					validacao : {},
 					colaboradores  : colaborador,
 					dadosFornecedor : fornecedor,
-					dadosCategoria : categoria
+					dadosCategoria : categoria,
+					dados : {}
 				});
 			}).catch(error => console.log(error))
 		}).catch(error => console.log(error))
@@ -50,7 +51,8 @@ exports.salvar = (application, req, res)=>{
 						validacao : erros,
 						colaboradores  : colaborador,
 						dadosFornecedor : fornecedor,
-						dadosCategoria : categoria
+						dadosCategoria : categoria,
+						dados : dados
 					});
 				}).catch(error => console.log(error))
 			}).catch(error => console.log(error))

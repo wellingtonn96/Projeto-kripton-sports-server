@@ -156,7 +156,7 @@ create Table itemPedido(
     primary key(idItemPedido),
     foreign key(idPedido) references pedido(idPedido),
     foreign key(codProduto) references produto(idProduto)
-    );
+);
     
 create table notaFiscal(
 	idNota int not null auto_increment,
@@ -214,4 +214,4 @@ insert into itemPedido (idPedido,codProduto,quantidade,valorUnitario) Values(1,2
 -- Exemplo de um pedido
 
 select produto.nome, itemPedido.quantidade,itemPedido.valorUnitario 
-from itemPedido inner join produto on produto.idProduto=itempedido.codProduto where idPedido=1;
+from itemPedido INNER JOIN produto ON itemPedido.codProduto = produto.idProduto where itemPedido.idPedido=100;

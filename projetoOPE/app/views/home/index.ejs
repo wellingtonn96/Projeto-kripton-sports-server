@@ -4,12 +4,12 @@
 
   <div class="container-fluid">
     <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="#">Início</a>
-      </li>
-      <li class="breadcrumb-item active">Acessos</li>
-    </ol>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i></i>
+        Início</div>
+    </div>
+    
 
     <!-- Icon Cards-->
     <div class="row">
@@ -17,7 +17,7 @@
         <div class="card text-white bg-primary o-hidden h-100">
           <div class="card-body">
             <div class="card-body-icon">
-              <i class="fas fa-fw fa-comments"></i>
+              <i class="fas fa-fw fa-users"></i>
             </div>
             <div class="mr-5">Colaboradores!</div>
           </div>
@@ -88,27 +88,36 @@
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
-              <%if(dados.length > 0) {%>
-                <% for(let i = 0; i < dados.length; i++){ %>
-                    <tr>
-                      <th>ID</th>
-                      <th>Código</th>
-                      <th>Nome</th>
-                      <th>Marca</th>
-                      <th>Válidade</th>
-                      <th>Lote</th>
-                      <th>Dias para vencimento</th>
-                    </tr>
-                  </thead>
-                  <tr>
-                    <td><%=dados[i].idProduto%></td>
-                    <td><%=dados[i].codigo %></td>
-                    <td><%=dados[i].nome%></td>
-                    <td><%=dados[i].marca %></td>
-                    <td><%=dados[i].validade.toLocaleDateString("pt-br") %></td>
-                    <td><%=dados[i].lote %></td>
-                    <td><%=dados[i].dias_para_vencimento%></td>
-                  </tr>
+              <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Válidade</th>
+                <th>Lote</th>
+                <th>Dias para vencimento</th>
+              </tr>
+            </thead>
+            <tfoot>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Válidade</th>
+                <th>Lote</th>
+                <th>Dias para vencimento</th>
+            </tfoot>
+            <%if(dados.length > 0) {%>
+              <% for(let i = 0; i < dados.length; i++){ %>
+                <tr>
+                  <td><%=dados[i].idProduto%></td>
+                  <td><%=dados[i].codigo %></td>
+                  <td><%=dados[i].nome%></td>
+                  <td><%=dados[i].marca %></td>
+                  <td><%=dados[i].validade.toLocaleDateString("pt-br") %></td>
+                  <td><%=dados[i].lote %></td>
+                  <td><%=dados[i].dias_para_vencimento%></td>
+                </tr>
               <% } %>
             <% } %>
           </table>

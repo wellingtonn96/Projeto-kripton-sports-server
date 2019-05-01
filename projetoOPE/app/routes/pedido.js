@@ -1,12 +1,12 @@
 
 module.exports = (application)=>{
 
-    application.get('/addpedido',(req, res)=>{
-      application.app.controllers.pedido.addPedido(application, req, res);		
+    application.get('/pedido_add',(req, res)=>{
+      application.app.controllers.pedido.pedidoAdd(application, req, res);		
     });
 
-    application.post('/addpedido',(req, res)=>{
-      application.app.controllers.pedido.pedido(application, req, res);		
+    application.post('/pedido_add',(req, res)=>{
+      application.app.controllers.pedido.pedidoAdd_salvar(application, req, res);		
     });
 
     application.get('/pedido',(req, res)=>{
