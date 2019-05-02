@@ -22,6 +22,12 @@ app.use('/colaboradores/editar', express.static('./app/public'));
 app.use('/colaboradores/detalhes', express.static('./app/public'));
 app.use('/colaboradores/salvar', express.static('./app/public'))
 
+app.use('/clientes/cadastrar', express.static('./app/public'))
+app.use('/clientes/salvar', express.static('./app/public'))
+app.use('/clientes/editar', express.static('./app/public'));
+app.use('/clientes/detalhes', express.static('./app/public'));
+app.use('/clientes/salvar', express.static('./app/public'))
+
 //produtos
 app.use('/produto' ,express.static('./app/public'));
 app.use('/produto/editar', express.static('./app/public'));
@@ -60,8 +66,8 @@ app.use(session({/*
         port:6379
     }),*/
     secret:'p@ssw0rd',
-    resave:true,
-    saveUninitialized:true
+    resave:false,
+    saveUninitialized:false
 }))
 
 

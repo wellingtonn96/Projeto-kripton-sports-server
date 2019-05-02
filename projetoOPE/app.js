@@ -1,6 +1,11 @@
 let app = require('./config/server');
 let port = 3000
 
+app.listen(port,()=>{
+	console.log("servidor funcionando na porta => https://localhost:"+port);
+});
+
+/*
 var http = require('http')
 var socket = require('socket.io')
 
@@ -14,8 +19,6 @@ io.on('connection', function(socket){
 		data: new Date()
 	})
 })
+*/
 
-http.listen(port,()=>{
-	console.log("servidor funcionando na porta => https://localhost:"+port);
-});
 	
