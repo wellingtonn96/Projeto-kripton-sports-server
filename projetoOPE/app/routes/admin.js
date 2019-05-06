@@ -1,5 +1,4 @@
 module.exports = (application)=>{
-	
 	application.get('/', (req, res)=>{
 		application.app.controllers.admin.login(application, req, res);		
 	});
@@ -11,5 +10,4 @@ module.exports = (application)=>{
 	application.get('/logout', (req, res)=>{
 		application.app.controllers.admin.logout(application, req, res);
 	});
-
 };

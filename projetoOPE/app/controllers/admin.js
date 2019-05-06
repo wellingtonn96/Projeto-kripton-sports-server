@@ -1,15 +1,11 @@
 exports.logout = (application, req, res)=>{
-	/*delete req.session.autorizado
-	res.render("login/login", {
-		validacao : {},
-	});*/
-	
 	req.session.destroy(function(err){
 		res.render("login/login", {
 			validacao : {},
 		});
 	})
 }
+
 
 exports.login = (application, req, res)=>{
 	res.render("login/login", {
@@ -51,6 +47,4 @@ exports.autenticar = (application, req, res)=>{
 			validacao : erro,
 		});
 	});
-
-
 }

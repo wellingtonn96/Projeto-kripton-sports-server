@@ -1,6 +1,10 @@
 module.exports = (application)=>{
 	application.get('/inicio', (req, res)=>{
-		application.app.controllers.home.index(application, req, res);
+		if(req.session.autorizado){
+			application.app.controllers.home.index(application, req, res);
+		}else {
+            res.render("login/login", {validacao : {}});	
+        }
 	});
 };
 

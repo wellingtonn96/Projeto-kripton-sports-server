@@ -12,6 +12,8 @@ app.set('view engine', 'ejs');
 app.set('views', './app/views');
 
 /* configurar o middleware express.static */
+//express.static(root, [options])
+
 app.use('/', express.static('./app/public'));
 
 

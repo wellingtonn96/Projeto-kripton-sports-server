@@ -40,8 +40,8 @@
             </div>
         </form>
     </div>
-
     <% } %>
+
         <% if(produtos.length > 0) { %>
 
 
@@ -83,96 +83,105 @@
             </div>
         </div>
 
-        <div class="card mb-3">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-6">
-                        <i>ID Pedido:</i>
-                        <%= idPedido %>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <i>ID Pedido:</i>
+                                        <%= idPedido %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="container">
+                
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <!--produto.nome, itemPedido.quantidade,itemPedido.valorUnitario-->
+                                                <th>Item</th>
+                                                <th>Nome</th>
+                                                <th>Código</th>
+                                                <th>Quantidade</th>
+                                                <th>Valor Unitario</th>
+                                                <th>Subtotal</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Nome</th>
+                                                <th>Código</th>
+                                                <th>Quantidade</th>
+                                                <th>Valor Unitario</th>
+                                                <th>Subtotal</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                            </tfoot>
+                                                <tbody>
+                                                <% if(produto.length > 0) { %>
+                                                    <% for(var i = 0; i < produto.length; i++){ %>
+                                                    <tr>
+                                                        <td><%= i+1 %></td>
+                                                        <td><%= produto[i].nome %></td>
+                                                        <td><%= produto[i].codigo %></td>
+                                                        <td><%= produto[i].quantidade %></td>
+                                                        <td><%= produto[i].valor.toFixed(2) %></td>
+                                                        <td><%= produto[i].soma.toFixed(2) %></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                <% } %>
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-               
-                <div class="container">
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <!--produto.nome, itemPedido.quantidade,itemPedido.valorUnitario-->
-                                <th>Item</th>
-                                <th>Nome</th>
-                                <th>Código</th>
-                                <th>Quantidade</th>
-                                <th>Valor Unitario</th>
-                                <th>Subtotal</th>
-                                <th>Ações</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th colspan="2">Valor:</th>
-                                <th colspan="2">R$<%= produto.total %></th>
-                                <th colspan="3">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-info">Encerrar Venda</button>
+                <div class="col-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <form action="/pedido_finalizar/<%= idPedido %>" method="post" id="finalizarVenda">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <span>Valor total</span>
+                                        <h1>R$<%= produto.total %></h1>
                                     </div>
-                                </th>
-                            </tr>
-                            </tfoot>
-                                <tbody>
-                                <% if(produto.length > 0) { %>
-                                    <% for(var i = 0; i < produto.length; i++){ %>
-                                    <tr>
-                                        <td><%= i+1 %></td>
-                                        <td><%= produto[i].nome %></td>
-                                        <td><%= produto[i].codigo %></td>
-                                        <td><%= produto[i].quantidade %></td>
-                                        <td><%= produto[i].valor %></td>
-                                        <td><%= produto[i].soma %></td>
-                                        <td>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% } %>
-                                <% } %>
-                            </tbody>
-                    </table>
+                                    <div class="form-group col-md-12">
+                                            <label for="pwd">Forma de pagamento:</label>
+                                        <select class="custom-select" id="formaPgto" name="formaPgto" id="formaPgto">
+                                            <option value="dinheiro">DINHEIRO</option>
+                                            <option value="credito">CREDITO</option>
+                                            <option value="debito">DEBITO</option>
+                                        </select>
+                                    </div>
+            
+                                    <div class="form-group col-md-12 text-center">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-info">Finalizar venda</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>     
                 </div>
             </div>
-
         </div>
     </div>
-
-</div>
 
      <% } %>
 </div>
 
 <%- include("../includes/footer") -%>
-<!--
-<script>
 
-$(function(){
-    $('.talbleAddProd tbody').on('click', '.addProduto', function() {
-        var currow = $(this).closest('tr');
-        var dados = {
-            idPedido : currow.find('.idPedido').text(),
-            codProduto :currow.find('.idProduto').text(),
-            quantidade: currow.find('#quantidade').val(), 
-            valorUnitario : currow.find('.valor').text()
-        }
 
-         $.ajax({
-            url:'/pedido_add',
-            type: 'post',
-            dataType: 'json',
-            data: dados
-        });
-    });
-  });
-</script>
--->

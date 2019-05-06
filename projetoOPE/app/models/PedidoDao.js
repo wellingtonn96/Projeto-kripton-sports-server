@@ -47,6 +47,19 @@ class PedidoDao{
 		})
 	}
 
+	insertFormaPgto(dados, id){
+		return new Promise((resolve, reject)=>{
+			this._connection.query('UPDATE pedido set ? WHERE idPedido = ? ',
+			[dados, id],
+			(error, results)=>{
+				if(error){
+					reject(error)
+				}else{
+					resolve(results)
+				}
+			})
+		})
+	}
 }
 
 module.exports = () => PedidoDao
