@@ -1,8 +1,10 @@
 exports.cadastrar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	res.render("fornecedores/cadastrar", {
 		validacao:{},
-		colaboradores : colaborador
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 	});	
 }
 
@@ -29,23 +31,23 @@ exports.salvar = (application, req, res)=>{
 exports.excluir = (application, req, res)=>{
 	const connection = application.config.dbConnection();
 	const fornecedorModel = new application.app.models.FornecedoresDao(connection);
-	
 	const id  = req.params.id;
-
 	fornecedorModel.excluirFornecedor(id).then(result => {
 		res.redirect("/fornecedores")
 	}).catch(erros => console.log(errors))
 }
 
 exports.editar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const fornecedorModel = new application.app.models.FornecedoresDao(connection);
 	const id  = req.params.id;
 	fornecedorModel.dadosFornecedor(id).then(result => {
 		res.render("fornecedores/editar", {
 			dados : result,
-			colaboradores: colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error => console.log(error))
 }
@@ -62,27 +64,31 @@ exports.atualizar = (application, req, res)=>{
 
 
 exports.detalhar = (application, req, res)=>{
-	const colaborador = req.session.colaborador	
 	const connection = application.config.dbConnection();
 	const fornecedorModel = new application.app.models.FornecedoresDao(connection);
 	const id  = req.params.id;
 	fornecedorModel.dadosFornecedor(id).then(result => {
 		res.render("fornecedores/detalhes", {
 			dados : result,
-			colaboradores: colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		});	
 	}).catch(error => console.log(error))
 }
 
 
 exports.listar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const fornecedorModel = new application.app.models.FornecedoresDao(connection)
 	fornecedorModel.listarFornecedor().then(result => {
 		res.render("fornecedores/fornecedores", {
 			dados   : result,
-			colaboradores: colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error => console.log(error))
 }

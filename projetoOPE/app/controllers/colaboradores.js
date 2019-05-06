@@ -1,12 +1,14 @@
 
 exports.colaboradores = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 	colaboradoresModel.listarColaboradores().then(result => {
 		res.render("colaboradores/colaboradores", {
 			dados : result,
-			colaboradores : colaborador
+			autenticar : {
+						colaborador : req.session.colaborador,
+						tipo : req.session.tipo
+					},
 		})
 	}).catch(error => {
 		console.log(error)
@@ -17,10 +19,12 @@ exports.colaboradores = (application, req, res)=>{
 
 
 exports.cadastrar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	res.render('colaboradores/cadastrar', {
 		validacao : {},
-		colaboradores : colaborador,
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 		dados: {}
 	});
 }
@@ -29,7 +33,6 @@ exports.cadastrar = (application, req, res)=>{
 
 //create
 exports.colaborador_salvar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const dadosForm = req.body;
 	req.assert('login','Campo login é obrigatório').notEmpty();
 	req.assert('login','Campo login é de 4 a 10 caracteres').len(4, 10);
@@ -44,7 +47,10 @@ exports.colaborador_salvar = (application, req, res)=>{
 	if(erros){
 		res.render('colaboradores/cadastrar', {
 			validacao : erros,
-			colaboradores : colaborador,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 			dados: dadosForm
 		});
 		return;
@@ -64,14 +70,16 @@ exports.colaborador_salvar = (application, req, res)=>{
 
 //Update
 exports.editarColaborador = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 	const id  = req.params.id;
 	colaboradoresModel.dadosColaborador(id).then(result =>{
 		res.render("colaboradores/editar", {
 			dados    : result,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error =>
 		console.log(error)
@@ -83,7 +91,6 @@ exports.editarColaborador = (application, req, res)=>{
 
 
 exports.salvarColaborador = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 	const dados = req.body
@@ -98,14 +105,16 @@ exports.salvarColaborador = (application, req, res)=>{
 
 
 exports.detalhesColaborador = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 	const id  = req.params.id;
 	colaboradoresModel.dadosColaborador(id).then(result =>
 	res.render("colaboradores/detalhes", {
 		dados : result,
-		colaboradores : colaborador
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 	})).catch(error => 
 		console.log(error)
 	)
@@ -115,7 +124,6 @@ exports.detalhesColaborador = (application, req, res)=>{
 
 //Delete
 exports.excluirColaborador = function(application, req, res){
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const colaboradoresModel = new application.app.models.ColaboradoresDao(connection);
 	const id  = req.params.id;
@@ -131,16 +139,17 @@ exports.excluirColaborador = function(application, req, res){
 
 
 exports.cadastrarNutricionista = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	res.render("colaboradores/nutricionista", {
 		validacao:{},
-		colaboradores : colaborador
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 	});
 }
 
 
 exports.nutricionistaSalvar = function(application, req, res){
-	const colaborador = req.session.colaborador
 	const input = req.body
 	req.assert('login','Campo login é obrigatório').notEmpty();
 	req.assert('login','Campo login é de 4 a 10 caracteres').len(4, 10);
@@ -154,7 +163,10 @@ exports.nutricionistaSalvar = function(application, req, res){
 	if(erros){
 		res.render('colaboradores/nutricionista', {
 			validacao : erros,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		});
 		return;
 	}

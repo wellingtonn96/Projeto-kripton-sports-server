@@ -7,8 +7,11 @@ exports.clientes = (application, req, res)=>{
 	clientesModel.clientes().then(result => {
 		res.render("clientes/clientes", {
 			dados : result,
-			colaboradores : colaborador
-		})
+			autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
+	})
 	}).catch(error => {
 		console.log(error)
 	})
@@ -21,7 +24,10 @@ exports.cadastrar = (application, req, res)=>{
 	const colaborador = req.session.colaborador
 	res.render('clientes/cadastrar', {
 		validacao : {},
-		colaboradores : colaborador,
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 		dados: {}
 	});
 }
@@ -44,7 +50,10 @@ exports.cliente_salvar = (application, req, res)=>{
 	if(erros){
 		res.render('clientes/cadastrar', {
 			validacao : erros,
-			colaboradores : colaborador,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 			dados: dadosForm
 		});
 		return;
@@ -71,7 +80,10 @@ exports.editarCliente = (application, req, res)=>{
 	clientesModel.dadosCliente(id).then(result =>{
 		res.render("clientes/editar", {
 			dados    : result,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error =>
 		console.log(error)
@@ -103,10 +115,13 @@ exports.detalhesCliente = (application, req, res)=>{
 	const clientesModel = new application.app.models.ClienteDao(connection);
 	const id  = req.params.id;
 	clientesModel.dadosCliente(id).then(result =>
-	res.render("clientes/detalhes", {
-		dados : result,
-		colaboradores : colaborador
-	})).catch(error => 
+		res.render("clientes/detalhes", {
+			dados : result,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
+		})).catch(error => 
 		console.log(error)
 	)
 }

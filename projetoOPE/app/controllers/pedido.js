@@ -1,13 +1,15 @@
 
 exports.criarPedido = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const clientesModel = new application.app.models.ClienteDao(connection);
 	clientesModel.clientes().then(result => {
 		res.render("pedido/addPedido",{
 			dadosCliente: result,
 			validacao : {},
-			colaboradores: colaborador,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 			produtos: {},
 			produto : {},
 			idPedido: {},
@@ -21,7 +23,6 @@ exports.criarPedido_salvar = (application, req, res)=>{
 		idCliente : req.body.idCliente,
 		idColaborador : req.session.idColaborador
 	}
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const pedidoModel = new application.app.models.PedidoDao(connection);
 	const produtosModel = new application.app.models.ProdutosDao(connection);
@@ -31,7 +32,10 @@ exports.criarPedido_salvar = (application, req, res)=>{
 			res.render("pedido/addPedido",{
 				dadosCliente: {},
 				validacao : {},
-				colaboradores: colaborador,
+				autenticar : {
+					colaborador : req.session.colaborador,
+					tipo : req.session.tipo
+				},
 				produtos: result,
 				produto : {},
 				idPedido:  id
@@ -43,7 +47,6 @@ exports.criarPedido_salvar = (application, req, res)=>{
 
 exports.pedidoAdd_salvar = (application, req, res)=>{
 	var dados = req.body
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const pedidoModel = new application.app.models.PedidoDao(connection);
 	const produtosModel = new application.app.models.ProdutosDao(connection);
@@ -55,7 +58,10 @@ exports.pedidoAdd_salvar = (application, req, res)=>{
 				res.render("pedido/addPedido",{
 					dadosCliente: {},
 					validacao : {},
-					colaboradores: colaborador,
+					autenticar : {
+						colaborador : req.session.colaborador,
+						tipo : req.session.tipo
+					},
 					produtos: result,
 					produto :itemsPedido,
 					idPedido: dados.idPedido

@@ -152,10 +152,17 @@
                         <div class="card-body">
                             <form action="/pedido_finalizar/<%= idPedido %>" method="post" id="finalizarVenda">
                                 <div class="form-row">
+                                    <%if(produto.total !== undefined){%>
                                     <div class="col">
                                         <span>Valor total</span>
                                         <h1>R$<%= produto.total %></h1>
                                     </div>
+                                    <%} else {%>
+                                    <div class="col">
+                                        <span>Valor total</span>
+                                        <h1>R$00.00 %></h1>
+                                    </div>
+                                    <% } %>
                                     <div class="form-group col-md-12">
                                             <label for="pwd">Forma de pagamento:</label>
                                         <select class="custom-select" id="formaPgto" name="formaPgto" id="formaPgto">

@@ -1,5 +1,4 @@
 exports.cadastrar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection()
 	const dadosNutricionistaModel = new application.app.models.ConsultaDao(connection)
 	const dadosClienteModel = new application.app.models.ClienteDao(connection)
@@ -7,7 +6,10 @@ exports.cadastrar = (application, req, res)=>{
 		dadosClienteModel.clientes().then(clientes => {
 			res.render("consulta/addConsulta", {
 				validacao: {},
-				colaboradores : colaborador,
+				autenticar : {
+					colaborador : req.session.colaborador,
+					tipo : req.session.tipo
+				},
 				dadosNutricionista : nutricionistas,
 				dadosCliente : clientes
 			});
@@ -31,26 +33,30 @@ exports.dadosConsulta = (application, req, res)=>{
 }
 
 exports.listarConsultas = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection()
 	const dadosModel = new application.app.models.ConsultaDao(connection)
 	dadosModel.consultasMarcadas().then(results=>{
 		res.render("consulta/agendaConsulta", {
-			colaboradores : colaborador,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 			dados : results
 		});
 	}).catch(error => console.log(error))
 }
 
 exports.cadastrarProntuario = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection()
 	const dadosModel = new application.app.models.ConsultaDao(connection)
 	dadosModel.nutricionistas().then(nutricionistas => {
 		dadosModel.consultasMarcadas().then(consultas => {
 			res.render("consulta/addProtuario", {
 				validacao: {},
-				colaboradores : colaborador,
+				autenticar : {
+					colaborador : req.session.colaborador,
+					tipo : req.session.tipo
+				},
 				dadosNutricionista : nutricionistas,
 				dadosConsulta : consultas
 			});

@@ -1,6 +1,6 @@
 exports.cadastrar = (application, req, res)=>{
 	
-		const colaborador = req.session.colaborador
+
 		const connection = application.config.dbConnection();
 		const produtosModel = new application.app.models.ProdutosDao(connection);
 		const fornecedorModel = new application.app.models.FornecedoresDao(connection)
@@ -8,7 +8,10 @@ exports.cadastrar = (application, req, res)=>{
 			produtosModel.listarCategoria().then(categoria => {
 				res.render('produtos/cadastrar', {
 					validacao : {},
-					colaboradores  : colaborador,
+					autenticar : {
+						colaborador : req.session.colaborador,
+						tipo : req.session.tipo
+					},
 					dadosFornecedor : fornecedor,
 					dadosCategoria : categoria,
 					dados : {}
@@ -22,7 +25,6 @@ exports.cadastrar = (application, req, res)=>{
 
 
 exports.salvar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const dados = req.body;
 	console.log(dados)
 	req.assert('codigo','Campo codigo é obrigatório').notEmpty();
@@ -46,7 +48,10 @@ exports.salvar = (application, req, res)=>{
 			produtosModel.listarCategoria().then(categoria => {
 				res.render('produtos/cadastrar', {
 					validacao : erros,
-					colaboradores  : colaborador,
+					autenticar : {
+						colaborador : req.session.colaborador,
+						tipo : req.session.tipo
+					},
 					dadosFornecedor : fornecedor,
 					dadosCategoria : categoria,
 					dados : dados
@@ -79,14 +84,16 @@ exports.excluir = (application, req, res)=>{
 
 
 exports.editar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const produtosModel = new application.app.models.ProdutosDao(connection);
 	const id  = req.params.id
 	produtosModel.dadosProduto(id).then(result => {
 		res.render("produtos/editar", {
 			dados    : result,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error => console.log(error))
 }
@@ -105,42 +112,47 @@ exports.atualizar = (application, req, res)=>{
 
 
 exports.detalhar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const produtosModel = new application.app.models.ProdutosDao(connection);
 	const id  = req.params.id
 	produtosModel.dadosProduto(id).then(result => {
 		res.render("produtos/detalhes", {
 			dados    : result,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		})
 	}).catch(error => console.log(error))
 }
 
 exports.listar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const connection = application.config.dbConnection();
 	const produtosModel = new application.app.models.ProdutosDao(connection);
 	produtosModel.listarProduto().then(result => {
 		res.render("produtos/produtos", {
 			produtos : result,
-			colaboradores : colaborador
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		});
 	}).catch(error => console.log(error))
 }
 
 
 exports.categoriaForm = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	res.render('produtos/categoria', {
 		validacao : {},
-		colaboradores  : colaborador,
+		autenticar : {
+			colaborador : req.session.colaborador,
+			tipo : req.session.tipo
+		},
 	});
 }
 
 
 exports.categoriaSalvar = (application, req, res)=>{
-	const colaborador = req.session.colaborador
 	const dados = req.body;
 	req.assert('categoria','Campo categoria do produto é obrigatório').notEmpty();
 	const erros = req.validationErrors();
@@ -148,7 +160,10 @@ exports.categoriaSalvar = (application, req, res)=>{
 	if(erros){
 		res.render('produtos/categoria', {
 			validacao : erros,
-			colaboradores  : colaborador,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
 		});
 	}
 
