@@ -24,7 +24,7 @@
             <!--Conteudo serão inseridos aqui-->
             <div class="container">
 
-                    <div class="table-responsive">
+                    <div class="table-responsive text-center">
                         <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
@@ -33,7 +33,7 @@
                                 <th>Descrição</th>
                                 <th>Nutricionista</th>
                                 <th>Cliente</th>
-                                <th>Ações</th>
+                                <th>Prontuário</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -43,7 +43,7 @@
                                 <th>Descrição</th>
                                 <th>Nutricionista</th>
                                 <th>Cliente</th>
-                                <th>Ações</th>
+                                <th>Prontuário</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -57,14 +57,16 @@
                                 <td>
                                     <table>
                                     <tr>
+                                        <!--
                                         <td>
                                             <a href=#"><button type="button" class="btn btn-outline-danger fas fa-trash-alt"></button></a>
                                         </td>
                                         <td>
                                             <a href=#"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
                                         </td>
+                                        -->
                                         <td>
-                                            <a href=#"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
+                                            <a href="/consulta/listar/<%= dados[i].idConsulta %>" ><button type="button" class="btn btn-outline-danger fas fa-calendar"></button></a>
                                         </td>
                                     </table>
                                     </tr>

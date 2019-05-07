@@ -57,9 +57,11 @@
                             <td>
                               <table>
                                 <tr>
+                                   <!--
                                     <td>
                                         <button type="button" class="btn btn-outline-danger fas fa-trash-alt" data-toggle="modal" data-target="#modalDelete"></button>
                                     </td>
+                                    -->
                                     <td>
                                       <a href="../clientes/editar/<%=dados[i].idCliente%>"><button type="button" class="btn btn-outline-info fas fa-edit"></button></a>
                                     </td>
@@ -75,33 +77,9 @@
                   </div>
                 </div>               
             </div>
-                  
-        <!--Modal excluir cliente-->
-
-        <div class="modal" tabindex="-1" role="dialog"  id="excluircliente" tabindex="-1" role="dialog" aria-labelledby="excluircliente" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Excluir cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Deseja realmente excluir este cliente!</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger" id="btn_excluircliente">Excluir</button>
-              </div>
-            </div>
-          </div>
         
-
-        <!--fecha modal-->
-       
         </div>
-
+        <!--
         <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -119,7 +97,7 @@
                 </div>
             </div>
       </div>
-        
+      -->
 </div>
 
 <%- include("../includes/footer") -%>

@@ -1,0 +1,73 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+        <div class="container-fluid">
+        
+            <!-- DataTables Example -->
+            <div class="card mb-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i class="fas fa-mobile"></i>
+                        Pedidos realizados no aplicativo
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+               
+                <!--Conteudo serão inseridos aqui-->
+                <div class="container">
+
+                  <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                            <th>Id pedido</th>
+                            <th>Id cliente</th>
+                            <th>Status da compra</th>
+                            <th>data do Pedido</th>
+                            <th>Mudar status da compra</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                            <th>Id pedido</th>
+                            <th>Id cliente</th>
+                            <th>Status da compra</th>
+                            <th>data do Pedido</th>
+                            <th>Mudar status da compra</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% for(var i = 0; i < dados.length; i++){ %>
+                        <tr>
+                            <td><%= dados[i].idPedido %></td>
+                            <td><%= dados[i].idCliente %></td>
+                            <td>
+                                <form action="/pedidosApp/<%= dados[i].idPedido %>" method="POST">
+                                <select class="custom-select" id="statusCompra" name="statusCompra" id="statusCompra">
+                                    <option disabled selected value><%= dados[i].statusCompra %></option>
+                                    <option value="Aberto">Aberto</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                            </td>
+                            <td><%= dados[i].dataPed.toLocaleDateString("pt-br") %></td>
+                            <td>
+                                  <button type="submit" class="btn btn-danger">status compra</button> 
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>               
+            </div>
+        
+        </div>
+    
+</div>
+
+<%- include("../includes/footer") -%>

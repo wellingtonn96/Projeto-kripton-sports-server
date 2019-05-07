@@ -99,34 +99,7 @@ class ProdutosDao{
 			})
 		})
 	}
-/*
-	cadastrarDesconto(dados){
-		return new Promise((resolve, reject)=>{
-			this._connection.query('INSERT INTO desconto set ? '
-			,[dados],
-			(error, results)=>{
-				if(error){
-					reject(error)
-				}else{
-					resolve(results)
-				}
-			})
-		})
-	}
 
-	listarDesconto(){
-		return new Promise((resolve, reject)=>{
-		this._connection.query('SELECT * FROM desconto d, produto p where d.idProduto = p.idProduto',
-			(error, results)=>{
-				if(error){
-					reject(error)
-				}else{
-					resolve(results)
-				}
-			})
-		})
-	}
-*/
 	listaVencimento(){
 		return new Promise((resolve, reject)=>{
 			this._connection.query('SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS dias_para_vencimento FROM produto;',
@@ -139,6 +112,21 @@ class ProdutosDao{
 			})
 		})
 	}
+
+	qtdEstoque(id){
+		return new Promise((resolve, reject)=>{
+			this._connection.query('SELECT qtdeEstoque FROM produto where idProduto = ?'
+			,[id],
+			(error, results)=>{
+				if(error){
+					reject(error)
+				}else{
+					resolve(results)
+				}
+			})
+		})
+	}
+	
 
 
 }

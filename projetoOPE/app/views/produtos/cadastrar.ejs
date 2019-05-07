@@ -75,6 +75,11 @@
                 </div>
 
                 <div class="form-group col-md-6">
+                    <label for="valor">Quantidade:</label>
+                    <input type="number" class="form-control" id="qtdeEstoque" name="qtdeEstoque" value="<%=dados.qtdeEstoque%>">
+                </div>
+    
+                <div class="form-group col-md-12">
                     <label for="idFornecedor">ID Fornecedor:</label>
                     <select class="custom-select" name="idFornecedor" id="idFornecedor">
                     <% for(var i = 0; i < dadosFornecedor.length; i++) { %>

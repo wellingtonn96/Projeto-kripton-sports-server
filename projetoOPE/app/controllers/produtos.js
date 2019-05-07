@@ -175,3 +175,27 @@ exports.categoriaSalvar = (application, req, res)=>{
 		res.send(error)
 	})
 }
+
+exports.estoqueProdutos = (application, req, res)=>{
+	const connection = application.config.dbConnection();
+	const produtosModel = new application.app.models.ProdutosDao(connection);
+	produtosModel.listarProduto().then(result => {
+		res.render("produtos/estoque", {
+			produtos : result,
+			autenticar : {
+				colaborador : req.session.colaborador,
+				tipo : req.session.tipo
+			},
+		});
+	}).catch(error => console.log(error))
+}
+
+exports.atualizarEstoque = (application, req, res)=>{
+	var id = req.params.id
+	var dados = req.body
+	const connection = application.config.dbConnection();
+	const produtosModel = new application.app.models.ProdutosDao(connection);
+	produtosModel.atualizarProduto(dados, id).then(result => {
+		res.redirect('/estoque')
+	}).catch(error => console.log(error))
+}

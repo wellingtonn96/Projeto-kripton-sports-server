@@ -16,9 +16,25 @@ module.exports = (application)=>{
         }
     });
 
+    application.post('/consulta/agendar/:id',(req, res)=>{
+        if(req.session.autorizado && req.session.tipo === 3){
+            application.app.controllers.consulta.prontuario(application, req, res);
+        }else {
+            res.render("login/login", {validacao : {}});	
+        }
+    });
+
     application.get('/consulta/listar', (req, res)=>{
         if(req.session.autorizado && req.session.tipo === 3){
             application.app.controllers.consulta.listarConsultas(application, req, res);
+        }else {
+            res.render("login/login", {validacao : {}});	
+        }
+     })
+
+     application.get('/consulta/listar/:id', (req, res)=>{
+        if(req.session.autorizado && req.session.tipo === 3){
+            application.app.controllers.consulta.dadosCliente(application, req, res);
         }else {
             res.render("login/login", {validacao : {}});	
         }

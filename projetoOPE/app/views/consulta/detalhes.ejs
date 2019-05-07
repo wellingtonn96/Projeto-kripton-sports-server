@@ -1,0 +1,48 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+                <div class="card mb-3">
+                <div class="card-header">
+                <i class="fas fa-user"></i>
+                Prontuário consulta</div>
+                <%if(dados.length > 0){%>
+                <div class="card-body">
+                    <div class="row-12">
+                        <div class="col-md-6">
+                            <span>ID Cliente:</span>
+                            <span><%=dados[0].idCliente%></span>                  
+                        </div>
+                        <div class="col-md-6">
+                            <span>Nome:</span>
+                            <span><%=dados[0].nome%></span>                 
+                        </div>     
+                        <div class="col-md-6">
+                            <span>Sobrenome:</span>
+                            <span><%=dados[0].sobrenome%></span>                 
+                        </div>
+                        <div class="col-md-6">
+                            <span>Email:</span>
+                            <span><%=dados[0].email%></span>                 
+                        </div>
+                        <div class="col-md-6">
+                            <span>Telefone:</span>
+                            <span><%=dados[0].telefone%></span>                 
+                        </div>
+                        <div class="col-md-6">
+                            <span>Diágnostico:</span>
+                            <span><%=dados[0].diagnostico%></span>               
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+        <!-- DataTables Example -->
+    </div>
+
+
+</div>
+
+<%- include("../includes/footer") -%>

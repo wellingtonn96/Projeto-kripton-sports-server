@@ -72,8 +72,10 @@
           <a class="dropdown-item" href="/colaboradores/recuperacao_senha">Redefinir senha</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Cadastro:</h6>
-          <a class="dropdown-item" href="/colaboradores/cadastrar">Colaboradores</a>
-          <a class="dropdown-item" href="/colaboradores/nutricionista">Nutricionista</a>
+          <%if(autenticar.tipo === 1){%>
+            <a class="dropdown-item" href="/colaboradores/cadastrar">Colaboradores</a>
+            <a class="dropdown-item" href="/colaboradores/nutricionista">Nutricionista</a>
+          <% } %>
           <a class="dropdown-item" href="/produto/cadastrar">Produtos</a>
           <a class="dropdown-item" href="/fornecedor/cadastrar">Fornecedores</a>
         </div>
@@ -86,7 +88,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Tabelas:</h6>
-          <a class="dropdown-item" href="/colaboradores">Colaboradores</a>
+          <%if(autenticar.tipo == 1){%>
+            <a class="dropdown-item" href="/colaboradores">Colaboradores</a>
+          <% } %>
           <a class="dropdown-item" href="/produtos">Produtos </a>
           <a class="dropdown-item" href="/fornecedores">Fornecedores</a>
         </div>
@@ -107,17 +111,18 @@
       </li>
       
    
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item">
+          <a class="nav-link" href="/pedido">
           <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>Pedidos</span>
+          <span>Pedido</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown"></a>
-          <a class="dropdown-item" href="#">Cadastrar pedido</a>
-          <a class="dropdown-item" href="#">Pedidos cadastrados</a>
-          <a class="dropdown-item" href="#">Entrega a domicilio</a>
-          <a class="dropdown-item" href="#">Entregas cadastradas</a>
-        </div>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="/pedidosApp">
+          <i class="fas fa-fw fa-mobile"></i>
+          <span>Pedidos app</span>
+        </a>
       </li>
 
       <li class="nav-item">
@@ -125,6 +130,12 @@
           <i class="fas fa-fw fa-user"></i>
           <span>Clientes</span></a>
       </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="/estoque">
+            <i class="fas fa-fw fa-id-card"></i>
+            <span>Estoque</span></a>
+        </li>
 
       <% } %>
 

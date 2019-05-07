@@ -42,6 +42,50 @@ class ConsultaDao{
             })
         })
     }
+
+    inserirProntuario(dados){
+        return new Promise((resolve, reject)=>{
+            this._connection.query('INSERT INTO prontuarioConsulta set ?',[dados],
+            (error, result)=>{
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(result)
+                }
+            })
+        })
+    }
+
+    cadastrarDiagnostico(dados, id){
+		return new Promise((resolve, reject)=>{
+		this._connection.query("UPDATE prontuarioConsulta set ? WHERE idConsulta = ? ",
+		[dados, id],
+			(error, results)=>{
+				if(error){
+					reject(error)
+				}else{
+					resolve(results)
+				}
+			})
+		})
+    }
+    
+    dadosCliente(idConsulta){
+        console.log(idConsulta)
+		return new Promise((resolve, reject)=>{
+            this._connection.query('select cliente.nome, cliente.sobrenome, cliente.idCliente, cliente.email, cliente.telefone, prontuarioConsulta.diagnostico'+
+            ' from cliente INNER JOIN prontuarioConsulta ON cliente.idCliente = prontuarioConsulta.idCliente where prontuarioConsulta.idConsulta = ?',
+			[idConsulta],
+			(error, results)=>{
+				if(error){
+					reject(error)
+				}else{
+					resolve(results)
+				}
+			})
+		})
+	}
+
 }
 
 module.exports = () => ConsultaDao
