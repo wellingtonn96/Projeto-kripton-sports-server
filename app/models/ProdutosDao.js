@@ -102,7 +102,7 @@ class ProdutosDao{
 
 	listaVencimento(){
 		return new Promise((resolve, reject)=>{
-			this._connection.query('SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS dias_para_vencimento FROM produto;',
+			this._connection.query('SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS dias_para_vencimento FROM produto LIMIT 5;',
 			(error, results)=>{
 				if(error){
 					reject(error)

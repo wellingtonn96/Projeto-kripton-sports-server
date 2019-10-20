@@ -81,26 +81,14 @@ exports.subtotal = (application, req, res)=>{
 	}).catch(erro => console.log(erro))	
 }
 
-exports.pedidos_app = (application, req, res)=>{
-	const connection = application.config.dbConnection();
-	const pedidoModel = new application.app.models.PedidoDao(connection);
-	pedidoModel.pedidos_app().then(results => {
-		res.render("pedido/pedidosApp",{
-			autenticar : {
-				colaborador : req.session.colaborador,
-				tipo : req.session.tipo
-			},
-			dados: results
-		});
-	}).catch(erro => console.log(erro))	
-}
-
-exports.statusCompraApp = (application, req, res)=>{
+/*
+exports.cancelarItem = (application, req, res)=>{
 	var dados = req.body
 	var id = req.params.id
 	const connection = application.config.dbConnection();
 	const pedidoModel = new application.app.models.PedidoDao(connection);
-	pedidoModel.statusCompraApp(dados, id).then(results => {
-		res.redirect('/pedidosApp')
+	pedidoModel.cancelarItem(id).then(results => {
+		res.redirect('/pedido_add')
 	}).catch(erro => console.log(erro))	
 }
+*/

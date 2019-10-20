@@ -5,7 +5,6 @@
   "main": "app.js",
   "dependencies": {
     "bootstrap4": "^0.0.1-security",
-    "connect-redis": "^3.4.1",
     "consign": "^0.1.6",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
@@ -15,13 +14,13 @@
     "mysql": "^2.16.0",
     "path": "^0.12.7",
     "redis": "^2.8.0",
-    "socket.io": "^2.2.0",
     "update": "^0.7.4",
     "ws": "^3.3.3"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"

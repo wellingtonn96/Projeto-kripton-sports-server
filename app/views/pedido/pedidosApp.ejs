@@ -24,29 +24,28 @@
                       <thead>
                         <tr>
                             <th>Id pedido</th>
-                            <th>Id cliente</th>
                             <th>Status da compra</th>
                             <th>data do Pedido</th>
                             <th>Mudar status da compra</th>
+                            <th>detalhes do pedido</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
                             <th>Id pedido</th>
-                            <th>Id cliente</th>
                             <th>Status da compra</th>
                             <th>data do Pedido</th>
                             <th>Mudar status da compra</th>
+                            <th>detalhes do pedido</th>
                         </tr>
                       </tfoot>
                       <tbody>
                         <% for(var i = 0; i < dados.length; i++){ %>
                         <tr>
                             <td><%= dados[i].idPedido %></td>
-                            <td><%= dados[i].idCliente %></td>
                             <td>
                                 <form action="/pedidosApp/<%= dados[i].idPedido %>" method="POST">
-                                <select class="custom-select" id="statusCompra" name="statusCompra" id="statusCompra">
+                                <select class="custom-select" id="statusCompra" name="statusCompra" id="statusCompra" required>
                                     <option disabled selected value><%= dados[i].statusCompra %></option>
                                     <option value="Aberto">Aberto</option>
                                     <option value="Em andamento">Em andamento</option>
@@ -55,8 +54,11 @@
                             </td>
                             <td><%= dados[i].dataPed.toLocaleDateString("pt-br") %></td>
                             <td>
-                                  <button type="submit" class="btn btn-danger">status compra</button> 
+                                  <button type="submit" class="btn btn-outline-danger"><i class="fa fa-plus"></i></button>
                                 </form>
+                            </td>
+                            <td>
+                              <a href="../pedidosApp/<%=dados[i].idPedido %>"><button type="button" class="btn btn-outline-warning fas fa-calendar"></button></a>
                             </td>
                         </tr>
                         <% } %>

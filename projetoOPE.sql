@@ -36,7 +36,7 @@ create table cliente(
     sobrenome varchar(60) null default null,
 	telefone varchar(11) not null, 
 	primary key(idCliente)
-   );
+    );
     
 
 -- Criando a tabela endereço
@@ -60,7 +60,7 @@ create table endereco(
 create table nutricionista(
 	idNutricionista int not null auto_increment,
 	crn int not null,
-	idColaborador int not null,
+    idColaborador int not null,
 	primary key(idNutricionista),
     constraint fk_idNutricionista foreign key(idColaborador) references colaborador(idColaborador)
 );
@@ -85,10 +85,10 @@ create table prontuarioConsulta(
 	idConsulta int not null,
 	diagnostico varchar(1000),
 	idNutricionista int not null,
-	idCliente int not null,
+    idCliente int not null,
 	primary key(idProntuario),
 	foreign key(idNutricionista) references nutricionista(idNutricionista),
-	foreign key(idCliente) references cliente(idCliente),
+    foreign key(idCliente) references cliente(idCliente),
 	foreign key(idConsulta) references agendaConsulta(idConsulta)
 );
 
@@ -128,6 +128,7 @@ create table produto(
 	lote int not null,
     statusProduto varchar(50) , 
 	valor decimal(10,2),
+    qtdeEstoque int default 1,
 	idFornecedor int not null,
 	primary key(idProduto),
 	foreign key(idFornecedor) references fornecedor(idFornecedor),
@@ -140,6 +141,7 @@ create table pedido(
 	dataPedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	idCliente int not null,
 	idColaborador int not null, -- vendedor
+    formaPgto varchar(50) not null default "Dinheiro",
 	primary key (idPedido),
 	foreign key(idCliente) references cliente(idCliente),
 	foreign key(idColaborador) references colaborador(idColaborador)
@@ -156,8 +158,28 @@ create Table itemPedido(
     primary key(idItemPedido),
     foreign key(idPedido) references pedido(idPedido),
     foreign key(codProduto) references produto(idProduto)
-);
+    );
     
+create table pedidoApp(
+	idPedido int not null auto_increment,
+    idCliente int not null,
+    statusCompra varchar(50) default "Aberta",
+    Produto1 varchar(300),
+    Produto2 varchar(300),
+    qtdeProd1 int not null,
+    qtdeProd2 int not null,
+    endereco varchar(150) not null,
+    complemento varchar(150) not null,
+    numero int not null,
+    preco int not null, 
+    troco int not null,
+    dataPed timestamp default CURRENT_TIMESTAMP,
+    metodoPgto varchar(100),
+    primary key(idPedido),
+    foreign key(idCliente) references cliente(idCliente)
+);
+
+
 create table notaFiscal(
 	idNota int not null auto_increment,
     cpf int not null,
@@ -200,7 +222,7 @@ insert into categoriaProduto(categoria) values('Massa'),('Creatina');
 -- produto
 insert into produto(idCategoria,codigo,marca,nome,descricao,validade,lote,statusProduto,valor,idFornecedor) values
 (1,123,'new milen','whey','ganhe massa',20190505,1,'Disponivel',15,1);
-
+select*from produto;
 -- pedido 
 
 insert into pedido(idCliente,idColaborador) values (1,1);
@@ -214,4 +236,14 @@ insert into itemPedido (idPedido,codProduto,quantidade,valorUnitario) Values(1,2
 -- Exemplo de um pedido
 
 select produto.nome, itemPedido.quantidade,itemPedido.valorUnitario 
-from itemPedido INNER JOIN produto ON itemPedido.codProduto = produto.idProduto where itemPedido.idPedido=100;
+from itemPedido inner join produto on produto.idProduto=itempedido.codProduto where idPedido=1;
+
+-- Pedido app
+
+insert into pedidoApp(idCliente, Produto1,Produto2,qtdeProd1,qtdeProd2,endereco,complemento,numero,preco,troco,metodoPgto) values(1,'Prod','Prod 2',
+3,4,'rua','comp',12,150,10,'Dinheiro');
+
+
+
+select * from pedidoApp;
+    

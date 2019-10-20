@@ -24,6 +24,9 @@ app.use('/colaboradores/editar', express.static('./app/public'));
 app.use('/colaboradores/detalhes', express.static('./app/public'));
 app.use('/colaboradores/salvar', express.static('./app/public'))
 
+//pedidosApp
+app.use('/pedidosApp/:id', express.static('./app/public'))
+
 app.use('/clientes/cadastrar', express.static('./app/public'))
 app.use('/clientes/salvar', express.static('./app/public'))
 app.use('/clientes/editar', express.static('./app/public'));

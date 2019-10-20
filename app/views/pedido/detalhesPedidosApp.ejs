@@ -1,0 +1,86 @@
+<%- include("../includes/header") -%>
+
+<div id="content-wrapper">
+
+    <!--idPedido int not null auto_increment,
+    idCliente int not null,
+    statusCompra varchar(50) default "Aberta",
+    Produto1 varchar(300),
+    Produto2 varchar(300),
+    qtdeProd1 int not null,
+    qtdeProd2 int not null,
+    endereco varchar(150) not null,
+    complemento varchar(150) not null,
+    numero int not null,
+    preco int not null, 
+    troco int not null,
+    dataPed timestamp default CURRENT_TIMESTAMP,
+    metodoPgto varchar(100),-->
+
+    <div class="container-fluid">
+
+        <div class="card mb-3">
+        <div class="card-header">
+        <i class="fas fa-mobile"></i>
+        Informações do pedido</div>
+        <div class="card-body">
+            <div class="row-12">
+                <div class="col-md-6">
+                    <span>NRO Cliente:</span>
+                    <span><%=dados[0].idCliente%></span>                  
+                </div>
+                <div class="col-md-6">
+                    <span>Status da compra:</span>
+                    <span><%=dados[0].statusCompra%></span>                 
+                </div> 
+                <div class="col-md-6">
+                    <span>Produto 1:</span>
+                    <span><%=dados[0].Produto1%></span> 
+       
+                    <span>Quantidade:</span>
+                    <span><%=dados[0].qtdeProd1%></span>               
+                            
+                </div>    
+                <div class="col-md-6">
+                    <span>Produto 2:</span>
+                    <span><%=dados[0].Produto2%></span>                 
+                    <span>Quantidade:</span>
+                    <span><%=dados[0].qtdeProd2%></span>               
+                </div>
+                <div class="col-md-6">            
+                    <span>Endereço:</span>
+                    <span><%=dados[0].endereco%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Complemento:</span>
+                    <span><%=dados[0].complemento%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Numero:</span>
+                    <span><%=dados[0].numero%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Valor:</span>
+                    <span><%=dados[0].preco%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Troco:</span>
+                    <span><%=dados[0].troco%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Data da compra:</span>
+                    <span><%=dados[0].dataPed.toLocaleDateString("pt-br")%></span>
+                </div>
+                <div class="col-md-6">            
+                    <span>Forma de pagamento:</span>
+                    <span><%=dados[0].metodoPgto%></span>
+                </div>
+            </div>
+        </div>           
+        <!-- DataTables Example -->
+    </div>
+
+
+</div>
+
+<%- include("../includes/footer") -%>
