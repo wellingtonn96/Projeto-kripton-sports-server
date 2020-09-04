@@ -1,4 +1,6 @@
-sistema para controle dos processos gerenciais da empresa como
+#Kripton Sports Suplementos
+
+Sistema para controle dos processos gerenciais da empresa como
 vendas,
 cadastro de clientes, gerenciamento de estoque e a validade dos
 produtos e permitir que o cliente efetue compras e acompanhe
