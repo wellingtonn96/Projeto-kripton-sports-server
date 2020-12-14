@@ -46,7 +46,7 @@ exports.cliente_salvar = (application, req, res)=>{
 	req.assert('nome','Campo nome é obrigatório').notEmpty();
 	req.assert('telefone','Campo telefone é obrigatório').notEmpty()
 	const erros = req.validationErrors();
-	
+
 	if(erros){
 		res.render('clientes/cadastrar', {
 			validacao : erros,
@@ -121,7 +121,7 @@ exports.detalhesCliente = (application, req, res)=>{
 				colaborador : req.session.colaborador,
 				tipo : req.session.tipo
 			},
-		})).catch(error => 
+		})).catch(error =>
 		console.log(error)
 	)
 }
@@ -137,7 +137,7 @@ exports.excluirCliente = function(application, req, res){
 	clientesModel.excluirCliente(id).then(result =>
 	res.redirect("/clientes")
 	)
-	.catch(error => 
+	.catch(error =>
 		console.log(error)
 	)
 }
