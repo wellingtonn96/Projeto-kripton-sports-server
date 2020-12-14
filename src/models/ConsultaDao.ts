@@ -3,7 +3,6 @@
 //         this._connection = connection
 //     }
 
-
 //     nutricionistas(){
 //         return new Promise((resolve, reject)=>{
 //             this._connection.query('select nome, idNutricionista from colaborador u, nutricionista n where u.idColaborador =  n.idColaborador',

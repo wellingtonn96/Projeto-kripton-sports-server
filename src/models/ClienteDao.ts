@@ -21,7 +21,6 @@
 //         })
 //     }
 
-
 // 	cadastrarCliente(cliente: any){
 // 		return new Promise((resolve, reject)=>{
 // 			this._connection.query('insert into cliente set ? ',
@@ -91,7 +90,6 @@
 // 			})
 // 		})
 // 	}
-
 
 // }
 
