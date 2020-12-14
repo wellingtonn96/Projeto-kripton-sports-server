@@ -1,9 +1,8 @@
-const express = require('express');
-const path = require('path');
-const consign = require('consign');
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
-const session = require('express-session')
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import expressValidator from 'express-validator';
+import session from 'express-session';
 //const RedisStore = require('connect-redis')(session);
 
 const app = express();
@@ -76,13 +75,4 @@ app.use(session({/*
 }))
 
 
-
-
-consign()
-    .include('app/routes')
-    .then('config/dbConnection.js')
-    .then('app/models')
-    .then('app/controllers')
-    .into(app);
-
-module.exports = app;
+export default app;
