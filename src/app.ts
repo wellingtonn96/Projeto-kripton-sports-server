@@ -20,7 +20,7 @@ app.post('/', async (request, response) => {
 
     const colaboradoresDAO = new CollaboradoresDao()
 
-    await colaboradoresDAO.cadastrarColaborador(data)
+    await colaboradoresDAO.create(data)
 
     return response.json(data)
   } catch (error) {
@@ -28,4 +28,4 @@ app.post('/', async (request, response) => {
   }
 })
 
-export default app;
+export default app

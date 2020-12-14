@@ -21,7 +21,7 @@ class ColaboradoresDao {
 	// 	})
 	// }
 
-	public cadastrarColaborador(colaborador: any){
+	public create(colaborador: any){
 		return new Promise((resolve, reject)=>{
 			this._connection.query('insert into colaborador set ? ',
 			 [colaborador],
