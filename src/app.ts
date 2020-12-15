@@ -6,7 +6,7 @@ const app = express();
 
 connection().connect(err => {
   if (err) {
-    return console.error(`error:${err.message}`);
+    return console.error(`error: ${err.message}`);
   }
 
   return console.log('Connected to the mysql server');
