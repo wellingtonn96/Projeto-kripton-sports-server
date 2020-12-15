@@ -6,13 +6,11 @@
 // 	})
 // }
 
-
 // exports.login = (application, req, res)=>{
 // 	res.render("login/login", {
 // 		validacao : {},
 // 	});
 // }
-
 
 // exports.autenticar = (application, req, res)=>{
 // 	const dadosForm = req.body;

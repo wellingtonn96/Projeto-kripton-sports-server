@@ -1,4 +1,3 @@
-
 // module.exports = (application)=>{
 
 //  	application.get('/clientes/cadastrar',(req, res)=>{

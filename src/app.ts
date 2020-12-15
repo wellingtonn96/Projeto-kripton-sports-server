@@ -1,6 +1,6 @@
 import express from 'express';
 import { connection } from './database/dbConnection';
-import CollaboradoresDao from './models/ColaboradoresDao';
+import routes from './routes';
 
 const app = express();
 
@@ -14,18 +14,6 @@ connection().connect(err => {
 
 app.use(express.json());
 
-app.post('/', async (request, response) => {
-  try {
-    const data = request.body;
-
-    const colaboradoresDAO = new CollaboradoresDao();
-
-    await colaboradoresDAO.create(data);
-
-    return response.json(data);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
-});
+app.use(routes);
 
 export default app;

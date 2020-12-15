@@ -13,7 +13,7 @@ create table colaborador(
 	idColaborador int not null auto_increment,
   login varchar(25) not null UNIQUE,
 	senha varchar(100) not null,
-	email varchar(200),
+	email varchar(200) UNIQUE,
 	nome varchar(60) not null,
     sobrenome varchar(60) null default null,
 	telefone varchar(11) not null,

@@ -1,4 +1,3 @@
-
 // exports.clientes = (application, req, res)=>{
 // 	const colaborador = req.session.colaborador
 // 	const connection = application.config.dbConnection();
@@ -17,9 +16,6 @@
 // 	})
 // }
 
-
-
-
 // exports.cadastrar = (application, req, res)=>{
 // 	const colaborador = req.session.colaborador
 // 	res.render('clientes/cadastrar', {
@@ -31,8 +27,6 @@
 // 		dados: {}
 // 	});
 // }
-
-
 
 // //create
 // exports.cliente_salvar = (application, req, res)=>{
@@ -68,9 +62,6 @@
 // 	})
 // }
 
-
-
-
 // //Update
 // exports.editarCliente = (application, req, res)=>{
 // 	const colaborador = req.session.colaborador
@@ -90,10 +81,6 @@
 // 	)
 // }
 
-
-
-
-
 // exports.salvarCliente = (application, req, res)=>{
 // 	const colaborador = req.session.colaborador
 // 	const connection = application.config.dbConnection();
@@ -106,8 +93,6 @@
 // 		console.log(error)
 // 	)
 // }
-
-
 
 // exports.detalhesCliente = (application, req, res)=>{
 // 	const colaborador = req.session.colaborador
@@ -126,8 +111,6 @@
 // 	)
 // }
 
-
-
 // //Delete
 // exports.excluirCliente = function(application, req, res){
 // 	const colaborador = req.session.colaborador
@@ -141,6 +124,3 @@
 // 		console.log(error)
 // 	)
 // }
-
-
-

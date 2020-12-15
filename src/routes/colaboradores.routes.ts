@@ -1,3 +1,82 @@
+import { Router } from 'express';
+import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
+import { CreateCollaboratorService } from '../services/CreateCollaboratorService';
+import { DeleteCollaboratorService } from '../services/DeleteCollaboratorService';
+import { UpdataCollaboratorService } from '../services/UpdataCollaboratorService';
+
+const collaboratorsRoutes = Router();
+
+collaboratorsRoutes.delete('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const deleteCollaborator = new DeleteCollaboratorService();
+
+    await deleteCollaborator.execute(id);
+
+    return response.json();
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+collaboratorsRoutes.put('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const data = request.body;
+
+    const deleteCollaborator = new UpdataCollaboratorService();
+
+    const results = await deleteCollaborator.execute(data, id);
+
+    return response.json(results);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+collaboratorsRoutes.get('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const collaboratorRepository = new CollaboratorRepository();
+
+    const results = await collaboratorRepository.findOneById(id);
+
+    return response.json(results);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+collaboratorsRoutes.get('/', async (request, response) => {
+  try {
+    const collaboratorRepository = new CollaboratorRepository();
+
+    const results = await collaboratorRepository.findAll();
+
+    return response.json(results);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+collaboratorsRoutes.post('/', async (request, response) => {
+  try {
+    const data = request.body;
+
+    const createCollaborator = new CreateCollaboratorService();
+
+    const results = await createCollaborator.execute(data);
+
+    return response.json(results);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+export default collaboratorsRoutes;
+
 // import Router from 'express';
 // import CollaboratorsDao from '../models/ColaboradoresDao';
 
@@ -8,7 +87,6 @@
 
 //   const collaboratorsDao = new CollaboratorsDao()
 // });
-
 
 // collaboratorsRouter.delete('/:id', (req, res)=>{
 //     collaboratorsRouter.app.controllers.colaboradores.excluirColaborador(collaboratorsRouter, req, res);
@@ -114,4 +192,3 @@
 // });
 
 // export default collaboratorsRouter
-
