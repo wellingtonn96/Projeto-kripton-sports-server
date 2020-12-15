@@ -1,7 +1,26 @@
-// import { Router } from 'express';
+import { Router } from 'express';
+import { AuthenticateUserService } from '../services/AuthenticateUserService';
 
-// const sessionsRouter = Router()
+const sessionsRoutes = Router();
 
+sessionsRoutes.post('/', async (request, response) => {
+  try {
+    const { login, password } = request.body;
+
+    const authenticateUser = new AuthenticateUserService();
+
+    const results = await authenticateUser.execute({
+      login,
+      password,
+    });
+
+    return response.json(results);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+export { sessionsRoutes };
 
 // sessionsRouter.get('/', (request, response)=>{
 
@@ -39,7 +58,3 @@
 // 		});
 // 	});
 // });
-
-
-
-// export default sessionsRouter

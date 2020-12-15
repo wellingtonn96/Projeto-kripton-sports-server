@@ -75,7 +75,7 @@ collaboratorsRoutes.post('/', async (request, response) => {
   }
 });
 
-export default collaboratorsRoutes;
+export { collaboratorsRoutes };
 
 // import Router from 'express';
 // import CollaboratorsDao from '../models/ColaboradoresDao';
@@ -191,4 +191,4 @@ export default collaboratorsRoutes;
 // 		})
 // });
 
-// export default collaboratorsRouter
+// export default {collaboratorsRouter}

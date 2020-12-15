@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
 
 interface IRequest {
   login: string;
-  senha: string;
+  senhaEncrypt: string;
   email: string;
   nome: string;
   sobrenome: string;
@@ -13,13 +14,13 @@ interface IRequest {
 class CreateCollaboratorService {
   public async execute({
     login,
-    senha,
+    senhaEncrypt,
     email,
     nome,
     sobrenome,
     telefone,
     idTipo,
-  }: IRequest): Promise<IRequest> {
+  }: IRequest): Promise<any> {
     const collaboratorRepository = new CollaboratorRepository();
 
     const [results]: any = await collaboratorRepository.findByLogin(login);
@@ -28,9 +29,11 @@ class CreateCollaboratorService {
       throw new Error('Collaborator already exists');
     }
 
-    await collaboratorRepository.create({
+    const encryptedPassword = await bcrypt.hash(senhaEncrypt, 8);
+
+    const { insertId }: any = await collaboratorRepository.create({
       login,
-      senha,
+      senha: encryptedPassword,
       email,
       nome,
       sobrenome,
@@ -38,15 +41,9 @@ class CreateCollaboratorService {
       idTipo,
     });
 
-    return {
-      login,
-      senha,
-      email,
-      nome,
-      sobrenome,
-      telefone,
-      idTipo,
-    };
+    const collaborator = await collaboratorRepository.findOneById(insertId);
+
+    return collaborator;
   }
 }
 
