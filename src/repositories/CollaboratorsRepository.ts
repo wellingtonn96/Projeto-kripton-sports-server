@@ -1,5 +1,4 @@
 import { Connection } from 'mysql';
-import { connection } from '../database/dbConnection';
 import { Collaborator } from '../models/Collaborator';
 
 class CollaboratorRepository {
