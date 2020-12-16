@@ -1,4 +1,6 @@
 class Collaborator {
+  idColaborador?: number;
+
   login: string;
 
   senha: string;
@@ -14,6 +16,7 @@ class Collaborator {
   idTipo: number;
 
   constructor({
+    idColaborador,
     login,
     senha,
     email,
@@ -22,6 +25,7 @@ class Collaborator {
     telefone,
     idTipo,
   }: Collaborator) {
+    this.idColaborador = idColaborador;
     this.login = login;
     this.senha = senha;
     this.email = email;

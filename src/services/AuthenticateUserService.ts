@@ -1,18 +1,25 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { jwt } from '../config/auth';
+import { Collaborator } from '../models/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
+import { connection } from '../database/dbConnection';
 
 interface IRequest {
   login: string;
   password: string;
 }
 
-class AuthenticateUserService {
-  public async execute({ login, password }: IRequest) {
-    const collaboratorRepository = new CollaboratorRepository();
+interface IResponse {
+  collaborator: Collaborator;
+  token: string;
+}
 
-    const [collaborator]: any = await collaboratorRepository.findByLogin(login);
+class AuthenticateUserService {
+  public async execute({ login, password }: IRequest): Promise<IResponse> {
+    const collaboratorRepository = new CollaboratorRepository(connection());
+
+    const collaborator = await collaboratorRepository.findByLogin(login);
 
     if (!collaborator) {
       throw new Error('Incorrect login/password combination');

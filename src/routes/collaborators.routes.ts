@@ -3,6 +3,7 @@ import { CollaboratorRepository } from '../repositories/CollaboratorsRepository'
 import { CreateCollaboratorService } from '../services/CreateCollaboratorService';
 import { DeleteCollaboratorService } from '../services/DeleteCollaboratorService';
 import { UpdataCollaboratorService } from '../services/UpdataCollaboratorService';
+import { connection } from '../database/dbConnection';
 
 const collaboratorsRoutes = Router();
 
@@ -39,7 +40,7 @@ collaboratorsRoutes.get('/:id', async (request, response) => {
   try {
     const { id } = request.params;
 
-    const collaboratorRepository = new CollaboratorRepository();
+    const collaboratorRepository = new CollaboratorRepository(connection());
 
     const results = await collaboratorRepository.findOneById(id);
 
@@ -51,7 +52,7 @@ collaboratorsRoutes.get('/:id', async (request, response) => {
 
 collaboratorsRoutes.get('/', async (request, response) => {
   try {
-    const collaboratorRepository = new CollaboratorRepository();
+    const collaboratorRepository = new CollaboratorRepository(connection());
 
     const results = await collaboratorRepository.findAll();
 

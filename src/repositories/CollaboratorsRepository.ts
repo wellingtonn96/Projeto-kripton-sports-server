@@ -5,8 +5,8 @@ import { Collaborator } from '../models/Collaborator';
 class CollaboratorRepository {
   private connection: Connection;
 
-  constructor() {
-    this.connection = connection();
+  constructor(connectionDb: Connection) {
+    this.connection = connectionDb;
   }
 
   public findAll() {
@@ -22,8 +22,8 @@ class CollaboratorRepository {
     });
   }
 
-  public create(data: Collaborator): Promise<void> {
-    return new Promise((resolve, reject) => {
+  public async create(data: Collaborator): Promise<Collaborator> {
+    const { insertId } = await new Promise((resolve, reject) => {
       this.connection.query(
         'insert into colaborador set ? ',
         [data],
@@ -36,10 +36,14 @@ class CollaboratorRepository {
         },
       );
     });
+
+    const collaborator = await this.findOneById(insertId);
+
+    return collaborator;
   }
 
-  public findOneById(id: string) {
-    return new Promise((resolve, reject) => {
+  public async findOneById(id: string): Promise<Collaborator> {
+    const [findOne] = await new Promise((resolve, reject) => {
       this.connection.query(
         'SELECT * FROM colaborador WHERE idColaborador = ?',
         [id],
@@ -52,10 +56,16 @@ class CollaboratorRepository {
         },
       );
     });
+
+    if (!findOne) return findOne;
+
+    const collaborator = new Collaborator(findOne);
+
+    return collaborator;
   }
 
-  public findByLogin(login: string) {
-    return new Promise((resolve, reject) => {
+  public async findByLogin(login: string): Promise<Collaborator> {
+    const [findCollaborator] = await new Promise((resolve, reject) => {
       this.connection.query(
         'SELECT * FROM colaborador WHERE login = ?',
         [login],
@@ -68,9 +78,15 @@ class CollaboratorRepository {
         },
       );
     });
+
+    if (!findCollaborator) return findCollaborator;
+
+    const collaborator = new Collaborator(findCollaborator);
+
+    return collaborator;
   }
 
-  public deleteById(id: string) {
+  public async deleteById(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.connection.query(
         'DELETE FROM colaborador WHERE idColaborador = ? ',

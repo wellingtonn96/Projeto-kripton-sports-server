@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
+import { Collaborator } from '../models/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
+import { connection } from '../database/dbConnection';
 
 interface IRequest {
   login: string;
@@ -20,10 +22,10 @@ class CreateCollaboratorService {
     sobrenome,
     telefone,
     idTipo,
-  }: IRequest): Promise<any> {
-    const collaboratorRepository = new CollaboratorRepository();
+  }: IRequest): Promise<Collaborator> {
+    const collaboratorRepository = new CollaboratorRepository(connection());
 
-    const [results]: any = await collaboratorRepository.findByLogin(login);
+    const results = await collaboratorRepository.findByLogin(login);
 
     if (results) {
       throw new Error('Collaborator already exists');
@@ -31,7 +33,7 @@ class CreateCollaboratorService {
 
     const encryptedPassword = await bcrypt.hash(senhaEncrypt, 8);
 
-    const { insertId }: any = await collaboratorRepository.create({
+    const collaborator = await collaboratorRepository.create({
       login,
       senha: encryptedPassword,
       email,
@@ -40,8 +42,6 @@ class CreateCollaboratorService {
       telefone,
       idTipo,
     });
-
-    const collaborator = await collaboratorRepository.findOneById(insertId);
 
     return collaborator;
   }
