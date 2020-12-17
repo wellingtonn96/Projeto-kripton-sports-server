@@ -118,30 +118,30 @@ create table categoriaProduto(
 
 
 create table produto(
-	idProduto int not null auto_increment,
-	idCategoria int not null,
-	codigo int not null,
-    marca varchar(50),
-    nome varchar(50),
-    descricao varchar(300),
-	validade date not null,
-	lote int not null,
-    statusProduto varchar(50) ,
-	valor decimal(10,2),
-    qtdeEstoque int default 1,
-	idFornecedor int not null,
+  idProduto int not null auto_increment,
+  idCategoria int not null,
+  codigo int not null,
+  marca varchar(50),
+  nome varchar(50),
+  descricao varchar(300),
+  validade date not null,
+  lote int not null,
+  statusProduto varchar(50) ,
+  valor decimal(10,2),
+  qtdeEstoque int default 1,
+  idFornecedor int not null,
 	primary key(idProduto),
 	foreign key(idFornecedor) references fornecedor(idFornecedor),
-    foreign key(idCategoria) references categoriaProduto(idCategoria)
+  foreign key(idCategoria) references categoriaProduto(idCategoria)
 );
 
 -- coloquei alto increment para gerar automatico, qualquer coisa me avisa que retiramos
 create table pedido(
-	idPedido int not null auto_increment,
-	dataPedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	idCliente int not null,
-	idColaborador int not null, -- vendedor
-    formaPgto varchar(50) not null default "Dinheiro",
+  idPedido int not null auto_increment,
+  dataPedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  idCliente int not null,
+  idColaborador int not null, -- vendedor
+  formaPgto varchar(50) not null default "Dinheiro",
 	primary key (idPedido),
 	foreign key(idCliente) references cliente(idCliente),
 	foreign key(idColaborador) references colaborador(idColaborador)

@@ -1,3 +1,23 @@
+import { Router } from 'express';
+import { CreateProductService } from '../services/CreateProductsService';
+
+const productsRoutes = Router();
+
+productsRoutes.post('/', async (request, response) => {
+  try {
+    const data = request.body;
+
+    const createProducts = new CreateProductService();
+
+    const product = await createProducts.execute(data);
+
+    return response.json(product);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+export { productsRoutes };
 
 // module.exports = (application)=>{
 

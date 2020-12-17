@@ -16,7 +16,6 @@
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",

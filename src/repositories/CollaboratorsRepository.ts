@@ -101,11 +101,11 @@ class CollaboratorRepository {
     });
   }
 
-  public updateById(dados: Collaborator, id: string): Promise<Collaborator> {
+  public updateById(data: Collaborator, id: string): Promise<Collaborator> {
     return new Promise((resolve, reject) => {
       this.connection.query(
         'UPDATE colaborador set ? WHERE idColaborador = ? ',
-        [dados, id],
+        [data, id],
         (error, results) => {
           if (error) {
             reject(error);
