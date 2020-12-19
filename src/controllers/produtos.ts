@@ -1,6 +1,5 @@
 // exports.cadastrar = (application, req, res)=>{
 
-
 // 		const connection = application.config.dbConnection();
 // 		const produtosModel = new application.app.models.ProdutosDao(connection);
 // 		const fornecedorModel = new application.app.models.FornecedoresDao(connection)
@@ -20,9 +19,6 @@
 // 		}).catch(error => console.log(error))
 
 // }
-
-
-
 
 // exports.salvar = (application, req, res)=>{
 // 	const dados = req.body;
@@ -67,10 +63,6 @@
 // 	).catch(error => console.log(error))
 // }
 
-
-
-
-
 // exports.excluir = (application, req, res)=>{
 // 	const connection = application.config.dbConnection();
 // 	const produtosModel = new application.app.models.ProdutosDao(connection);
@@ -79,9 +71,6 @@
 // 		res.redirect("/produtos")
 // 	).catch(error => console.log(error))
 // }
-
-
-
 
 // exports.editar = (application, req, res)=>{
 // 	const connection = application.config.dbConnection();
@@ -98,8 +87,6 @@
 // 	}).catch(error => console.log(error))
 // }
 
-
-
 // exports.atualizar = (application, req, res)=>{
 // 	const connection = application.config.dbConnection();
 // 	const produtosModel = new application.app.models.ProdutosDao(connection);
@@ -109,7 +96,6 @@
 // 		res.redirect("/produtos")
 // 	}).catch(error => console.log(error))
 // }
-
 
 // exports.detalhar = (application, req, res)=>{
 // 	const connection = application.config.dbConnection();
@@ -140,7 +126,6 @@
 // 	}).catch(error => console.log(error))
 // }
 
-
 // exports.categoriaForm = (application, req, res)=>{
 // 	res.render('produtos/categoria', {
 // 		validacao : {},
@@ -150,7 +135,6 @@
 // 		},
 // 	});
 // }
-
 
 // exports.categoriaSalvar = (application, req, res)=>{
 // 	const dados = req.body;

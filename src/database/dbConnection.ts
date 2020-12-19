@@ -1,6 +1,6 @@
-import { createConnection } from 'mysql';
+import { Connection, createConnection } from 'mysql';
 
-export const connection = () =>
+export const connection = (): Connection =>
   createConnection({
     host: '172.17.0.2',
     user: 'root',
