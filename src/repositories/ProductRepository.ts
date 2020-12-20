@@ -8,6 +8,20 @@ class ProductRepository {
     this.connection = connectionDb;
   }
 
+  public async findAll(): Promise<Product[]> {
+    const products: Product[] = await new Promise((resolve, reject) => {
+      this.connection.query('SELECT * FROM produto', (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    return products;
+  }
+
   public async create(data: Product): Promise<Product> {
     const { insertId } = await new Promise((resolve, reject) => {
       this.connection.query(
@@ -49,18 +63,6 @@ class ProductRepository {
 
     return product;
   }
-
-  // listarProduto() {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query('SELECT * FROM produto', (error, results) => {
-  //       if (error) {
-  //         reject(error);
-  //       } else {
-  //         resolve(results);
-  //       }
-  //     });
-  //   });
-  // }
 
   // excluirProduto(id: any) {
   //   return new Promise((resolve, reject) => {

@@ -9,6 +9,8 @@ class Product {
 
   nome: string;
 
+  produto_img?: string | undefined;
+
   descricao: string;
 
   validade: string;
@@ -29,6 +31,7 @@ class Product {
     codigo,
     marca,
     nome,
+    produto_img,
     descricao,
     validade,
     lote,
@@ -42,6 +45,7 @@ class Product {
     this.codigo = codigo;
     this.marca = marca;
     this.nome = nome;
+    this.produto_img = produto_img;
     this.descricao = descricao;
     this.validade = validade;
     this.lote = lote;

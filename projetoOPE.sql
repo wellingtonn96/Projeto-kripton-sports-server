@@ -122,6 +122,7 @@ create table produto(
   idCategoria int not null,
   codigo int not null,
   marca varchar(50),
+  produto_img varchar(255),
   nome varchar(50),
   descricao varchar(300),
   validade date not null,

@@ -1,6 +1,9 @@
+import path from 'path';
+import fs from 'fs';
 import { ProductRepository } from '../repositories/ProductRepository';
 import { connection } from '../database/dbConnection';
 import { Product } from '../models/Product';
+import upload from '../config/upload';
 
 interface IRequest {
   idCategoria: number;
@@ -9,6 +12,7 @@ interface IRequest {
   nome: string;
   descricao: string;
   validade: string;
+  produto_img?: string;
   lote: number;
   statusProduto: string;
   valor: number;
@@ -19,6 +23,17 @@ interface IRequest {
 class CreateProductService {
   public async execute(data: IRequest): Promise<Product> {
     const productRepository = new ProductRepository(connection());
+
+    // if (data.produto_img) {
+    //   const productImgFilePath = path.join(upload.directory, data.produto_img);
+    //   const productImgFileExists = await fs.promises.stat(productImgFilePath);
+
+    //   console.log(productImgFileExists);
+
+    //   if (productImgFileExists) {
+    //     await fs.promises.unlink(productImgFilePath);
+    //   }
+    // }
 
     const product = await productRepository.create(data);
 

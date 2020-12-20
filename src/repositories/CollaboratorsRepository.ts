@@ -8,17 +8,21 @@ class CollaboratorRepository {
     this.connection = connectionDb;
   }
 
-  public findAll() {
-    return new Promise((resolve, reject) => {
-      this.connection.query(
-        'select * from tipoColaborador t, colaborador u where t.idTipoColaborador =  u.idTipo order by u.idColaborador desc',
-        (error, results) => {
-          if (error) {
-            reject(error);
-          } else resolve(results);
-        },
-      );
-    });
+  public async findAll(): Promise<Collaborator[]> {
+    const collaborators: Collaborator[] = await new Promise(
+      (resolve, reject) => {
+        this.connection.query(
+          'select * from tipoColaborador t, colaborador u where t.idTipoColaborador =  u.idTipo order by u.idColaborador desc',
+          (error, results) => {
+            if (error) {
+              reject(error);
+            } else resolve(results);
+          },
+        );
+      },
+    );
+
+    return collaborators;
   }
 
   public async create(data: Collaborator): Promise<Collaborator> {

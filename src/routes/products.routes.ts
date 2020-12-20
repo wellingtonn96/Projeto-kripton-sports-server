@@ -1,21 +1,68 @@
 import { Router } from 'express';
+import multer from 'multer';
+import { connection } from '../database/dbConnection';
+import { ProductRepository } from '../repositories/ProductRepository';
 import { CreateProductService } from '../services/CreateProductsService';
+import uploadConfig from '../config/upload';
 
 const productsRoutes = Router();
 
-productsRoutes.post('/', async (request, response) => {
+const upload = multer(uploadConfig);
+
+productsRoutes.get('/', async (request, response) => {
   try {
-    const data = request.body;
+    const productRepository = new ProductRepository(connection());
 
-    const createProducts = new CreateProductService();
+    const results = await productRepository.findAll();
 
-    const product = await createProducts.execute(data);
-
-    return response.json(product);
+    return response.json(results);
   } catch (error) {
     return response.status(400).json({ err: error.message });
   }
 });
+
+productsRoutes.post(
+  '/',
+  upload.single('produto_img'),
+  async (request, response) => {
+    try {
+      const {
+        idCategoria,
+        codigo,
+        marca,
+        nome,
+        descricao,
+        validade,
+        lote,
+        statusProduto,
+        valor,
+        qtdeEstoque,
+        idFornecedor,
+      } = request.body;
+
+      const createProducts = new CreateProductService();
+
+      const product = await createProducts.execute({
+        idCategoria,
+        codigo,
+        marca,
+        nome,
+        produto_img: request.file.filename,
+        descricao,
+        validade,
+        lote,
+        statusProduto,
+        valor,
+        qtdeEstoque,
+        idFornecedor,
+      });
+
+      return response.json(product);
+    } catch (error) {
+      return response.status(400).json({ err: error.message });
+    }
+  },
+);
 
 export { productsRoutes };
 
