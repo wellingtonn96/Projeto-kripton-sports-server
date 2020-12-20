@@ -4,10 +4,25 @@ import { connection } from '../database/dbConnection';
 import { ProductRepository } from '../repositories/ProductRepository';
 import { CreateProductService } from '../services/CreateProductsService';
 import uploadConfig from '../config/upload';
+import { FindProductService } from '../services/FindProductService';
 
 const productsRoutes = Router();
 
 const upload = multer(uploadConfig);
+
+productsRoutes.get('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const findProduct = new FindProductService();
+
+    const product = await findProduct.execute(id);
+
+    return response.json(product);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
 
 productsRoutes.get('/', async (request, response) => {
   try {

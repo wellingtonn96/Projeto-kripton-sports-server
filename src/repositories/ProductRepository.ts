@@ -64,37 +64,39 @@ class ProductRepository {
     return product;
   }
 
-  // excluirProduto(id: any) {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'DELETE FROM produto  WHERE idProduto = ? ',
-  //       [id],
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
+  public async deleteById(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        'DELETE FROM produto WHERE idProduto = ? ',
+        [id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+  }
 
-  // atualizarProduto(dados: any, id: any) {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'UPDATE produto set ? WHERE idProduto = ? ',
-  //       [dados, id],
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
+  public async updateById(dados: Product, id: string): Promise<void> {
+    const result = await new Promise((resolve, reject) => {
+      this.connection.query(
+        'UPDATE produto set ? WHERE idProduto = ? ',
+        [dados, id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    console.log(result);
+  }
 
   // cadastrarCategoria(dados: any) {
   //   return new Promise((resolve, reject) => {
