@@ -50,6 +50,28 @@ class CategoryProductRepository {
     return categoryProduct;
   }
 
+  public async findByName(name: string): Promise<CategoryProduct> {
+    const [findCategoryProduct] = await new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM categoriaProduto WHERE categoria = ?',
+        [name],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    if (!findCategoryProduct) return findCategoryProduct;
+
+    const categoryProduct = new CategoryProduct(findCategoryProduct);
+
+    return categoryProduct;
+  }
+
   public async findAll(): Promise<CategoryProduct[]> {
     const categoriesProduct: CategoryProduct[] = await new Promise(
       (resolve, reject) => {
