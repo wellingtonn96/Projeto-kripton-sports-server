@@ -1,3 +1,5 @@
+drop database projetoOPE;
+
 create database projetoOPE;
 use projetoOPE;
 
@@ -153,13 +155,13 @@ create table pedido(
 create Table itemPedido(
 	idItemPedido int not null auto_increment,
 	idPedido int not null,
-    codProduto int not null,
-    quantidade int not null,
-    valorUnitario decimal(10,2),
-    primary key(idItemPedido),
-    foreign key(idPedido) references pedido(idPedido),
-    foreign key(codProduto) references produto(idProduto)
-    );
+  codProduto int not null,
+  quantidade int not null,
+  valorUnitario decimal(10,2),
+  primary key(idItemPedido),
+  foreign key(idPedido) references pedido(idPedido),
+  foreign key(codProduto) references produto(idProduto) ON DELETE CASCADE
+);
 
 create table pedidoApp(
 	idPedido int not null auto_increment,

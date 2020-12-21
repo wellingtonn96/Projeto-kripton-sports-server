@@ -28,7 +28,7 @@ collaboratorsRoutes.put('/:id', async (request, response) => {
 
     const deleteCollaborator = new UpdataCollaboratorService();
 
-    const results = await deleteCollaborator.execute(data, id);
+    const results = await deleteCollaborator.execute(id, data);
 
     return response.json(results);
   } catch (error) {

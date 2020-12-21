@@ -105,8 +105,11 @@ class CollaboratorRepository {
     });
   }
 
-  public updateById(data: Collaborator, id: string): Promise<Collaborator> {
-    return new Promise((resolve, reject) => {
+  public async updateById(
+    id: string,
+    data: Collaborator,
+  ): Promise<Collaborator> {
+    await new Promise((resolve, reject) => {
       this.connection.query(
         'UPDATE colaborador set ? WHERE idColaborador = ? ',
         [data, id],
@@ -119,6 +122,10 @@ class CollaboratorRepository {
         },
       );
     });
+
+    const collaborator = await this.findOneById(id);
+
+    return collaborator;
   }
 
   // cadastrarNutricionista(dados: any){

@@ -5,10 +5,53 @@ import { ProductRepository } from '../repositories/ProductRepository';
 import { CreateProductService } from '../services/CreateProductsService';
 import uploadConfig from '../config/upload';
 import { FindProductService } from '../services/FindProductService';
+import { UpdateProductService } from '../services/UpdateProductService';
+import { DeleteProductService } from '../services/DeleteProductService';
 
 const productsRoutes = Router();
 
 const upload = multer(uploadConfig);
+
+productsRoutes.get('/expirationDate', async (request, response) => {
+  try {
+    const productRepository = new ProductRepository(connection());
+
+    const products = await productRepository.getExpirationDate();
+
+    return response.json(products);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+productsRoutes.delete('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const deleteProduct = new DeleteProductService();
+
+    await deleteProduct.execute(id);
+
+    return response.json().send();
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
+
+productsRoutes.put('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const data = request.body;
+
+    const updateProduct = new UpdateProductService();
+
+    const product = await updateProduct.execute(id, data);
+
+    return response.json(product);
+  } catch (error) {
+    return response.status(400).json({ err: error.message });
+  }
+});
 
 productsRoutes.get('/:id', async (request, response) => {
   try {

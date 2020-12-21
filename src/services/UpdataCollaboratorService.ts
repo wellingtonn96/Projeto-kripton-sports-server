@@ -3,7 +3,7 @@ import { CollaboratorRepository } from '../repositories/CollaboratorsRepository'
 import { connection } from '../database/dbConnection';
 
 class UpdataCollaboratorService {
-  public async execute(data: Collaborator, id: string): Promise<Collaborator> {
+  public async execute(id: string, data: Collaborator): Promise<Collaborator> {
     const collaboratorRepository = new CollaboratorRepository(connection());
 
     const collaboratorExists = await collaboratorRepository.findOneById(id);
@@ -12,9 +12,7 @@ class UpdataCollaboratorService {
       throw new Error('Collaborator not exists');
     }
 
-    await collaboratorRepository.updateById(data, id);
-
-    const collaborator = await collaboratorRepository.findOneById(id);
+    const collaborator = await collaboratorRepository.updateById(id, data);
 
     return collaborator;
   }

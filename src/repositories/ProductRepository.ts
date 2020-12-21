@@ -1,6 +1,16 @@
 import { Connection } from 'mysql';
 import { Product } from '../models/Product';
 
+interface ProductExipirationDate {
+  idProduto: number;
+  codigo: number;
+  nome: string;
+  marca: string;
+  validade: string;
+  lote: number;
+  diasparavencimento: number;
+}
+
 class ProductRepository {
   public connection: Connection;
 
@@ -80,11 +90,11 @@ class ProductRepository {
     });
   }
 
-  public async updateById(dados: Product, id: string): Promise<void> {
-    const result = await new Promise((resolve, reject) => {
+  public async updateById(id: string, data: Product): Promise<Product> {
+    await new Promise((resolve, reject) => {
       this.connection.query(
         'UPDATE produto set ? WHERE idProduto = ? ',
-        [dados, id],
+        [data, id],
         (error, results) => {
           if (error) {
             reject(error);
@@ -95,7 +105,28 @@ class ProductRepository {
       );
     });
 
-    console.log(result);
+    const product = await this.findOneById(id);
+
+    return product;
+  }
+
+  public async getExpirationDate(): Promise<ProductExipirationDate> {
+    const products: ProductExipirationDate = await new Promise(
+      (resolve, reject) => {
+        this.connection.query(
+          'SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS diasparavencimento FROM produto LIMIT 5;',
+          (error, results) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(results);
+            }
+          },
+        );
+      },
+    );
+
+    return products;
   }
 
   // cadastrarCategoria(dados: any) {
@@ -118,21 +149,6 @@ class ProductRepository {
   //   return new Promise((resolve, reject) => {
   //     this.connection.query(
   //       'SELECT * FROM categoriaProduto',
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
-
-  // listaVencimento() {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'SELECT idProduto, codigo, nome, marca, validade, lote, DATEDIFF(validade,NOW()) AS diasparavencimento FROM produto LIMIT 5;',
   //       (error, results) => {
   //         if (error) {
   //           reject(error);
