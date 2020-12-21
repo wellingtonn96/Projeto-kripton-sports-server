@@ -1,4 +1,5 @@
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 import { ProductRepository } from '../repositories/ProductRepository';
 
 class DeleteProductService {
@@ -8,7 +9,7 @@ class DeleteProductService {
     const productExists = await productRepository.findOneById(id);
 
     if (!productExists) {
-      throw new Error('Product not exists');
+      throw new AppError('Product not exists');
     }
 
     await productRepository.deleteById(id);

@@ -8,72 +8,52 @@ import { connection } from '../database/dbConnection';
 const collaboratorsRoutes = Router();
 
 collaboratorsRoutes.delete('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
+  const { id } = request.params;
 
-    const deleteCollaborator = new DeleteCollaboratorService();
+  const deleteCollaborator = new DeleteCollaboratorService();
 
-    await deleteCollaborator.execute(id);
+  await deleteCollaborator.execute(id);
 
-    return response.json();
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json();
 });
 
 collaboratorsRoutes.put('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
-    const data = request.body;
+  const { id } = request.params;
+  const data = request.body;
 
-    const deleteCollaborator = new UpdataCollaboratorService();
+  const deleteCollaborator = new UpdataCollaboratorService();
 
-    const results = await deleteCollaborator.execute(id, data);
+  const results = await deleteCollaborator.execute(id, data);
 
-    return response.json(results);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(results);
 });
 
 collaboratorsRoutes.get('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
+  const { id } = request.params;
 
-    const collaboratorRepository = new CollaboratorRepository(connection());
+  const collaboratorRepository = new CollaboratorRepository(connection());
 
-    const results = await collaboratorRepository.findOneById(id);
+  const results = await collaboratorRepository.findOneById(id);
 
-    return response.json(results);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(results);
 });
 
 collaboratorsRoutes.get('/', async (request, response) => {
-  try {
-    const collaboratorRepository = new CollaboratorRepository(connection());
+  const collaboratorRepository = new CollaboratorRepository(connection());
 
-    const results = await collaboratorRepository.findAll();
+  const results = await collaboratorRepository.findAll();
 
-    return response.json(results);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(results);
 });
 
 collaboratorsRoutes.post('/', async (request, response) => {
-  try {
-    const data = request.body;
+  const data = request.body;
 
-    const createCollaborator = new CreateCollaboratorService();
+  const createCollaborator = new CreateCollaboratorService();
 
-    const results = await createCollaborator.execute(data);
+  const results = await createCollaborator.execute(data);
 
-    return response.json(results);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(results);
 });
 
 export { collaboratorsRoutes };

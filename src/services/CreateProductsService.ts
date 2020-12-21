@@ -1,9 +1,6 @@
-import path from 'path';
-import fs from 'fs';
 import { ProductRepository } from '../repositories/ProductRepository';
 import { connection } from '../database/dbConnection';
 import { Product } from '../models/Product';
-import upload from '../config/upload';
 
 interface IRequest {
   idCategoria: number;

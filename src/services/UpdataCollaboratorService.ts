@@ -1,6 +1,7 @@
 import { Collaborator } from '../models/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 
 class UpdataCollaboratorService {
   public async execute(id: string, data: Collaborator): Promise<Collaborator> {
@@ -9,7 +10,7 @@ class UpdataCollaboratorService {
     const collaboratorExists = await collaboratorRepository.findOneById(id);
 
     if (!collaboratorExists) {
-      throw new Error('Collaborator not exists');
+      throw new AppError('Collaborator not exists');
     }
 
     const collaborator = await collaboratorRepository.updateById(id, data);

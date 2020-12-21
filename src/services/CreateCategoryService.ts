@@ -1,4 +1,5 @@
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 import { CategoryProduct } from '../models/CategoryProduct';
 import { CategoryProductRepository } from '../repositories/CategoryProductRepository';
 
@@ -11,7 +12,7 @@ class CreateCategoryService {
     const categoryExists = await categoryProductRepository.findByName(name);
 
     if (categoryExists) {
-      throw new Error('category already exists');
+      throw new AppError('category already exists');
     }
 
     const category = await categoryProductRepository.create({

@@ -1,4 +1,5 @@
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 import { Product } from '../models/Product';
 import { ProductRepository } from '../repositories/ProductRepository';
 
@@ -9,7 +10,7 @@ class FindProductService {
     const product = await productRepository.findOneById(id);
 
     if (!product) {
-      throw new Error('Product not Exists');
+      throw new AppError('Product not Exists');
     }
 
     return product;

@@ -4,6 +4,7 @@ import { jwt } from '../config/auth';
 import { Collaborator } from '../models/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 
 interface IRequest {
   login: string;
@@ -22,13 +23,13 @@ class AuthenticateUserService {
     const collaborator = await collaboratorRepository.findByLogin(login);
 
     if (!collaborator) {
-      throw new Error('Incorrect login/password combination');
+      throw new AppError('Incorrect login/password combination');
     }
 
     const passwordMached = await compare(password, collaborator.senha);
 
     if (!passwordMached) {
-      throw new Error('Incorrect login/password combination');
+      throw new AppError('Incorrect login/password combination');
     }
 
     const token = sign({}, jwt.secret, {

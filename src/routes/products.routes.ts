@@ -13,112 +13,88 @@ const productsRoutes = Router();
 const upload = multer(uploadConfig);
 
 productsRoutes.get('/expirationDate', async (request, response) => {
-  try {
-    const productRepository = new ProductRepository(connection());
+  const productRepository = new ProductRepository(connection());
 
-    const products = await productRepository.getExpirationDate();
+  const products = await productRepository.getExpirationDate();
 
-    return response.json(products);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(products);
 });
 
 productsRoutes.delete('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
+  const { id } = request.params;
 
-    const deleteProduct = new DeleteProductService();
+  const deleteProduct = new DeleteProductService();
 
-    await deleteProduct.execute(id);
+  await deleteProduct.execute(id);
 
-    return response.json().send();
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json().send();
 });
 
 productsRoutes.put('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
-    const data = request.body;
+  const { id } = request.params;
+  const data = request.body;
 
-    const updateProduct = new UpdateProductService();
+  const updateProduct = new UpdateProductService();
 
-    const product = await updateProduct.execute(id, data);
+  const product = await updateProduct.execute(id, data);
 
-    return response.json(product);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(product);
 });
 
 productsRoutes.get('/:id', async (request, response) => {
-  try {
-    const { id } = request.params;
+  const { id } = request.params;
 
-    const findProduct = new FindProductService();
+  const findProduct = new FindProductService();
 
-    const product = await findProduct.execute(id);
+  const product = await findProduct.execute(id);
 
-    return response.json(product);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(product);
 });
 
 productsRoutes.get('/', async (request, response) => {
-  try {
-    const productRepository = new ProductRepository(connection());
+  const productRepository = new ProductRepository(connection());
 
-    const results = await productRepository.findAll();
+  const results = await productRepository.findAll();
 
-    return response.json(results);
-  } catch (error) {
-    return response.status(400).json({ err: error.message });
-  }
+  return response.json(results);
 });
 
 productsRoutes.post(
   '/',
   upload.single('produto_img'),
   async (request, response) => {
-    try {
-      const {
-        idCategoria,
-        codigo,
-        marca,
-        nome,
-        descricao,
-        validade,
-        lote,
-        statusProduto,
-        valor,
-        qtdeEstoque,
-        idFornecedor,
-      } = request.body;
+    const {
+      idCategoria,
+      codigo,
+      marca,
+      nome,
+      descricao,
+      validade,
+      lote,
+      statusProduto,
+      valor,
+      qtdeEstoque,
+      idFornecedor,
+    } = request.body;
 
-      const createProducts = new CreateProductService();
+    const createProducts = new CreateProductService();
 
-      const product = await createProducts.execute({
-        idCategoria,
-        codigo,
-        marca,
-        nome,
-        produto_img: request.file.filename,
-        descricao,
-        validade,
-        lote,
-        statusProduto,
-        valor,
-        qtdeEstoque,
-        idFornecedor,
-      });
+    const product = await createProducts.execute({
+      idCategoria,
+      codigo,
+      marca,
+      nome,
+      produto_img: request.file.filename,
+      descricao,
+      validade,
+      lote,
+      statusProduto,
+      valor,
+      qtdeEstoque,
+      idFornecedor,
+    });
 
-      return response.json(product);
-    } catch (error) {
-      return response.status(400).json({ err: error.message });
-    }
+    return response.json(product);
   },
 );
 

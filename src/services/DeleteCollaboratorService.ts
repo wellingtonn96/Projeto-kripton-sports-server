@@ -1,5 +1,6 @@
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 
 class DeleteCollaboratorService {
   public async execute(id: string): Promise<void> {
@@ -8,7 +9,7 @@ class DeleteCollaboratorService {
     const results = await collaboratorRepository.findOneById(id);
 
     if (!results) {
-      throw new Error('Collaborator not exists');
+      throw new AppError('Collaborator not exists');
     }
 
     await collaboratorRepository.deleteById(id);

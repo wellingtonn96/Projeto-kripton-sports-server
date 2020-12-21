@@ -1,4 +1,3 @@
-
 // exports.criarPedido = (application, req, res)=>{
 // 	const connection = application.config.dbConnection();
 // 	const clientesModel = new application.app.models.ClienteDao(connection);
@@ -16,7 +15,6 @@
 // 		});
 // 	}).catch(error => console.log(error))
 // }
-
 
 // exports.criarPedido_salvar = (application, req, res)=>{
 // 	var dados = {
@@ -43,7 +41,6 @@
 // 		}).catch(error => console.log(error));
 // 	}).catch(erro => console.log(erro))
 // }
-
 
 // exports.pedidoAdd_salvar = (application, req, res)=>{
 // 	var dados = req.body

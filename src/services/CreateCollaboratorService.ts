@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { Collaborator } from '../models/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
 import { connection } from '../database/dbConnection';
+import AppError from '../errors/AppError';
 
 interface IRequest {
   login: string;
@@ -28,7 +29,7 @@ class CreateCollaboratorService {
     const results = await collaboratorRepository.findByLogin(login);
 
     if (results) {
-      throw new Error('Collaborator already exists');
+      throw new AppError('Collaborator already exists');
     }
 
     const encryptedPassword = await bcrypt.hash(senhaEncrypt, 8);
