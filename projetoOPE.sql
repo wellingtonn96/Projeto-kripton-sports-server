@@ -17,28 +17,26 @@ create table colaborador(
 	senha varchar(100) not null,
 	email varchar(200) UNIQUE,
 	nome varchar(60) not null,
-    sobrenome varchar(60) null default null,
-	telefone varchar(11) not null,
-    idTipo int not null,
-	primary key(idColaborador),
-    constraint fk_idTipo foreign key(idTipo) references tipoColaborador(idTipoColaborador)
-    ON DELETE CASCADE
-	ON UPDATE CASCADE
+  sobrenome varchar(60) null default null,
+  telefone varchar(11) not null,
+  idTipo int not null,
+  primary key(idColaborador),
+  constraint fk_idTipo foreign key(idTipo) references tipoColaborador(idTipoColaborador)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
 );
-
-
 
 -- Criando a tabela Cliente
 create table cliente(
-	idCliente int not null auto_increment,
-    login varchar(25) not null,
-	senha varchar(100) not null,
-	email varchar(200),
-	nome varchar(60) not null,
-    sobrenome varchar(60) null default null,
-	telefone varchar(11) not null,
-	primary key(idCliente)
-    );
+  idCliente int not null auto_increment,
+  login varchar(25) not null,
+  senha varchar(100) not null,
+  email varchar(200),
+  nome varchar(60) not null,
+  sobrenome varchar(60) null default null,
+  telefone varchar(11) not null,
+  primary key(idCliente)
+);
 
 
 -- Criando a tabela endereço
@@ -46,14 +44,14 @@ create table cliente(
 create table endereco(
 	idEndereco int not null auto_increment,
 	rua varchar(150),
-    cidade varchar(100),
-    numero varchar(100),
-    estado char(2),
-    idCliente int not null,
-    primary key (idEndereco),
-    constraint fk_idCliente foreign key(idCliente) references cliente(idCliente)
-    ON DELETE CASCADE
-	ON UPDATE CASCADE
+  cidade varchar(100),
+  numero varchar(100),
+  estado char(2),
+  idCliente int not null,
+  primary key (idEndereco),
+  constraint fk_idCliente foreign key(idCliente) references cliente(idCliente)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
 );
 
 
@@ -249,4 +247,5 @@ insert into pedidoApp(idCliente, Produto1,Produto2,qtdeProd1,qtdeProd2,endereco,
 
 
 select * from pedidoApp;
+
 
