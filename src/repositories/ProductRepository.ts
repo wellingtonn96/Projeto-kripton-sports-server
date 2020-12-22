@@ -128,53 +128,6 @@ class ProductRepository {
 
     return products;
   }
-
-  // cadastrarCategoria(dados: any) {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'INSERT INTO categoriaProduto set ? ',
-  //       [dados],
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
-
-  // listarCategoria() {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'SELECT * FROM categoriaProduto',
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
-
-  // qtdEstoque(id: any) {
-  //   return new Promise((resolve, reject) => {
-  //     this.connection.query(
-  //       'SELECT qtdeEstoque FROM produto where idProduto = ?',
-  //       [id],
-  //       (error, results) => {
-  //         if (error) {
-  //           reject(error);
-  //         } else {
-  //           resolve(results);
-  //         }
-  //       },
-  //     );
-  //   });
-  // }
 }
 
 export { ProductRepository };

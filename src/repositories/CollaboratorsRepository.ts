@@ -127,45 +127,6 @@ class CollaboratorRepository {
 
     return collaborator;
   }
-
-  // cadastrarNutricionista(dados: any){
-  // 	return new Promise((resolve, reject)=>{
-  // 		this.connection.query('insert into nutricionista set ? ',
-  // 		[dados],
-  // 		(error, results)=>{
-  // 			if(error){
-  // 				reject(error)
-  // 			}else{
-  // 				resolve(results)
-  // 			}
-  // 		})
-  // 	})
-  // }
-
-  // autenticar(colaborador: any, req, res){
-  // 	var login = colaborador.login
-  // 	var senha = colaborador.senha
-  // 	return new Promise((resolve, reject)=>{
-  // 		this.connection.query('select * from colaborador where login = ? AND senha = ?', [
-  // 			login, senha
-  // 		], (error, results)=>{
-  // 			if (error){
-  // 				reject(error)
-  // 			}else{
-
-  // 				if(!results.length > 0){
-  // 					reject('colaborador ou senha incorretos')
-  // 				}else{
-  // 					if(results[0].senha !== senha){
-  // 						reject("colaborador ou senha incorretos")
-  // 					}else{
-  // 						resolve(results)
-  // 					}
-  // 				}
-  // 			}
-  // 		})
-  // 	})
-  // }
 }
 
 export { CollaboratorRepository };
