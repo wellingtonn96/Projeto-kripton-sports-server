@@ -1,5 +1,5 @@
 class OrderItem {
-  idItemPedido: number;
+  idItemPedido?: number;
 
   idPedido: number;
 

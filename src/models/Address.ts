@@ -1,5 +1,5 @@
 class Address {
-  idEndereco: number;
+  idEndereco?: number;
 
   rua: string;
 

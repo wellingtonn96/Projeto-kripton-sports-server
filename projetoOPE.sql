@@ -58,9 +58,9 @@ create table endereco(
 
 -- O usuario nutricionista ja foi criado na tabela colaborador, porém ela possui essa tabela pois tem atributos especificos.
 create table nutricionista(
-	idNutricionista int not null auto_increment,
-	crn int not null,
-    idColaborador int not null,
+  idNutricionista int not null auto_increment,
+  crn int not null,
+  idColaborador int not null,
 	primary key(idNutricionista),
     constraint fk_idNutricionista foreign key(idColaborador) references colaborador(idColaborador)
 );

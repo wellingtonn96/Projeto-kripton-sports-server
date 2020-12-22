@@ -1,5 +1,5 @@
 class Supplier {
-  idFornecedor: number;
+  idFornecedor?: number;
 
   cnpj: string;
 

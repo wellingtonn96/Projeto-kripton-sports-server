@@ -1,5 +1,5 @@
 class Nutritionist {
-  idNutricionista: number;
+  idNutricionista?: number;
 
   crn: number;
 
