@@ -127,20 +127,6 @@ class CollaboratorRepository {
 
     return collaborator;
   }
-
-  // cadastrarNutricionista(dados: any){
-  // 	return new Promise((resolve, reject)=>{
-  // 		this.connection.query('insert into nutricionista set ? ',
-  // 		[dados],
-  // 		(error, results)=>{
-  // 			if(error){
-  // 				reject(error)
-  // 			}else{
-  // 				resolve(results)
-  // 			}
-  // 		})
-  // 	})
-  // }
 }
 
 export { CollaboratorRepository };

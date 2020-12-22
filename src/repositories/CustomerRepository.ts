@@ -80,7 +80,7 @@ class CustomerRepository {
     return customer;
   }
 
-  public async update(id: string, data: Customer): Promise<Customer> {
+  public async updateById(id: string, data: Customer): Promise<Customer> {
     await new Promise((resolve, reject) => {
       this.connection.query(
         'UPDATE cliente set ? WHERE idCliente = ? ',

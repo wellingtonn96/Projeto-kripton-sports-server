@@ -1,80 +1,74 @@
-// class PedidoDao{
-//     constructor(connection){
-//         this._connection = connection
-//     }
+import { Connection } from 'mysql';
+import { Order } from '../models/Order';
 
-//     criarPedido(dados){
-// 		return new Promise((resolve, reject)=>{
-// 			this._connection.query('INSERT INTO pedido set ? ',
-// 			[dados],
-// 			(error, results)=>{
-// 				if(error){
-// 					reject(error)
-// 				}else{
-// 					resolve(results)
-// 				}
-// 			})
-// 		})
-// 	}
+class OrderRepository {
+  public connection: Connection;
 
-// 	inserirItemPedido(dados){
-// 		return new Promise((resolve, reject)=>{
-// 			this._connection.query('INSERT INTO itemPedido set ? ',
-// 			[dados],
-// 			(error, results)=>{
-// 				if(error){
-// 					reject(error)
-// 				}else{
-// 					resolve(results)
-// 				}
-// 			})
-// 		})
-// 	}
-// 	//produto.nome, itemPedido.quantidade,itemPedido.valorUnitario
+  constructor(connectionDb: Connection) {
+    this.connection = connectionDb;
+  }
 
-// 	itemsPedido(idPedido){
-// 		return new Promise((resolve, reject)=>{
-// 			this._connection.query('SELECT itemPedido.idItemPedido, produto.nome, produto.codigo, produto.valor, itemPedido.quantidade, itemPedido.valorUnitario, itemPedido.quantidade * produto.valor AS soma, Sum(itemPedido.quantidade * itemPedido.valorUnitario) AS subtotal'+
-// 				' FROM itemPedido INNER JOIN produto ON itemPedido.codProduto = produto.idProduto WHERE itemPedido.idPedido = ? GROUP BY itemPedido.idItemPedido ORDER BY itemPedido.idItemPedido DESC;',
-// 			[idPedido],
-// 			(error, results)=>{
-// 				if(error){
-// 					reject(error)
-// 				}else{
-// 					resolve(results)
-// 				}
-// 			})
-// 		})
-// 	}
-// 	/*
-// 	cancelarItem(id){
-// 		return new Promise((resolve, reject)=>{
-// 			this._connection.query('DELETE FROM itemPedido WHERE idItemPedido = ?;',
-// 			[id],
-// 			(error, results)=>{
-// 				if(error){
-// 					reject(error)
-// 				}else{
-// 					resolve(results)
-// 				}
-// 			})
-// 		})
-// 	}
-// 	*/
-// 	insertFormaPgto(dados, id){
-// 		return new Promise((resolve, reject)=>{
-// 			this._connection.query('UPDATE pedido set ? WHERE idPedido = ? ',
-// 			[dados, id],
-// 			(error, results)=>{
-// 				if(error){
-// 					reject(error)
-// 				}else{
-// 					resolve(results)
-// 				}
-// 			})
-// 		})
-// 	}
+  public async create(data: Order): Promise<Order> {
+    const { inserId } = await new Promise((resolve, reject) => {
+      this.connection.query(
+        'INSERT INTO pedido set ? ',
+        [data],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
 
-// }
+    const order = await this.findOneById(inserId);
 
-// module.exports = () => PedidoDao
+    return order;
+  }
+
+  public async findOneById(id: string): Promise<Order> {
+    const [findOne] = await new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM pedido WHERE idPedido = ?',
+        [id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    if (!findOne) return findOne;
+
+    const orderItem = new Order(findOne);
+
+    return orderItem;
+  }
+
+  public async updateById(id: string, data: Order): Promise<Order> {
+    await new Promise((resolve, reject) => {
+      this.connection.query(
+        'UPDATE pedido set ? WHERE idPedido = ? ',
+        [data, id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    const order = await this.findOneById(id);
+
+    return order;
+  }
+}
+
+export { OrderRepository };
