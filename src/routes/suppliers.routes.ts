@@ -1,47 +1,51 @@
 import { Router } from 'express';
+import { connection } from '../database/dbConnection';
+import { SupplierRepository } from '../repositories/SupplierRepository';
 import { CreateSupplierService } from '../services/CreateSupplierService';
-// import { connection } from '../database/dbConnection';
+import { DeleteSupplierService } from '../services/DeleteSupplierService';
+import { FindSupplierService } from '../services/FindSupplierService';
+import { UpdateSupplierService } from '../services/UpdateSupplierService';
 
 const suppliersRoutes = Router();
 
-// suppliersRoutes.delete('/:id', async (request, response) => {
-//   const { id } = request.params;
+suppliersRoutes.delete('/:id', async (request, response) => {
+  const { id } = request.params;
 
-//   const deleteCollaborator = new DeleteCustomerService();
+  const deleteSupplier = new DeleteSupplierService();
 
-//   await deleteCollaborator.execute(id);
+  await deleteSupplier.execute(id);
 
-//   return response.json();
-// });
+  return response.json();
+});
 
-// suppliersRoutes.put('/:id', async (request, response) => {
-//   const { id } = request.params;
-//   const data = request.body;
+suppliersRoutes.put('/:id', async (request, response) => {
+  const { id } = request.params;
+  const data = request.body;
 
-//   const deleteCollaborator = new UpdateCustomerService();
+  const updateSupplier = new UpdateSupplierService();
 
-//   const results = await deleteCollaborator.execute(id, data);
+  const results = await updateSupplier.execute(id, data);
 
-//   return response.json(results);
-// });
+  return response.json(results);
+});
 
-// suppliersRoutes.get('/:id', async (request, response) => {
-//   const { id } = request.params;
+suppliersRoutes.get('/:id', async (request, response) => {
+  const { id } = request.params;
 
-//   const customerRepository = new FindCustomerService();
+  const supplierRepository = new FindSupplierService();
 
-//   const results = await customerRepository.execute(id);
+  const results = await supplierRepository.execute(id);
 
-//   return response.json(results);
-// });
+  return response.json(results);
+});
 
-// suppliersRoutes.get('/', async (request, response) => {
-//   const customerRepository = new CustomerRepository(connection());
+suppliersRoutes.get('/', async (request, response) => {
+  const supplierRepository = new SupplierRepository(connection());
 
-//   const results = await customerRepository.findAll();
+  const results = await supplierRepository.findAll();
 
-//   return response.json(results);
-// });
+  return response.json(results);
+});
 
 suppliersRoutes.post('/', async (request, response) => {
   const { telefone, cnpj, email, endereco } = request.body;
