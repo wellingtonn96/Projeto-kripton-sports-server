@@ -1,90 +1,67 @@
 import { Router } from 'express';
 import { connection } from '../database/dbConnection';
-import { CategoryProductRepository } from '../repositories/CategoryProductRepository';
-import { CreateCategoryService } from '../services/CreateCategoryService';
+import { CustomerRepository } from '../repositories/CustomerRepository';
+import { CreateCustomerService } from '../services/CreateCustomerService';
+import { DeleteCustomerService } from '../services/DeleteCustomerService';
+import { FindCustomerService } from '../services/FindCustomerService';
+import { UpdateCustomerService } from '../services/UpdateCustomerService';
 
-const categoriesRoutes = Router();
+const customersRoutes = Router();
 
-categoriesRoutes.get('/', async (request, response) => {
-  const categoryProductRepository = new CategoryProductRepository(connection());
-
-  const categories = await categoryProductRepository.findAll();
-
-  return response.json(categories);
-});
-
-categoriesRoutes.get('/:id', async (request, response) => {
+customersRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const categoryProductRepository = new CategoryProductRepository(connection());
+  const deleteCollaborator = new DeleteCustomerService();
 
-  const category = await categoryProductRepository.findOneById(id);
+  await deleteCollaborator.execute(id);
 
-  return response.json(category);
+  return response.json();
 });
 
-categoriesRoutes.post('/', async (request, response) => {
-  const { name } = request.body;
+customersRoutes.put('/:id', async (request, response) => {
+  const { id } = request.params;
+  const data = request.body;
 
-  const createCategory = new CreateCategoryService();
+  const deleteCollaborator = new UpdateCustomerService();
 
-  const category = await createCategory.execute(name);
+  const results = await deleteCollaborator.execute(id, data);
 
-  return response.json(category);
+  return response.json(results);
 });
 
-export { categoriesRoutes };
+customersRoutes.get('/:id', async (request, response) => {
+  const { id } = request.params;
 
-// module.exports = (application)=>{
+  const customerRepository = new FindCustomerService();
 
-//  	application.get('/clientes/cadastrar',(req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.cadastrar(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// 	application.post('/clientes/salvar',(req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.cliente_salvar(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// 	application.get('/clientes/excluir/:id', (req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.excluirCliente(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// 	application.get('/clientes/editar/:id', (req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.editarCliente(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// 	application.post('/clientes/salvar/:id', (req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.salvarCliente(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// 	application.get('/clientes/detalhes/:id',(req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.detalhesCliente(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
+  const results = await customerRepository.execute(id);
 
-// 	application.get('/clientes',(req, res)=>{
-// 	 if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-// 			application.app.controllers.clientes.clientes(application, req, res);
-// 		}else {
-// 			res.render("login/login", {validacao : {}});
-// 		}
-// 	});
-// }
+  return response.json(results);
+});
+
+customersRoutes.get('/', async (request, response) => {
+  const customerRepository = new CustomerRepository(connection());
+
+  const results = await customerRepository.findAll();
+
+  return response.json(results);
+});
+
+customersRoutes.post('/', async (request, response) => {
+  const { login, senha, email, nome, sobrenome, telefone } = request.body;
+
+  const createCustomer = new CreateCustomerService();
+
+  const results = await createCustomer.execute({
+    login,
+    senhaEncrypt: senha,
+    email,
+    nome,
+    sobrenome,
+    telefone,
+  });
+
+  return response.json(results);
+});
+
+export { customersRoutes };

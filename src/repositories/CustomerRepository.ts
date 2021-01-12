@@ -80,6 +80,28 @@ class CustomerRepository {
     return customer;
   }
 
+  public async findByLogin(login: string): Promise<Customer> {
+    const [findCustomer] = await new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM cliente WHERE login = ?',
+        [login],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    if (!findCustomer) return findCustomer;
+
+    const customer = new Customer(findCustomer);
+
+    return customer;
+  }
+
   public async updateById(id: string, data: Customer): Promise<Customer> {
     await new Promise((resolve, reject) => {
       this.connection.query(
