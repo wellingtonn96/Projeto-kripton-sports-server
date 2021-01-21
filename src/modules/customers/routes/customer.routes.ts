@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import { connection } from '../database/dbConnection';
 import { CustomerRepository } from '../repositories/CustomerRepository';
 import { CreateCustomerService } from '../services/CreateCustomerService';
