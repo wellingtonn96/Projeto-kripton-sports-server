@@ -1,6 +1,6 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
-import { Customer } from '../models/Customer';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
+import { Customer } from '../infra/mysql/entities/Customer';
 import { CustomerRepository } from '../repositories/CustomerRepository';
 
 class FindCustomerService {

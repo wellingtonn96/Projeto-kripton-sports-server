@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Supplier } from '../models/Supplier';
+import { Supplier } from '../infra/mysql/entities/Supplier';
 
 class SupplierRepository {
   public connection: Connection;

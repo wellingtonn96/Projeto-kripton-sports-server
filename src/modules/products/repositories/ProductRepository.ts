@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Product } from '../models/Product';
+import { Product } from '../infra/mysql/entities/Product';
 
 interface ProductExipirationDate {
   idProduto: number;

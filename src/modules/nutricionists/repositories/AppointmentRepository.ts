@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Appointment } from '../models/Appointment';
+import { Appointment } from '../infra/mysql/entities/Appointment';
 
 class AppointmentRepository {
   public connection: Connection;

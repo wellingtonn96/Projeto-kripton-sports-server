@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Customer } from '../models/Customer';
+import { Customer } from '../infra/mysql/entities/Customer';
 
 class CustomerRepository {
   public connection: Connection;

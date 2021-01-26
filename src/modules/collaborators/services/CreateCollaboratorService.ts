@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
-import { Collaborator } from '../models/Collaborator';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
+import { Collaborator } from '../infra/mysql/entities/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
 
 interface IRequest {
   login: string;

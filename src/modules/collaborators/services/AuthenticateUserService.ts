@@ -1,10 +1,10 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { jwt } from '../config/auth';
-import { Collaborator } from '../models/Collaborator';
+import { jwt } from '@config/auth';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
+import { Collaborator } from '../infra/mysql/entities/Collaborator';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
 
 interface IRequest {
   login: string;

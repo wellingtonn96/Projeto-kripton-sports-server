@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
-import { CreateCollaboratorService } from '../services/CreateCollaboratorService';
-import { DeleteCollaboratorService } from '../services/DeleteCollaboratorService';
-import { UpdataCollaboratorService } from '../services/UpdataCollaboratorService';
-import { connection } from '../database/dbConnection';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { CollaboratorRepository } from '../../../repositories/CollaboratorsRepository';
+import { CreateCollaboratorService } from '../../../services/CreateCollaboratorService';
+import { DeleteCollaboratorService } from '../../../services/DeleteCollaboratorService';
+import { UpdataCollaboratorService } from '../../../services/UpdataCollaboratorService';
 
 const collaboratorsRoutes = Router();
 

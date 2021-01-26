@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { connection } from '../database/dbConnection';
-import { ProductRepository } from '../repositories/ProductRepository';
-import { CreateProductService } from '../services/CreateProductsService';
-import uploadConfig from '../config/upload';
-import { FindProductService } from '../services/FindProductService';
-import { UpdateProductService } from '../services/UpdateProductService';
-import { DeleteProductService } from '../services/DeleteProductService';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import uploadConfig from '@config/upload';
+import { ProductRepository } from '../../../repositories/ProductRepository';
+import { CreateProductService } from '../../../services/CreateProductsService';
+import { FindProductService } from '../../../services/FindProductService';
+import { UpdateProductService } from '../../../services/UpdateProductService';
+import { DeleteProductService } from '../../../services/DeleteProductService';
 
 const productsRoutes = Router();
 

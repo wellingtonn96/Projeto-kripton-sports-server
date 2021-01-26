@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Collaborator } from '../models/Collaborator';
+import { Collaborator } from '../infra/mysql/entities/Collaborator';
 
 class CollaboratorRepository {
   private connection: Connection;

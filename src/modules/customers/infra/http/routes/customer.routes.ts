@@ -1,9 +1,10 @@
-import { connection } from '../database/dbConnection';
-import { CustomerRepository } from '../repositories/CustomerRepository';
-import { CreateCustomerService } from '../services/CreateCustomerService';
-import { DeleteCustomerService } from '../services/DeleteCustomerService';
-import { FindCustomerService } from '../services/FindCustomerService';
-import { UpdateCustomerService } from '../services/UpdateCustomerService';
+import { Router } from 'express';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { CustomerRepository } from '../../../repositories/CustomerRepository';
+import { CreateCustomerService } from '../../../services/CreateCustomerService';
+import { DeleteCustomerService } from '../../../services/DeleteCustomerService';
+import { FindCustomerService } from '../../../services/FindCustomerService';
+import { UpdateCustomerService } from '../../../services/UpdateCustomerService';
 
 const customersRoutes = Router();
 

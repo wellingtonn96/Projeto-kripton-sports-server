@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { CategoryProduct } from '../models/CategoryProduct';
+import { CategoryProduct } from '../infra/mysql/entities/CategoryProduct';
 
 class CategoryProductRepository {
   public connection: Connection;

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { connection } from '../database/dbConnection';
-import { CategoryProductRepository } from '../repositories/CategoryProductRepository';
-import { CreateCategoryService } from '../services/CreateCategoryService';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { CategoryProductRepository } from '../../../repositories/CategoryProductRepository';
+import { CreateCategoryService } from '../../../services/CreateCategoryService';
 
 const categoriesRoutes = Router();
 

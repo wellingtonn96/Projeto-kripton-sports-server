@@ -1,6 +1,6 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
-import { CategoryProduct } from '../models/CategoryProduct';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
+import { CategoryProduct } from '../infra/mysql/entities/CategoryProduct';
 import { CategoryProductRepository } from '../repositories/CategoryProductRepository';
 
 class CreateCategoryService {

@@ -1,7 +1,7 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
 import { CustomerRepository } from '../repositories/CustomerRepository';
-import { Customer } from '../models/Customer';
+import { Customer } from '../infra/mysql/entities/Customer';
 
 class UpdateCustomerService {
   public async execute(id: string, data: Customer): Promise<Customer> {

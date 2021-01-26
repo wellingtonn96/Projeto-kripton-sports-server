@@ -1,7 +1,7 @@
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
 import { SupplierRepository } from '../repositories/SupplierRepository';
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
-import { Supplier } from '../models/Supplier';
+import { Supplier } from '../infra/mysql/entities/Supplier';
 
 interface IRequest {
   telefone: string;

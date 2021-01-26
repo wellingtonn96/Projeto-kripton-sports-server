@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { connection } from '../database/dbConnection';
-import { SupplierRepository } from '../repositories/SupplierRepository';
-import { CreateSupplierService } from '../services/CreateSupplierService';
-import { DeleteSupplierService } from '../services/DeleteSupplierService';
-import { FindSupplierService } from '../services/FindSupplierService';
-import { UpdateSupplierService } from '../services/UpdateSupplierService';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { SupplierRepository } from '../../../repositories/SupplierRepository';
+import { CreateSupplierService } from '../../../services/CreateSupplierService';
+import { DeleteSupplierService } from '../../../services/DeleteSupplierService';
+import { FindSupplierService } from '../../../services/FindSupplierService';
+import { UpdateSupplierService } from '../../../services/UpdateSupplierService';
 
 const suppliersRoutes = Router();
 

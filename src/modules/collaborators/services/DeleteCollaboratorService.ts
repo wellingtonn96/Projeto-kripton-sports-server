@@ -1,6 +1,6 @@
+import AppError from '@shared/errors/AppError';
+import { connection } from '@shared/infra/mysql/dbConnection';
 import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
 
 class DeleteCollaboratorService {
   public async execute(id: string): Promise<void> {

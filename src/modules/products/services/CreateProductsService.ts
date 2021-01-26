@@ -1,6 +1,6 @@
+import { connection } from '@shared/infra/mysql/dbConnection';
 import { ProductRepository } from '../repositories/ProductRepository';
-import { connection } from '../database/dbConnection';
-import { Product } from '../models/Product';
+import { Product } from '../infra/mysql/entities/Product';
 
 interface IRequest {
   idCategoria: number;

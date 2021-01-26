@@ -1,5 +1,5 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
 import { ProductRepository } from '../repositories/ProductRepository';
 
 class DeleteProductService {

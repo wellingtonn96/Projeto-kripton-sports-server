@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { OrderItem } from '../models/OrderItem';
+import { OrderItem } from '../infra/mysql/entities/OrderItem';
 
 class OrderItemRepository {
   public connection: Connection;

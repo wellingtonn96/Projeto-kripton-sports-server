@@ -1,5 +1,5 @@
 import { Connection } from 'mysql';
-import { Nutritionist } from '../models/Nutritionist';
+import { Nutritionist } from '../infra/mysql/entities/Nutritionist';
 
 class NutritionistsRepository {
   public connection: Connection;

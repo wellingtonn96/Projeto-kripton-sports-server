@@ -1,6 +1,6 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
-import { Supplier } from '../models/Supplier';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import AppError from '@shared/errors/AppError';
+import { Supplier } from '../infra/mysql/entities/Supplier';
 import { SupplierRepository } from '../repositories/SupplierRepository';
 
 class FindSupplierService {

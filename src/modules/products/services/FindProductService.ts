@@ -1,6 +1,6 @@
-import { connection } from '../database/dbConnection';
-import AppError from '../errors/AppError';
-import { Product } from '../models/Product';
+import AppError from '@shared/errors/AppError';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { Product } from '../infra/mysql/entities/Product';
 import { ProductRepository } from '../repositories/ProductRepository';
 
 class FindProductService {
