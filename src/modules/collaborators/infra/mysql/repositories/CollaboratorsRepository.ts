@@ -1,11 +1,13 @@
+import { ICollaaboratorsRepository } from '@modules/collaborators/repositories/ICollaboratorsRepository';
 import { Connection } from 'mysql';
-import { Collaborator } from '../infra/mysql/entities/Collaborator';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { Collaborator } from '../entities/Collaborator';
 
-class CollaboratorRepository {
+class CollaboratorRepository implements ICollaaboratorsRepository {
   private connection: Connection;
 
-  constructor(connectionDb: Connection) {
-    this.connection = connectionDb;
+  constructor() {
+    this.connection = connection();
   }
 
   public async findAll(): Promise<Collaborator[]> {

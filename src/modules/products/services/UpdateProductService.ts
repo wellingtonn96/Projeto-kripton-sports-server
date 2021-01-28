@@ -1,11 +1,10 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
 import { Product } from '../infra/mysql/entities/Product';
-import { ProductRepository } from '../repositories/ProductRepository';
+import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
 
 class UpdateProductService {
   public async execute(id: string, data: Product): Promise<Product> {
-    const productRepository = new ProductRepository(connection());
+    const productRepository = new ProductRepository();
 
     const productExists = await productRepository.findOneById(id);
 

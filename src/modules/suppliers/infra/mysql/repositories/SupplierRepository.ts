@@ -1,11 +1,12 @@
 import { Connection } from 'mysql';
-import { Supplier } from '../infra/mysql/entities/Supplier';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { Supplier } from '../entities/Supplier';
 
 class SupplierRepository {
-  public connection: Connection;
+  private connection: Connection;
 
-  constructor(connectionDb: Connection) {
-    this.connection = connectionDb;
+  constructor() {
+    this.connection = connection();
   }
 
   public async findAll(): Promise<Supplier[]> {

@@ -1,7 +1,8 @@
 import { Connection } from 'mysql';
-import { Product } from '../infra/mysql/entities/Product';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { Product } from '../entities/Product';
 
-interface ProductExipirationDate {
+export interface ProductExipirationDate {
   idProduto: number;
   codigo: number;
   nome: string;
@@ -14,8 +15,8 @@ interface ProductExipirationDate {
 class ProductRepository {
   public connection: Connection;
 
-  constructor(connectionDb: Connection) {
-    this.connection = connectionDb;
+  constructor() {
+    this.connection = connection();
   }
 
   public async findAll(): Promise<Product[]> {

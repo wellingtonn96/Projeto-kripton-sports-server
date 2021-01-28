@@ -1,18 +1,20 @@
 import { Connection } from 'mysql';
-import { CategoryProduct } from '../infra/mysql/entities/CategoryProduct';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { ICategoryProductRepository } from '@modules/products/repositories/ICategoryProductRepository';
+import { CategoryProduct } from '../entities/CategoryProduct';
 
-class CategoryProductRepository {
-  public connection: Connection;
+class CategoryProductRepository implements ICategoryProductRepository {
+  private connection: Connection;
 
-  constructor(connectionDb: Connection) {
-    this.connection = connectionDb;
+  constructor() {
+    this.connection = connection();
   }
 
-  public async create(data: CategoryProduct): Promise<CategoryProduct> {
+  public async create(categoria: string): Promise<CategoryProduct> {
     const { insertId } = await new Promise((resolve, reject) => {
       this.connection.query(
         'INSERT INTO categoriaProduto set ? ',
-        [data],
+        [categoria],
         (error, results) => {
           if (error) {
             reject(error);

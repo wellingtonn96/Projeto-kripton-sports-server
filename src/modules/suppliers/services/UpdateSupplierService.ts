@@ -1,11 +1,10 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
 import { Supplier } from '../infra/mysql/entities/Supplier';
-import { SupplierRepository } from '../repositories/SupplierRepository';
+import { SupplierRepository } from '../infra/mysql/repositories/SupplierRepository';
 
 class UpdateSupplierService {
   public async execute(id: string, data: Supplier): Promise<Supplier> {
-    const supplierRepository = new SupplierRepository(connection());
+    const supplierRepository = new SupplierRepository();
 
     const supplierExists = await supplierRepository.findOneById(id);
 

@@ -1,10 +1,9 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
-import { SupplierRepository } from '../repositories/SupplierRepository';
+import { SupplierRepository } from '../infra/mysql/repositories/SupplierRepository';
 
 class DeleteSupplierService {
   public async execute(id: string): Promise<void> {
-    const supplierRepository = new SupplierRepository(connection());
+    const supplierRepository = new SupplierRepository();
 
     const supplierExists = await supplierRepository.findOneById(id);
 

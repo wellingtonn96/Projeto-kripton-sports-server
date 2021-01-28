@@ -1,10 +1,9 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
-import { ProductRepository } from '../repositories/ProductRepository';
+import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
 
 class DeleteProductService {
   public async execute(id: string): Promise<void> {
-    const productRepository = new ProductRepository(connection());
+    const productRepository = new ProductRepository();
 
     const productExists = await productRepository.findOneById(id);
 

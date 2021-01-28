@@ -1,5 +1,4 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
-import { ProductRepository } from '../repositories/ProductRepository';
+import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
 import { Product } from '../infra/mysql/entities/Product';
 
 interface IRequest {
@@ -19,7 +18,7 @@ interface IRequest {
 
 class CreateProductService {
   public async execute(data: IRequest): Promise<Product> {
-    const productRepository = new ProductRepository(connection());
+    const productRepository = new ProductRepository();
 
     // if (data.produto_img) {
     //   const productImgFilePath = path.join(upload.directory, data.produto_img);

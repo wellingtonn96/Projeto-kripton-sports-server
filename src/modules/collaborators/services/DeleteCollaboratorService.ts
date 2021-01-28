@@ -1,10 +1,9 @@
 import AppError from '@shared/errors/AppError';
-import { connection } from '@shared/infra/mysql/dbConnection';
-import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
+import { CollaboratorRepository } from '../infra/mysql/repositories/CollaboratorsRepository';
 
 class DeleteCollaboratorService {
   public async execute(id: string): Promise<void> {
-    const collaboratorRepository = new CollaboratorRepository(connection());
+    const collaboratorRepository = new CollaboratorRepository();
 
     const results = await collaboratorRepository.findOneById(id);
 

@@ -16,18 +16,11 @@
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "prettier/prettier": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "class-methods-use-this": "off",
     "camelcase": "off",
     "import/prefer-default-export": "off",
-    "no-mixed-spaces-and-tabs": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "_"
-      }
-    ],
+    "@typescript-eslint/camelcase": "off",
+    "class-methods-use-this": "off",
+    "prettier/prettier": "error",
     "import/extensions": [
       "error",
       "ignorePackages",

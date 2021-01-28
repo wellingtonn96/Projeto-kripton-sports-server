@@ -1,11 +1,14 @@
+import { ICreateCustomerDTO } from '@modules/customers/dtos/ICreateCustomerDTO';
+import { ICustomerRepository } from '@modules/customers/repositories/ICustomersRepository';
 import { Connection } from 'mysql';
-import { Customer } from '../infra/mysql/entities/Customer';
+import { connection } from '@shared/infra/mysql/dbConnection';
+import { Customer } from '../entities/Customer';
 
-class CustomerRepository {
-  public connection: Connection;
+class CustomerRepository implements ICustomerRepository {
+  private connection: Connection;
 
-  constructor(connectionDb: Connection) {
-    this.connection = connectionDb;
+  constructor() {
+    this.connection = connection();
   }
 
   public async findAll(): Promise<Customer[]> {
@@ -22,11 +25,11 @@ class CustomerRepository {
     return customers;
   }
 
-  public async create(cliente: Customer): Promise<Customer> {
+  public async create(data: ICreateCustomerDTO): Promise<Customer> {
     const { insertId } = await new Promise((resolve, reject) => {
       this.connection.query(
         'insert into cliente set ? ',
-        [cliente],
+        [data],
         (error, results) => {
           if (error) {
             reject(error);

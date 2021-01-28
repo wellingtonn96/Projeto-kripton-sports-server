@@ -1,6 +1,5 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
-import { SupplierRepository } from '../repositories/SupplierRepository';
+import { SupplierRepository } from '../infra/mysql/repositories/SupplierRepository';
 import { Supplier } from '../infra/mysql/entities/Supplier';
 
 interface IRequest {
@@ -17,7 +16,7 @@ class CreateSupplierService {
     email,
     endereco,
   }: IRequest): Promise<Supplier> {
-    const supplierRepository = new SupplierRepository(connection());
+    const supplierRepository = new SupplierRepository();
 
     const results = await supplierRepository.findByEmail(email);
 

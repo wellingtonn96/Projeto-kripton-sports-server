@@ -1,10 +1,9 @@
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
-import { CustomerRepository } from '../repositories/CustomerRepository';
+import { CustomerRepository } from '../infra/mysql/repositories/CustomerRepository';
 
 class DeleteCustomerService {
   public async execute(id: string): Promise<void> {
-    const customerRepository = new CustomerRepository(connection());
+    const customerRepository = new CustomerRepository();
 
     const results = await customerRepository.findOneById(id);
 
