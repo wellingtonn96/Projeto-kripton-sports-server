@@ -1,18 +1,23 @@
 import AppError from '@shared/errors/AppError';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
-import { CollaboratorRepository } from '../infra/mysql/repositories/CollaboratorsRepository';
+import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 class UpdataCollaboratorService {
-  public async execute(id: string, data: Collaborator): Promise<Collaborator> {
-    const collaboratorRepository = new CollaboratorRepository();
+  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
 
-    const collaboratorExists = await collaboratorRepository.findOneById(id);
+  public async execute(
+    id: string,
+    data: Collaborator,
+  ): Promise<Collaborator | undefined> {
+    const collaboratorExists = await this.collaboratorRepository.findOneById(
+      id,
+    );
 
     if (!collaboratorExists) {
       throw new AppError('Collaborator not exists');
     }
 
-    const collaborator = await collaboratorRepository.updateById(id, data);
+    const collaborator = await this.collaboratorRepository.updateById(id, data);
 
     return collaborator;
   }

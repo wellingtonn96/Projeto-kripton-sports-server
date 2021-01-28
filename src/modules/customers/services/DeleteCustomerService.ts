@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import { CustomerRepository } from '../infra/mysql/repositories/CustomerRepository';
+import { ICustomerRepository } from '../repositories/ICustomersRepository';
 
 class DeleteCustomerService {
-  public async execute(id: string): Promise<void> {
-    const customerRepository = new CustomerRepository();
+  constructor(private customerRepository: ICustomerRepository) {}
 
-    const results = await customerRepository.findOneById(id);
+  public async execute(id: string): Promise<void> {
+    const results = await this.customerRepository.findOneById(id);
 
     if (!results) {
       throw new AppError('Collaborator not exists');
     }
 
-    await customerRepository.deleteById(id);
+    await this.customerRepository.deleteById(id);
   }
 }
 

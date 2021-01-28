@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { connection } from '@shared/infra/mysql/dbConnection';
-import { CategoryProductRepository } from '../../../repositories/CategoryProductRepository';
+import { CategoryProductRepository } from '../../mysql/repositories/CategoryProductRepository';
 import { CreateCategoryService } from '../../../services/CreateCategoryService';
 
 const categoriesRoutes = Router();
 
 categoriesRoutes.get('/', async (request, response) => {
-  const categoryProductRepository = new CategoryProductRepository(connection());
+  const categoryProductRepository = new CategoryProductRepository();
 
   const categories = await categoryProductRepository.findAll();
 
@@ -16,7 +15,7 @@ categoriesRoutes.get('/', async (request, response) => {
 categoriesRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const categoryProductRepository = new CategoryProductRepository(connection());
+  const categoryProductRepository = new CategoryProductRepository();
 
   const category = await categoryProductRepository.findOneById(id);
 
@@ -26,7 +25,9 @@ categoriesRoutes.get('/:id', async (request, response) => {
 categoriesRoutes.post('/', async (request, response) => {
   const { name } = request.body;
 
-  const createCategory = new CreateCategoryService();
+  const createCategory = new CreateCategoryService(
+    new CategoryProductRepository(),
+  );
 
   const category = await createCategory.execute(name);
 

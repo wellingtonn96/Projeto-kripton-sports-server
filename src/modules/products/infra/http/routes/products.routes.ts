@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { connection } from '@shared/infra/mysql/dbConnection';
 import uploadConfig from '@config/upload';
-import { ProductRepository } from '../../../repositories/ProductRepository';
+import { ProductRepository } from '../../mysql/repositories/ProductRepository';
 import { CreateProductService } from '../../../services/CreateProductsService';
 import { FindProductService } from '../../../services/FindProductService';
 import { UpdateProductService } from '../../../services/UpdateProductService';
@@ -13,7 +12,7 @@ const productsRoutes = Router();
 const upload = multer(uploadConfig);
 
 productsRoutes.get('/expirationDate', async (request, response) => {
-  const productRepository = new ProductRepository(connection());
+  const productRepository = new ProductRepository();
 
   const products = await productRepository.getExpirationDate();
 
@@ -23,7 +22,7 @@ productsRoutes.get('/expirationDate', async (request, response) => {
 productsRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteProduct = new DeleteProductService();
+  const deleteProduct = new DeleteProductService(new ProductRepository());
 
   await deleteProduct.execute(id);
 
@@ -34,7 +33,7 @@ productsRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const updateProduct = new UpdateProductService();
+  const updateProduct = new UpdateProductService(new ProductRepository());
 
   const product = await updateProduct.execute(id, data);
 
@@ -44,7 +43,7 @@ productsRoutes.put('/:id', async (request, response) => {
 productsRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const findProduct = new FindProductService();
+  const findProduct = new FindProductService(new ProductRepository());
 
   const product = await findProduct.execute(id);
 
@@ -52,7 +51,7 @@ productsRoutes.get('/:id', async (request, response) => {
 });
 
 productsRoutes.get('/', async (request, response) => {
-  const productRepository = new ProductRepository(connection());
+  const productRepository = new ProductRepository();
 
   const results = await productRepository.findAll();
 
@@ -77,7 +76,7 @@ productsRoutes.post(
       idFornecedor,
     } = request.body;
 
-    const createProducts = new CreateProductService();
+    const createProducts = new CreateProductService(new ProductRepository());
 
     const product = await createProducts.execute({
       idCategoria,
@@ -99,94 +98,3 @@ productsRoutes.post(
 );
 
 export { productsRoutes };
-
-// module.exports = (application)=>{
-
-//     application.get('/produto/cadastrar',(req, res)=>{
-//       if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.produtos.cadastrar(application, req, res);
-//           }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//    application.post('/produto',(req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//         application.app.controllers.produtos.salvar(application, req, res);
-//       }else {
-//         res.render("login/login", {validacao : {}});
-//     }
-//     });
-
-//   application.delete('/produto/excluir/:id',(req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.excluir(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.update('/produto/editar/:id', (req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.editar(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.post('/produto/salvar/:id', (req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.atualizar(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.get('/produto/detalhes/:id', (req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.detalhar(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.get('/produtos', (req, res)=>{
-//      if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.listar(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.get('/produto/categoria', (req, res)=>{
-//     if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.categoriaForm(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//   application.post('/produto/categoria', (req, res)=>{
-//     if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//           application.app.controllers.produtos.categoriaSalvar(application, req, res);
-//         }else {
-//           res.render("login/login", {validacao : {}});
-//       }
-//     });
-
-//     application.get('/estoque', (req, res)=>{
-//       if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.produtos.estoqueProdutos(application, req, res);
-//           }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//       });
-
-//       application.post('/estoque/:id', (req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//               application.app.controllers.produtos.atualizarEstoque(application, req, res);
-//             }else {
-//               res.render("login/login", {validacao : {}});
-//           }
-//         });
-// }

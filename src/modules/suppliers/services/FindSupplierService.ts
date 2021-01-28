@@ -1,12 +1,12 @@
 import AppError from '@shared/errors/AppError';
 import { Supplier } from '../infra/mysql/entities/Supplier';
-import { SupplierRepository } from '../infra/mysql/repositories/SupplierRepository';
+import { ISupplierRepository } from '../repositories/ISupplierRepository';
 
 class FindSupplierService {
-  public async execute(id: string): Promise<Supplier> {
-    const supplierRepository = new SupplierRepository();
+  constructor(private supplierRepository: ISupplierRepository) {}
 
-    const supplier = await supplierRepository.findOneById(id);
+  public async execute(id: string): Promise<Supplier> {
+    const supplier = await this.supplierRepository.findOneById(id);
 
     if (!supplier) {
       throw new AppError('Product not Exists');

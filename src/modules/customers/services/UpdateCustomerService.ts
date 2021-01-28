@@ -1,18 +1,18 @@
 import AppError from '@shared/errors/AppError';
-import { CustomerRepository } from '../infra/mysql/repositories/CustomerRepository';
 import { Customer } from '../infra/mysql/entities/Customer';
+import { ICustomerRepository } from '../repositories/ICustomersRepository';
 
 class UpdateCustomerService {
-  public async execute(id: string, data: Customer): Promise<Customer> {
-    const customerRepository = new CustomerRepository();
+  constructor(private customerRepository: ICustomerRepository) {}
 
-    const customerExists = await customerRepository.findOneById(id);
+  public async execute(id: string, data: Customer): Promise<Customer> {
+    const customerExists = await this.customerRepository.findOneById(id);
 
     if (!customerExists) {
       throw new AppError('customer not exists');
     }
 
-    const customer = await customerRepository.updateById(id, data);
+    const customer = await this.customerRepository.updateById(id, data);
 
     return customer;
   }

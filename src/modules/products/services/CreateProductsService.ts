@@ -1,5 +1,5 @@
-import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
 import { Product } from '../infra/mysql/entities/Product';
+import { IProductRepository } from '../repositories/IProductRepository';
 
 interface IRequest {
   idCategoria: number;
@@ -17,9 +17,9 @@ interface IRequest {
 }
 
 class CreateProductService {
-  public async execute(data: IRequest): Promise<Product> {
-    const productRepository = new ProductRepository();
+  constructor(private productRepository: IProductRepository) {}
 
+  public async execute(data: IRequest): Promise<Product> {
     // if (data.produto_img) {
     //   const productImgFilePath = path.join(upload.directory, data.produto_img);
     //   const productImgFileExists = await fs.promises.stat(productImgFilePath);
@@ -31,7 +31,7 @@ class CreateProductService {
     //   }
     // }
 
-    const product = await productRepository.create(data);
+    const product = await this.productRepository.create(data);
 
     return product;
   }

@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { jwt } from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
-import { CollaboratorRepository } from '../infra/mysql/repositories/CollaboratorsRepository';
+import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 interface IRequest {
   login: string;
@@ -16,10 +16,10 @@ interface IResponse {
 }
 
 class AuthenticateUserService {
-  public async execute({ login, password }: IRequest): Promise<IResponse> {
-    const collaboratorRepository = new CollaboratorRepository();
+  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
 
-    const collaborator = await collaboratorRepository.findByLogin(login);
+  public async execute({ login, password }: IRequest): Promise<IResponse> {
+    const collaborator = await this.collaboratorRepository.findByLogin(login);
 
     if (!collaborator) {
       throw new AppError('Incorrect login/password combination');

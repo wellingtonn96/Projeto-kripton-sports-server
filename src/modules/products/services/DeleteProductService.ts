@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
+import { IProductRepository } from '../repositories/IProductRepository';
 
 class DeleteProductService {
-  public async execute(id: string): Promise<void> {
-    const productRepository = new ProductRepository();
+  constructor(private productRepository: IProductRepository) {}
 
-    const productExists = await productRepository.findOneById(id);
+  public async execute(id: string): Promise<void> {
+    const productExists = await this.productRepository.findOneById(id);
 
     if (!productExists) {
       throw new AppError('Product not exists');
     }
 
-    await productRepository.deleteById(id);
+    await this.productRepository.deleteById(id);
   }
 }
 

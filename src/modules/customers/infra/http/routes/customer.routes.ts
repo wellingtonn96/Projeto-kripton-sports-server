@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { connection } from '@shared/infra/mysql/dbConnection';
-import { CustomerRepository } from '../../../repositories/CustomerRepository';
+import { CustomerRepository } from '../../mysql/repositories/CustomerRepository';
 import { CreateCustomerService } from '../../../services/CreateCustomerService';
 import { DeleteCustomerService } from '../../../services/DeleteCustomerService';
 import { FindCustomerService } from '../../../services/FindCustomerService';
@@ -11,7 +10,9 @@ const customersRoutes = Router();
 customersRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteCollaborator = new DeleteCustomerService();
+  const deleteCollaborator = new DeleteCustomerService(
+    new CustomerRepository(),
+  );
 
   await deleteCollaborator.execute(id);
 
@@ -22,7 +23,9 @@ customersRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const deleteCollaborator = new UpdateCustomerService();
+  const deleteCollaborator = new UpdateCustomerService(
+    new CustomerRepository(),
+  );
 
   const results = await deleteCollaborator.execute(id, data);
 
@@ -32,7 +35,7 @@ customersRoutes.put('/:id', async (request, response) => {
 customersRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const customerRepository = new FindCustomerService();
+  const customerRepository = new FindCustomerService(new CustomerRepository());
 
   const results = await customerRepository.execute(id);
 
@@ -40,7 +43,7 @@ customersRoutes.get('/:id', async (request, response) => {
 });
 
 customersRoutes.get('/', async (request, response) => {
-  const customerRepository = new CustomerRepository(connection());
+  const customerRepository = new CustomerRepository();
 
   const results = await customerRepository.findAll();
 
@@ -50,7 +53,7 @@ customersRoutes.get('/', async (request, response) => {
 customersRoutes.post('/', async (request, response) => {
   const { login, senha, email, nome, sobrenome, telefone } = request.body;
 
-  const createCustomer = new CreateCustomerService();
+  const createCustomer = new CreateCustomerService(new CustomerRepository());
 
   const results = await createCustomer.execute({
     login,

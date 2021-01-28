@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import AppError from '@shared/errors/AppError';
-import { CustomerRepository } from '../infra/mysql/repositories/CustomerRepository';
 import { Customer } from '../infra/mysql/entities/Customer';
+import { ICustomerRepository } from '../repositories/ICustomersRepository';
 
 interface IRequest {
   login: string;
@@ -13,6 +13,8 @@ interface IRequest {
 }
 
 class CreateCustomerService {
+  constructor(private customerRepository: ICustomerRepository) {}
+
   public async execute({
     login,
     senhaEncrypt,
@@ -21,9 +23,7 @@ class CreateCustomerService {
     sobrenome,
     telefone,
   }: IRequest): Promise<Customer> {
-    const customerRepository = new CustomerRepository();
-
-    const results = await customerRepository.findByLogin(login);
+    const results = await this.customerRepository.findByLogin(login);
 
     if (results) {
       throw new AppError('Customer already exists');
@@ -31,7 +31,7 @@ class CreateCustomerService {
 
     const encryptedPassword = await bcrypt.hash(senhaEncrypt, 8);
 
-    const customer = await customerRepository.create({
+    const customer = await this.customerRepository.create({
       login,
       senha: encryptedPassword,
       email,

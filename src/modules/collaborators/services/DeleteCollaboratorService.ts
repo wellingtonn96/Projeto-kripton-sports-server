@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import { CollaboratorRepository } from '../infra/mysql/repositories/CollaboratorsRepository';
+import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 class DeleteCollaboratorService {
-  public async execute(id: string): Promise<void> {
-    const collaboratorRepository = new CollaboratorRepository();
+  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
 
-    const results = await collaboratorRepository.findOneById(id);
+  public async execute(id: string): Promise<void> {
+    const results = await this.collaboratorRepository.findOneById(id);
 
     if (!results) {
       throw new AppError('Collaborator not exists');
     }
 
-    await collaboratorRepository.deleteById(id);
+    await this.collaboratorRepository.deleteById(id);
   }
 }
 

@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { connection } from '@shared/infra/mysql/dbConnection';
-import { SupplierRepository } from '../../../repositories/SupplierRepository';
+import { SupplierRepository } from '../../mysql/repositories/SupplierRepository';
 import { CreateSupplierService } from '../../../services/CreateSupplierService';
 import { DeleteSupplierService } from '../../../services/DeleteSupplierService';
 import { FindSupplierService } from '../../../services/FindSupplierService';
@@ -11,7 +10,7 @@ const suppliersRoutes = Router();
 suppliersRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteSupplier = new DeleteSupplierService();
+  const deleteSupplier = new DeleteSupplierService(new SupplierRepository());
 
   await deleteSupplier.execute(id);
 
@@ -22,7 +21,7 @@ suppliersRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const updateSupplier = new UpdateSupplierService();
+  const updateSupplier = new UpdateSupplierService(new SupplierRepository());
 
   const results = await updateSupplier.execute(id, data);
 
@@ -32,7 +31,7 @@ suppliersRoutes.put('/:id', async (request, response) => {
 suppliersRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const supplierRepository = new FindSupplierService();
+  const supplierRepository = new FindSupplierService(new SupplierRepository());
 
   const results = await supplierRepository.execute(id);
 
@@ -40,7 +39,7 @@ suppliersRoutes.get('/:id', async (request, response) => {
 });
 
 suppliersRoutes.get('/', async (request, response) => {
-  const supplierRepository = new SupplierRepository(connection());
+  const supplierRepository = new SupplierRepository();
 
   const results = await supplierRepository.findAll();
 
@@ -50,7 +49,7 @@ suppliersRoutes.get('/', async (request, response) => {
 suppliersRoutes.post('/', async (request, response) => {
   const { telefone, cnpj, email, endereco } = request.body;
 
-  const createCustomer = new CreateSupplierService();
+  const createCustomer = new CreateSupplierService(new SupplierRepository());
 
   const results = await createCustomer.execute({
     telefone,
@@ -63,62 +62,3 @@ suppliersRoutes.post('/', async (request, response) => {
 });
 
 export { suppliersRoutes };
-
-// module.exports = (application)=>{
-
-//     application.get('/fornecedor/cadastrar',(req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.cadastrar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//      application.post('/fornecedor', (req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.salvar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//     application.get('/fornecedor/excluir/:id',(req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.excluir(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//     application.get('/fornecedor/editar/:id', (req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.editar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//     application.post('/fornecedor/salvar/:id',(req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.atualizar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//     application.get('/fornecedor/detalhes/:id', (req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.detalhar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-
-//     application.get('/fornecedores', (req, res)=>{
-//         if(req.session.autorizado && req.session.tipo == 1 || req.session.tipo === 2){
-//             application.app.controllers.fornecedores.listar(application, req, res);
-//         }else {
-//             res.render("login/login", {validacao : {}});
-//         }
-//     });
-// }

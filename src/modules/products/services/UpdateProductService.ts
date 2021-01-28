@@ -1,18 +1,18 @@
 import AppError from '@shared/errors/AppError';
 import { Product } from '../infra/mysql/entities/Product';
-import { ProductRepository } from '../infra/mysql/repositories/ProductRepository';
+import { IProductRepository } from '../repositories/IProductRepository';
 
 class UpdateProductService {
-  public async execute(id: string, data: Product): Promise<Product> {
-    const productRepository = new ProductRepository();
+  constructor(private productRepository: IProductRepository) {}
 
-    const productExists = await productRepository.findOneById(id);
+  public async execute(id: string, data: Product): Promise<Product> {
+    const productExists = await this.productRepository.findOneById(id);
 
     if (!productExists) {
       throw new AppError('Product with this id not exists!');
     }
 
-    const product = await productRepository.updateById(id, data);
+    const product = await this.productRepository.updateById(id, data);
 
     return product;
   }

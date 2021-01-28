@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import { SupplierRepository } from '../infra/mysql/repositories/SupplierRepository';
+import { ISupplierRepository } from '../repositories/ISupplierRepository';
 
 class DeleteSupplierService {
-  public async execute(id: string): Promise<void> {
-    const supplierRepository = new SupplierRepository();
+  constructor(private supplierRepository: ISupplierRepository) {}
 
-    const supplierExists = await supplierRepository.findOneById(id);
+  public async execute(id: string): Promise<void> {
+    const supplierExists = await this.supplierRepository.findOneById(id);
 
     if (!supplierExists) {
       throw new AppError('supplier not exists');
     }
 
-    await supplierRepository.deleteById(id);
+    await this.supplierRepository.deleteById(id);
   }
 }
 

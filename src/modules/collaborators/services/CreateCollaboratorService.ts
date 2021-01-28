@@ -1,8 +1,7 @@
 import bcrypt from 'bcrypt';
-import { connection } from '@shared/infra/mysql/dbConnection';
 import AppError from '@shared/errors/AppError';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
-import { CollaboratorRepository } from '../repositories/CollaboratorsRepository';
+import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 interface IRequest {
   login: string;
@@ -15,6 +14,8 @@ interface IRequest {
 }
 
 class CreateCollaboratorService {
+  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
+
   public async execute({
     login,
     senhaEncrypt,
@@ -23,10 +24,8 @@ class CreateCollaboratorService {
     sobrenome,
     telefone,
     idTipo,
-  }: IRequest): Promise<Collaborator> {
-    const collaboratorRepository = new CollaboratorRepository(connection());
-
-    const results = await collaboratorRepository.findByLogin(login);
+  }: IRequest): Promise<Collaborator | undefined> {
+    const results = await this.collaboratorRepository.findByLogin(login);
 
     if (results) {
       throw new AppError('Collaborator already exists');
@@ -34,7 +33,7 @@ class CreateCollaboratorService {
 
     const encryptedPassword = await bcrypt.hash(senhaEncrypt, 8);
 
-    const collaborator = await collaboratorRepository.create({
+    const collaborator = await this.collaboratorRepository.create({
       login,
       senha: encryptedPassword,
       email,
