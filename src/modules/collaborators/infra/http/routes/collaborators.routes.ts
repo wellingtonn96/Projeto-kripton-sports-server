@@ -1,17 +1,16 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { UpdataCollaboratorService } from '@modules/collaborators/services/UpdataCollaboratorService';
 import { CollaboratorRepository } from '../../mysql/repositories/CollaboratorsRepository';
 import { CreateCollaboratorService } from '../../../services/CreateCollaboratorService';
 import { DeleteCollaboratorService } from '../../../services/DeleteCollaboratorService';
-import { UpdataCollaboratorService } from '../../../services/UpdataCollaboratorService';
 
 const collaboratorsRoutes = Router();
 
 collaboratorsRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteCollaborator = new DeleteCollaboratorService(
-    new CollaboratorRepository(),
-  );
+  const deleteCollaborator = container.resolve(DeleteCollaboratorService);
 
   await deleteCollaborator.execute(id);
 
@@ -22,11 +21,9 @@ collaboratorsRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const deleteCollaborator = new UpdataCollaboratorService(
-    new CollaboratorRepository(),
-  );
+  const updateCollaborator = container.resolve(UpdataCollaboratorService);
 
-  const results = await deleteCollaborator.execute(id, data);
+  const results = await updateCollaborator.execute(id, data);
 
   return response.json(results);
 });
@@ -52,9 +49,7 @@ collaboratorsRoutes.get('/', async (request, response) => {
 collaboratorsRoutes.post('/', async (request, response) => {
   const data = request.body;
 
-  const createCollaborator = new CreateCollaboratorService(
-    new CollaboratorRepository(),
-  );
+  const createCollaborator = container.resolve(CreateCollaboratorService);
 
   const results = await createCollaborator.execute(data);
 

@@ -1,9 +1,14 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { Customer } from '../infra/mysql/entities/Customer';
 import { ICustomerRepository } from '../repositories/ICustomersRepository';
 
+@injectable()
 class UpdateCustomerService {
-  constructor(private customerRepository: ICustomerRepository) {}
+  constructor(
+    @inject('CustomerRepository')
+    private customerRepository: ICustomerRepository,
+  ) {}
 
   public async execute(id: string, data: Customer): Promise<Customer> {
     const customerExists = await this.customerRepository.findOneById(id);

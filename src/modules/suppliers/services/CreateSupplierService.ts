@@ -1,4 +1,5 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { Supplier } from '../infra/mysql/entities/Supplier';
 import { ISupplierRepository } from '../repositories/ISupplierRepository';
 
@@ -9,8 +10,12 @@ interface IRequest {
   endereco: string;
 }
 
+@injectable()
 class CreateSupplierService {
-  constructor(private supplierRepository: ISupplierRepository) {}
+  constructor(
+    @inject('SupplierRepository')
+    private supplierRepository: ISupplierRepository,
+  ) {}
 
   public async execute({
     telefone,

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
 import { CategoryProductRepository } from '../../mysql/repositories/CategoryProductRepository';
 import { CreateCategoryService } from '../../../services/CreateCategoryService';
 
@@ -25,9 +26,7 @@ categoriesRoutes.get('/:id', async (request, response) => {
 categoriesRoutes.post('/', async (request, response) => {
   const { name } = request.body;
 
-  const createCategory = new CreateCategoryService(
-    new CategoryProductRepository(),
-  );
+  const createCategory = container.resolve(CreateCategoryService);
 
   const category = await createCategory.execute(name);
 

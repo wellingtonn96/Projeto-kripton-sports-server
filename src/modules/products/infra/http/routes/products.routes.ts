@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import { container } from 'tsyringe';
 import { ProductRepository } from '../../mysql/repositories/ProductRepository';
 import { CreateProductService } from '../../../services/CreateProductsService';
 import { FindProductService } from '../../../services/FindProductService';
@@ -22,7 +23,7 @@ productsRoutes.get('/expirationDate', async (request, response) => {
 productsRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteProduct = new DeleteProductService(new ProductRepository());
+  const deleteProduct = container.resolve(DeleteProductService);
 
   await deleteProduct.execute(id);
 
@@ -33,7 +34,7 @@ productsRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const updateProduct = new UpdateProductService(new ProductRepository());
+  const updateProduct = container.resolve(UpdateProductService);
 
   const product = await updateProduct.execute(id, data);
 
@@ -43,7 +44,7 @@ productsRoutes.put('/:id', async (request, response) => {
 productsRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const findProduct = new FindProductService(new ProductRepository());
+  const findProduct = container.resolve(FindProductService);
 
   const product = await findProduct.execute(id);
 
@@ -76,7 +77,7 @@ productsRoutes.post(
       idFornecedor,
     } = request.body;
 
-    const createProducts = new CreateProductService(new ProductRepository());
+    const createProducts = container.resolve(CreateProductService);
 
     const product = await createProducts.execute({
       idCategoria,

@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { Customer } from '../infra/mysql/entities/Customer';
 import { ICustomerRepository } from '../repositories/ICustomersRepository';
 
@@ -12,8 +13,12 @@ interface IRequest {
   telefone: string;
 }
 
+@injectable()
 class CreateCustomerService {
-  constructor(private customerRepository: ICustomerRepository) {}
+  constructor(
+    @inject('CustomerRepository')
+    private customerRepository: ICustomerRepository,
+  ) {}
 
   public async execute({
     login,

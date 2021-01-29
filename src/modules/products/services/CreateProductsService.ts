@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { Product } from '../infra/mysql/entities/Product';
 import { IProductRepository } from '../repositories/IProductRepository';
 
@@ -16,8 +17,12 @@ interface IRequest {
   idFornecedor: number;
 }
 
+@injectable()
 class CreateProductService {
-  constructor(private productRepository: IProductRepository) {}
+  constructor(
+    @inject('ProductRepository')
+    private productRepository: IProductRepository,
+  ) {}
 
   public async execute(data: IRequest): Promise<Product> {
     // if (data.produto_img) {

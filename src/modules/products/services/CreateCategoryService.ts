@@ -1,9 +1,14 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { CategoryProduct } from '../infra/mysql/entities/CategoryProduct';
 import { ICategoryProductRepository } from '../repositories/ICategoryProductRepository';
 
+@injectable()
 class CreateCategoryService {
-  constructor(private categoryProductRepository: ICategoryProductRepository) {}
+  constructor(
+    @inject('CategoryProductRepository')
+    private categoryProductRepository: ICategoryProductRepository,
+  ) {}
 
   public async execute(name: string): Promise<CategoryProduct> {
     const categoryExists = await this.categoryProductRepository.findByName(

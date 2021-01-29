@@ -2,6 +2,7 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { jwt } from '@config/auth';
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
 import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
@@ -15,8 +16,12 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class AuthenticateUserService {
-  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
+  constructor(
+    @inject('CollaboratorRepository')
+    private collaboratorRepository: ICollaaboratorsRepository,
+  ) {}
 
   public async execute({ login, password }: IRequest): Promise<IResponse> {
     const collaborator = await this.collaboratorRepository.findByLogin(login);

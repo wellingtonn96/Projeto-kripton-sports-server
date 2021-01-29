@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
 import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
@@ -13,8 +14,12 @@ interface IRequest {
   idTipo: number;
 }
 
+@injectable()
 class CreateCollaboratorService {
-  constructor(private collaboratorRepository: ICollaaboratorsRepository) {}
+  constructor(
+    @inject('CollaboratorRepository')
+    private collaboratorRepository: ICollaaboratorsRepository,
+  ) {}
 
   public async execute({
     login,

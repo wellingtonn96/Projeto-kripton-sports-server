@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
 import { CustomerRepository } from '../../mysql/repositories/CustomerRepository';
 import { CreateCustomerService } from '../../../services/CreateCustomerService';
 import { DeleteCustomerService } from '../../../services/DeleteCustomerService';
@@ -10,9 +11,7 @@ const customersRoutes = Router();
 customersRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteCollaborator = new DeleteCustomerService(
-    new CustomerRepository(),
-  );
+  const deleteCollaborator = container.resolve(DeleteCustomerService);
 
   await deleteCollaborator.execute(id);
 
@@ -23,11 +22,9 @@ customersRoutes.put('/:id', async (request, response) => {
   const { id } = request.params;
   const data = request.body;
 
-  const deleteCollaborator = new UpdateCustomerService(
-    new CustomerRepository(),
-  );
+  const updateCollaborator = container.resolve(UpdateCustomerService);
 
-  const results = await deleteCollaborator.execute(id, data);
+  const results = await updateCollaborator.execute(id, data);
 
   return response.json(results);
 });
@@ -35,9 +32,9 @@ customersRoutes.put('/:id', async (request, response) => {
 customersRoutes.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const customerRepository = new FindCustomerService(new CustomerRepository());
+  const findCustomer = container.resolve(FindCustomerService);
 
-  const results = await customerRepository.execute(id);
+  const results = await findCustomer.execute(id);
 
   return response.json(results);
 });
@@ -53,7 +50,7 @@ customersRoutes.get('/', async (request, response) => {
 customersRoutes.post('/', async (request, response) => {
   const { login, senha, email, nome, sobrenome, telefone } = request.body;
 
-  const createCustomer = new CreateCustomerService(new CustomerRepository());
+  const createCustomer = container.resolve(CreateCustomerService);
 
   const results = await createCustomer.execute({
     login,

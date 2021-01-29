@@ -1,8 +1,13 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { ISupplierRepository } from '../repositories/ISupplierRepository';
 
+@injectable()
 class DeleteSupplierService {
-  constructor(private supplierRepository: ISupplierRepository) {}
+  constructor(
+    @inject('SupplierRepository')
+    private supplierRepository: ISupplierRepository,
+  ) {}
 
   public async execute(id: string): Promise<void> {
     const supplierExists = await this.supplierRepository.findOneById(id);
