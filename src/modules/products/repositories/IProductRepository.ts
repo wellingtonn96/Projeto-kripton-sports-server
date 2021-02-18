@@ -9,4 +9,5 @@ export interface IProductRepository {
   deleteById(id: string): Promise<void>;
   updateById(id: string, data: ICreateProductDTO): Promise<Product>;
   getExpirationDate(): Promise<ProductExipirationDate>;
+  updateImageProductById(id: string, productImg: string): Promise<Product>;
 }

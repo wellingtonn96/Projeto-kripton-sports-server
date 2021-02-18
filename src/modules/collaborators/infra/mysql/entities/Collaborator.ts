@@ -9,6 +9,8 @@ class Collaborator {
 
   nome: string;
 
+  avatar?: string;
+
   sobrenome: string;
 
   telefone: string;
@@ -21,6 +23,7 @@ class Collaborator {
     senha,
     email,
     nome,
+    avatar,
     sobrenome,
     telefone,
     idTipo,
@@ -30,6 +33,7 @@ class Collaborator {
     this.senha = senha;
     this.email = email;
     this.nome = nome;
+    this.avatar = avatar;
     this.sobrenome = sobrenome;
     this.telefone = telefone;
     this.idTipo = idTipo;

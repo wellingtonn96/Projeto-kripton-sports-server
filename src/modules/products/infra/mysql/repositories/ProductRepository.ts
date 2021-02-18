@@ -111,6 +111,30 @@ class ProductRepository {
     return product;
   }
 
+  public async updateImageProductById(
+    id: string,
+    productImg: string,
+  ): Promise<Product> {
+    await new Promise((resolve, reject) => {
+      const data = { produto_img: productImg };
+      this.connection.query(
+        'UPDATE produto set ? WHERE idProduto = ? ',
+        [data, id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    const product = await this.findOneById(id);
+
+    return product;
+  }
+
   public async getExpirationDate(): Promise<ProductExipirationDate> {
     const products: ProductExipirationDate = await new Promise(
       (resolve, reject) => {

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
 import { container } from 'tsyringe';
+import UploadImageProductService from '@modules/products/services/UploadImaageProductService';
 import { ProductRepository } from '../../mysql/repositories/ProductRepository';
 import { CreateProductService } from '../../../services/CreateProductsService';
 import { FindProductService } from '../../../services/FindProductService';
@@ -59,43 +60,52 @@ productsRoutes.get('/', async (request, response) => {
   return response.json(results);
 });
 
-productsRoutes.post(
-  '/',
+productsRoutes.patch(
+  '/:id',
   upload.single('produto_img'),
   async (request, response) => {
-    const {
-      idCategoria,
-      codigo,
-      marca,
-      nome,
-      descricao,
-      validade,
-      lote,
-      statusProduto,
-      valor,
-      qtdeEstoque,
-      idFornecedor,
-    } = request.body;
+    const { id } = request.params;
 
-    const createProducts = container.resolve(CreateProductService);
+    const uploaImage = container.resolve(UploadImageProductService);
 
-    const product = await createProducts.execute({
-      idCategoria,
-      codigo,
-      marca,
-      nome,
-      produto_img: request.file.filename,
-      descricao,
-      validade,
-      lote,
-      statusProduto,
-      valor,
-      qtdeEstoque,
-      idFornecedor,
-    });
+    const productImage = await uploaImage.execute(request.file.filename, id);
 
-    return response.json(product);
+    return response.json(productImage);
   },
 );
+
+productsRoutes.post('/', async (request, response) => {
+  const {
+    idCategoria,
+    codigo,
+    marca,
+    nome,
+    descricao,
+    validade,
+    lote,
+    statusProduto,
+    valor,
+    qtdeEstoque,
+    idFornecedor,
+  } = request.body;
+
+  const createProducts = container.resolve(CreateProductService);
+
+  const product = await createProducts.execute({
+    idCategoria,
+    codigo,
+    marca,
+    nome,
+    descricao,
+    validade,
+    lote,
+    statusProduto,
+    valor,
+    qtdeEstoque,
+    idFornecedor,
+  });
+
+  return response.json(product);
+});
 
 export { productsRoutes };

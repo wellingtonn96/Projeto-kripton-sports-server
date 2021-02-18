@@ -1,12 +1,12 @@
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
-import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
+import { ICollaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 @injectable()
 class DeleteCollaboratorService {
   constructor(
     @inject('CollaboratorRepository')
-    private collaboratorRepository: ICollaaboratorsRepository,
+    private collaboratorRepository: ICollaboratorsRepository,
   ) {}
 
   public async execute(id: string): Promise<void> {
