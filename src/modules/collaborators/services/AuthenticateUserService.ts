@@ -4,7 +4,7 @@ import { jwt } from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
-import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
+import { ICollaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 interface IRequest {
   login: string;
@@ -20,7 +20,7 @@ interface IResponse {
 class AuthenticateUserService {
   constructor(
     @inject('CollaboratorRepository')
-    private collaboratorRepository: ICollaaboratorsRepository,
+    private collaboratorRepository: ICollaboratorsRepository,
   ) {}
 
   public async execute({ login, password }: IRequest): Promise<IResponse> {

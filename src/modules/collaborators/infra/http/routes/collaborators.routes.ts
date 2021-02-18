@@ -1,11 +1,16 @@
 import { Router } from 'express';
 import { container } from 'tsyringe';
+import uploadConfig from '@config/upload';
 import { UpdataCollaboratorService } from '@modules/collaborators/services/UpdataCollaboratorService';
+import multer from 'multer';
+import UploadImageAvatarService from '@modules/collaborators/services/UploadImageAvatarService';
 import { CollaboratorRepository } from '../../mysql/repositories/CollaboratorsRepository';
 import { CreateCollaboratorService } from '../../../services/CreateCollaboratorService';
 import { DeleteCollaboratorService } from '../../../services/DeleteCollaboratorService';
 
 const collaboratorsRoutes = Router();
+
+const upload = multer(uploadConfig);
 
 collaboratorsRoutes.delete('/:id', async (request, response) => {
   const { id } = request.params;
@@ -37,6 +42,23 @@ collaboratorsRoutes.get('/:id', async (request, response) => {
 
   return response.json(results);
 });
+
+collaboratorsRoutes.patch(
+  '/avatar/:id',
+  upload.single('avatar'),
+  async (request, response) => {
+    const { id } = request.params;
+
+    const uploadImageAvatar = container.resolve(UploadImageAvatarService);
+
+    const avatarImage = await uploadImageAvatar.execute({
+      filename: request.file.filename,
+      id,
+    });
+
+    return response.json(avatarImage);
+  },
+);
 
 collaboratorsRoutes.get('/', async (request, response) => {
   const collaboratorRepository = new CollaboratorRepository();

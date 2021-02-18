@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import { Collaborator } from '../infra/mysql/entities/Collaborator';
-import { ICollaaboratorsRepository } from '../repositories/ICollaboratorsRepository';
+import { ICollaboratorsRepository } from '../repositories/ICollaboratorsRepository';
 
 interface IRequest {
   login: string;
@@ -18,7 +18,7 @@ interface IRequest {
 class CreateCollaboratorService {
   constructor(
     @inject('CollaboratorRepository')
-    private collaboratorRepository: ICollaaboratorsRepository,
+    private collaboratorRepository: ICollaboratorsRepository,
   ) {}
 
   public async execute({

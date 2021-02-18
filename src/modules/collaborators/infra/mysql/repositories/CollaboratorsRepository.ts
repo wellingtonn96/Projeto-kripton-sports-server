@@ -1,9 +1,10 @@
-import { ICollaaboratorsRepository } from '@modules/collaborators/repositories/ICollaboratorsRepository';
+import { ICollaboratorsRepository } from '@modules/collaborators/repositories/ICollaboratorsRepository';
 import { Connection } from 'mysql';
 import { connection } from '@shared/infra/mysql/dbConnection';
+import { IUploadImageAvatarDTO } from '@modules/collaborators/dtos/IUploadImageAvatarDTO';
 import { Collaborator } from '../entities/Collaborator';
 
-class CollaboratorRepository implements ICollaaboratorsRepository {
+class CollaboratorRepository implements ICollaboratorsRepository {
   private connection: Connection;
 
   constructor() {
@@ -115,6 +116,31 @@ class CollaboratorRepository implements ICollaaboratorsRepository {
       this.connection.query(
         'UPDATE colaborador set ? WHERE idColaborador = ? ',
         [data, id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        },
+      );
+    });
+
+    const collaborator = await this.findOneById(id);
+
+    return collaborator;
+  }
+
+  public async updateImageAvatarById(
+    data: IUploadImageAvatarDTO,
+  ): Promise<Collaborator> {
+    const { filename, id } = data;
+    const dataField = { avatar: filename };
+
+    await new Promise((resolve, reject) => {
+      this.connection.query(
+        'UPDATE colaborador set ? WHERE idColaborador = ? ',
+        [dataField, id],
         (error, results) => {
           if (error) {
             reject(error);
